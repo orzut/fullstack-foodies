@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
-const { INTEGER } = Sequelize;
+const { INTEGER, ENUM } = Sequelize;
 
 const Coupon = db.define("coupon", {
   value: {
