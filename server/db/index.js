@@ -16,7 +16,7 @@ const LineItem = require("./models/LineItem");
 //associations could go here!
 Address.belongsTo(User);
 Review.belongsTo(User);
-Review.belongsTo(Dish);
+Review.belongsTo(Restaurant);
 Dish.belongsTo(Category);
 Restaurant.belongsTo(Cuisine);
 Dish.belongsTo(Restaurant);
