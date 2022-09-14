@@ -3,6 +3,9 @@
 const db = require("./db");
 
 const User = require("./models/User");
+const Restaurant = require("./models/Restaurant");
+const Order = require("./models/Order");
+const LineItem = require("./models/LineItem");
 const Address = require("./models/Address");
 const Review = require("./models/Review");
 const Dish = require("./models/Dish");
@@ -15,11 +18,16 @@ Address.belongsTo(User);
 Review.belongsTo(User);
 Review.belongsTo(Dish);
 Category.belongsTo(Dish);
+Dish.belongsTo(Restaurant);
+Restaurant.hasMany(Dish);
 
 module.exports = {
   db,
   models: {
     User,
+    Restaurant,
+    Order,
+    LineItem,
     Address,
     Review,
     Dish,

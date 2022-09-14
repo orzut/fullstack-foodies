@@ -12,8 +12,13 @@ const Restaurant = db.define('restaurant', {
         unique: true,
         allowNull: false
     },
+    description: {
+        type: Sequelize.TEXT,
+        allowNull: false
+    },
     address: {
         type: Sequelize.STRING,
+        allowNull: false
     }
 });
 
