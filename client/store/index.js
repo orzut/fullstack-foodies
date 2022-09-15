@@ -5,8 +5,17 @@ import auth from "./auth";
 import restaurants from "./restaurants";
 import reviews from "./reviews";
 import dishes from "./dishes";
+import categories from "./categories";
+import cuisines from "./cuisines";
 
-const reducer = combineReducers({ auth, restaurants, reviews, dishes });
+const reducer = combineReducers({
+  auth,
+  restaurants,
+  reviews,
+  dishes,
+  categories,
+  cuisines,
+});
 const middleware = applyMiddleware(
   thunkMiddleware,
   createLogger({ collapsed: true })
@@ -18,3 +27,5 @@ export * from "./auth";
 export * from "./restaurants";
 export * from "./reviews";
 export * from "./dishes";
+export * from "./categories";
+export * from "./cuisines";
