@@ -1,8 +1,13 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
-const { INTEGER, ENUM } = Sequelize;
+const { INTEGER, ENUM, UUID, UUIDV4 } = Sequelize;
 
 const Coupon = db.define("coupon", {
+  id: {
+    type: UUID,
+    defaultValue: UUIDV4,
+    primaryKey: true,
+  },
   value: {
     type: INTEGER,
     allowNull: false,

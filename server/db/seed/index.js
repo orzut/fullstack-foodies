@@ -3,6 +3,8 @@ const { User, Restaurant, Order, LineItem, Dish } = models;
 const createUsers = require('./createUsers');
 const createRestaurants = require('./createRestaurants');
 const createDishes = require('./createDishes');
+const createOrders = require('./createOrders');
+const createLineItems = require('./createLineItems');
 const syncAndSeed = async () => {
     try {
         await db.authenticate();
@@ -17,12 +19,16 @@ const syncAndSeed = async () => {
             return Restaurant.create(restaurant)
         }));
         console.log('Seeding dishes...');
-        const dishes = await Promise.all(createDishes(1000).map((dish) => {
+        const dishes = await Promise.all(createDishes(1000, restaurants).map((dish) => {
             return Dish.create(dish)
         }));
         console.log('Seeding orders...');
-        const orders = await Promise.all(createOrders(1000).map((dish) => {
-            return Dish.create(dish)
+        const orders = await Promise.all(createOrders(10, users).map((order) => {
+            return Order.create(order)
+        }));
+        console.log('Seeding line items...');
+        const lineItems = await Promise.all(createLineItems(10, dishes, orders).map((lineItem) => {
+            return LineItem.create(lineItem)
         }));
     } catch (ex) {
         console.log(ex)

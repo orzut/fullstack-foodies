@@ -1,6 +1,6 @@
 const { faker } = require('@faker-js/faker');
 
-const createDishes = (numberOfDishes) => {
+const createDishes = (numberOfDishes, restaurants) => {
     const dishes = [];
     for (let i = 0;i < numberOfDishes; i++) {
         const name = faker.commerce.product();
@@ -9,7 +9,8 @@ const createDishes = (numberOfDishes) => {
         dishes.push({
             name,
             price,
-            imageUrl
+            imageUrl,
+            restaurantId: restaurants[Math.floor(Math.random()*restaurants.length)].id
         });
     };
     return dishes;
