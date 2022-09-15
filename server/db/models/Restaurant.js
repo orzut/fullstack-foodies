@@ -1,5 +1,5 @@
-const db = require('../db');
-const { Sequelize } = db;
+const db = require("../db");
+const Sequelize = require("sequelize");
 
 const Restaurant = db.define('restaurant', {
     id: {
@@ -23,4 +23,3 @@ const Restaurant = db.define('restaurant', {
 });
 
 module.exports = Restaurant;
-

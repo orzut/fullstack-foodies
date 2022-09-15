@@ -12,6 +12,9 @@ const Dish = require("./models/Dish");
 const Category = require("./models/Category");
 const Coupon = require("./models/Coupon");
 const Cuisine = require("./models/Cuisine");
+const Restaurant = require("./models/Restaurant");
+const Order = require("./models/Order");
+const LineItem = require("./models/LineItem");
 
 //associations could go here!
 User.hasMany(Order, { foreignKey: { name: 'userId', allowNull: false }, sourceKey: 'id' });
@@ -26,7 +29,13 @@ Review.belongsTo(Dish);
 Category.belongsTo(Dish);
 Dish.belongsTo(Restaurant, { foreignKey: { name: 'restaurantId', allowNull: false }, sourceKey: 'id' });
 Restaurant.hasMany(Dish, { foreignKey: { name: 'restaurantId', allowNull: false }, sourceKey: 'id' });
-
+Review.belongsTo(Restaurant);
+Dish.belongsTo(Category);
+Restaurant.belongsTo(Cuisine);
+Dish.belongsTo(Restaurant);
+Order.hasMany(LineItem);
+LineItem.belongsTo(Dish);
+User.hasMany(Order);
 
 module.exports = {
   db,
@@ -40,5 +49,8 @@ module.exports = {
     Dish,
     Coupon,
     Cuisine,
+    Restaurant,
+    Order,
+    LineItem,
   },
 };
