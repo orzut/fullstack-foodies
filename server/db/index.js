@@ -12,9 +12,6 @@ const Dish = require("./models/Dish");
 const Category = require("./models/Category");
 const Coupon = require("./models/Coupon");
 const Cuisine = require("./models/Cuisine");
-const Restaurant = require("./models/Restaurant");
-const Order = require("./models/Order");
-const LineItem = require("./models/LineItem");
 
 //associations could go here!
 User.hasMany(Order, { foreignKey: { name: 'userId', allowNull: false }, sourceKey: 'id' });
