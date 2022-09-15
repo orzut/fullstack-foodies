@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
-const { INTEGER, ENUM, UUID, UUIDV4 } = Sequelize;
+const { STRING, INTEGER, ENUM, UUID, UUIDV4 } = Sequelize;
 
 const Coupon = db.define("coupon", {
   id: {
@@ -12,10 +12,10 @@ const Coupon = db.define("coupon", {
     type: INTEGER,
     allowNull: false,
   },
-  type: {
-    type: ENUM,
-    values: ["dollar", "percent"],
-  },
+  discount: {
+    type: STRING,
+    value: ENUM('dollar','percent')
+  }
 });
 
 module.exports = Coupon;
