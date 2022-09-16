@@ -6,11 +6,15 @@ export const LandingPage = () => {
     <div>
       <div className="pt-24">
         <div className="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
-          <div className="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
+          <div className="flex flex-col w-full justify-center items-start text-center md:text-left">
             <p className="uppercase tracking-loose w-full">Food Delivery Service</p>
             <h1 className="my-4 text-5xl font-bold leading-tight">
               Order your favorite food in a hurry!
             </h1>
+            <div className='w-fit'>
+              <img src='https://www.elluminatiinc.com/wp-content/uploads/2020/07/blog/fooddeliveryinsoutheastasia.jpg'
+              />
+            </div>
             <p className="leading-normal text-2xl mb-8">
               Don't wait to have your favorite meal! Order now with Fullstack Food Delivery!
             </p>

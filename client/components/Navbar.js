@@ -16,10 +16,11 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           </a>
         </div>
       ) : (
-        <div>
+        <div className='container mx-auto flex items-center justify-between py-1 text-black px-2'>
           {/* The navbar will show these links before you log in */}
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
+          <Link to='/restaurants'>Restaurants</Link>
         </div>
       )}
     </nav>
