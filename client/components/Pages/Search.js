@@ -2,7 +2,7 @@ import React from 'react'
 
 export const Search = () => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-end">
         <div className="flex border border-purple-200 rounded">
             <input
                 type="text"

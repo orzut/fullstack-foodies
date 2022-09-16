@@ -1,5 +1,3 @@
-import React from 'react'
-
 import React, { useRef } from 'react';
 
 import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
@@ -47,11 +45,6 @@ const Cart = ({
               key={item.id}
               className="text-center border-b-[3px] w-full mb-2 flex flex-col items-center"
             >
-              <img
-                className="w-[100px] h-[100px]"
-                src={item.img}
-                alt={item.name}
-              />
               <p className="text-white font-bold w-6 h-6 rounded-full bg-blue-700">
                 {item.amount}
               </p>
