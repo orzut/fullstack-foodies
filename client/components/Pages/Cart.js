@@ -2,6 +2,8 @@ import React from 'react'
 
 export const Cart = () => {
   return (
-    <div>Cart</div>
+    <div className='flex mf: flex-row flex-col items-end justify-between'>
+
+    </div>
   )
 }
