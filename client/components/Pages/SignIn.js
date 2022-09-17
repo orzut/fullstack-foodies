@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../../store";
-import SignInWithGoogle from "./SignInWithGoogle";
 
 class SignIn extends Component {
   constructor() {
@@ -32,8 +31,8 @@ class SignIn extends Component {
     const { username, password } = this.state;
     const { onChange, onSubmit } = this;
     return (
-      <div className="border-solid border-2 w-2/4 m-auto">
-        <h2 className="text-center mt-15 text-xl">Sign In</h2>
+      <div className="flex flex-col border-solid border-2 w-2/4 m-auto">
+        <h2 className="text-center mt-5 text-xl">Sign In</h2>
         <form onSubmit={onSubmit} className="flex flex-col w-2/4 m-auto">
           <input
             className="border border-slate-300 rounded-md m-2 p-2"
@@ -53,14 +52,19 @@ class SignIn extends Component {
             onChange={onChange}
             required
           ></input>
-          <button className="bg-slate-400 rounded-md m-2 p-2 text-white">
+          <button
+            type="submit"
+            className="bg-slate-400 rounded-md m-2 p-2 text-white"
+          >
             Sign In
           </button>
         </form>
-        <a href="/auth/google">
+        <a
+          href="/auth/google"
+          className="bg-red-600 rounded-md p-2 text-white text-center w-2/4 m-auto mb-5"
+        >
           <button>Sign in with Google</button>
         </a>
-        {/* <SignInWithGoogle /> */}
       </div>
     );
   }
