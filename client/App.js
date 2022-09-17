@@ -5,7 +5,6 @@ import { Header } from "./components/Pages/Header";
 import { LandingPage } from "./components/Pages/LandingPage";
 import { Footer } from "./components/Footer";
 import Routes from "./Routes";
-import Restaurants from "./components/Pages/Restaurants";
 
 const App = () => {
   return (
@@ -15,7 +14,6 @@ const App = () => {
        <Routes />
       <LandingPage />
       <Footer />
-      <Restaurants />
     </div>
   );
 };

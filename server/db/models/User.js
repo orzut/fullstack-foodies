@@ -75,8 +75,14 @@ User.prototype.generateToken = function () {
   return jwt.sign({ id: this.id }, process.env.JWT);
 };
 
+User.prototype.createOrderFromCart = async function(){
+  const cart = await this.getCart();
+  cart.isCart = false;
+  return cart.save();
+}
+
 User.prototype.getCart = async function() {
-  let order = await db.models.order.findAll({
+  let order = await db.models.order.findOne({
     where: {
       userId: this.id,
       isCart: true
