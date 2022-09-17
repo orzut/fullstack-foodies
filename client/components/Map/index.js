@@ -50,7 +50,7 @@ function Map() {
     }
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: process.env.GOOGLE_API_KEY,
+        googleMapsApiKey: 'AIzaSyAGo2NE7sdqcMdbrfboJ1AnbWiAljSl_lI',
         libraries: ['places']
     });
 

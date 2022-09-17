@@ -2,6 +2,10 @@ node_modules
 public/bundle.js
 public/bundle.js.map
 public/restaurant-menus.csv
+public/restaurant-menus-truncated.csv
+public/restaurant-menus-truncated-cleaned.csv
+public/restaurant-menus-super-truncated-cleaned.csv
+public/yelp_business_location*
 .DS_Store
 npm-debug.log
 yarn-error.log
