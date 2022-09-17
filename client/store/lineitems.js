@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const lineitems = (state = [], action)=> {
+const lineItems = (state = [], action)=> {
   if (action.type === 'SET_LINEITEMS') {
     return action.lineitems || state;
   }
@@ -21,4 +21,4 @@ export const fetchLineItems = (id)=> {
   };
 };  
 
-export default lineitems;
+export default lineItems;
