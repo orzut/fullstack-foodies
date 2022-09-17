@@ -1,3 +1,5 @@
+const Dotenv = require("dotenv-webpack");
+
 module.exports = {
   entry: [
     './client/index.js'
@@ -25,5 +27,10 @@ module.exports = {
         use: [{loader:'style-loader'}, {loader:'css-loader'}, {loader:'postcss-loader'}]
       },
     ]
-  }
+  },
+  plugins: [
+    new Dotenv({
+      systemvars: true
+    }),
+  ],
 }

@@ -6,6 +6,9 @@ const databaseName = pkg.name;
 
 const config = {
   logging: false,
+  pool: {
+    acquire: 1000000,
+  }
 };
 
 if (process.env.LOGGING === "true") {
