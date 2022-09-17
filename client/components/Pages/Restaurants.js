@@ -1,55 +1,41 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRestaurants } from '../../store';
 
-const Restaurants = ({ restaurants }) => {
+const Restaurants = () => {
+    const dispatch = useDispatch();
+    const restaurants = useSelector(state => state.restaurants);
+
+    useEffect(()=> {
+        fetchRestaurants(dispatch);
+      },[])
+
     return (
         <main>
             <div>
-                <div >
-                    <h1>
-                        Our Restaurants ({restaurants.length})
-                    </h1>
-                </div>
+                <h1>
+                    Our Restaurants ({restaurants.length})
+                </h1>
             </div>
-
+            {/* Restaurant Listing Begins Here*/}
             <div>
-                <div>
-                    <div>
-                        <div>
-                            <h5>Total Restaurants:</h5>
-                            View All <br />
-                        </div>
-                    </div>
-                    
-                    {/* Restaurant Listing Begins Here*/}
-                    <div>
-                        <div>
-                                {
-                                    restaurants.map( restaurant => {
-                                        return (
-                                            <div key={restaurant.id}>
-                                                <div>
-                                                    <div>
-                                                            <p>{ restaurant.name }</p>
-                                                            <p>${ restaurant.description }</p>   
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                        </div>
-                    </div>
-                </div>
+                {
+                    restaurants.map( restaurant => {
+                        return (
+                            <div key={restaurant.id}>
+                                <div>
+                                    <div>
+                                        <p>{ restaurant.name }</p>
+                                        <p>${ restaurant.description }</p>   
+                                    </div>
+                                </div>
+                            </div>
+                            )
+                        })
+                    }
             </div>
         </main>
     );
 }
 
-const mapStateToProps = (state) => {
-    return {
-        products: state.restaurants
-    }
-};
-
-export default connect(mapStateToProps, null)(Restaurants);
+export default Restaurants;
