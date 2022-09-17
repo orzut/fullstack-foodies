@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../../store";
+import SignInWithGoogle from "./SignInWithGoogle";
 
 class SignIn extends Component {
   constructor() {
@@ -13,7 +14,6 @@ class SignIn extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   onChange(ev) {
-    // console.log(ev.target.value);
     this.setState({
       [ev.target.name]: ev.target.value,
     });
@@ -27,6 +27,7 @@ class SignIn extends Component {
     };
     this.props.login(credentials);
   }
+
   render() {
     const { username, password } = this.state;
     const { onChange, onSubmit } = this;
@@ -56,6 +57,10 @@ class SignIn extends Component {
             Sign In
           </button>
         </form>
+        <a href="/auth/google">
+          <button>Sign in with Google</button>
+        </a>
+        {/* <SignInWithGoogle /> */}
       </div>
     );
   }
