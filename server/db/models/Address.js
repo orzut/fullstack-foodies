@@ -1,8 +1,13 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
-const { STRING, BOOLEAN } = Sequelize;
+const { STRING, BOOLEAN, UUID, UUIDV4 } = Sequelize;
 
 const Address = db.define("address", {
+  id: {
+    type: UUID,
+    defaultValue: UUIDV4,
+    primaryKey: true,
+  },
   apt: {
     type: STRING,
   },

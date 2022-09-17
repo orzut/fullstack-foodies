@@ -6,7 +6,6 @@ import history from "./history";
 import store from "./store";
 import App from "./App";
 import "./index.css";
-import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const root = ReactDOM.createRoot(document.getElementById("app"));
 root.render(
