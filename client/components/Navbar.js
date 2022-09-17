@@ -9,14 +9,11 @@ import { Header } from "./Pages/Header";
 const Navbar = ({ handleClick, isLoggedIn, auth, cart }) => (
   <div>
     <Header />
-    <Link to="/">
-      <h1>Fullstack Food Delivery</h1>
-    </Link>
     <nav>
       {isLoggedIn ? (
         <div className="container mx-auto flex items-center justify-between py-1 text-black px-2">
           {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
+          <Link to="/"><h1>Home</h1></Link>
           <a href="#" onClick={handleClick}>
             Logout
           </a>
@@ -29,6 +26,7 @@ const Navbar = ({ handleClick, isLoggedIn, auth, cart }) => (
       ) : (
         <div className="container mx-auto flex items-center justify-between py-1 text-black px-2">
           {/* The navbar will show these links before you log in */}
+          <Link to="/"><h1>Home</h1></Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
           <Link to="/restaurants">Restaurants</Link>
