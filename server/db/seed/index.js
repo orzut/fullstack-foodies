@@ -12,6 +12,7 @@ const syncAndSeed = async () => {
         await db.authenticate();
         await db.sync({force: true});
         const restaurantsData = csvToJson.fieldDelimiter(';').getJsonFromCsv(path.join(__dirname,'..','..','..','public','restaurants-cleaned-delimiter.csv'));
+        const dishesData = csvToJson.fieldDelimiter(';').getJsonFromCsv(path.join(__dirname,'..','..','..','public','restaurant-menus-super-truncated-cleaned-delimiter.csv'));
         console.log('Seeding users...');
         const users = await Promise.all(createUsers(20).map((user) => {
             return User.create(user)
@@ -24,9 +25,13 @@ const syncAndSeed = async () => {
             return Restaurant.create(restaurant)
         }));
         console.log('Seeding dishes...');
-        const dishes = await Promise.all(createDishes(1000, restaurants).map((dish) => {
+        const dishes = await Promise.all(createDishes(10000, restaurants).map((dish) => {
             return Dish.create(dish)
         }));
+        // const dishes = await Promise.all(dishesData.slice(0,320).map((dish) => {
+        //     console.log(dish)
+        //     return Dish.create(dish)
+        // }));
         console.log('Seeding orders...');
         const orders = await Promise.all(createOrders(10, users).map((order) => {
             return Order.create(order)

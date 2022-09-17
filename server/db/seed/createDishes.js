@@ -6,10 +6,12 @@ const createDishes = (numberOfDishes, restaurants) => {
         const name = faker.commerce.product();
         const price = Math.floor(Math.random()*10000)/100;
         const imageUrl = faker.image.food();
+        const description = faker.lorem.lines(1);
         dishes.push({
             name,
             price,
             imageUrl,
+            description,
             restaurantId: restaurants[Math.floor(Math.random()*restaurants.length)].id
         });
     };
