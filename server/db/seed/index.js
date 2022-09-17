@@ -11,8 +11,7 @@ const syncAndSeed = async () => {
     try {
         await db.authenticate();
         await db.sync({force: true});
-        const restaurantsData = csvToJson.fieldDelimiter(';').getJsonFromCsv(path.join(__dirname,'..','..','..','public','restaurants-cleaned-delimiter-2.csv'));
-        console.log(restaurantsData)
+        const restaurantsData = csvToJson.fieldDelimiter(';').getJsonFromCsv(path.join(__dirname,'..','..','..','public','restaurants-cleaned-delimiter.csv'));
         console.log('Seeding users...');
         const users = await Promise.all(createUsers(20).map((user) => {
             return User.create(user)
