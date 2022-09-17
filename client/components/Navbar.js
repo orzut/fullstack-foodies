@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
 import { AiOutlineShoppingCart } from "react-icons/ai";
+import { Header } from "./Pages/Header";
 
 
-const Navbar = ({ handleClick, isLoggedIn }) => (
+const Navbar = ({ handleClick, isLoggedIn, auth, cart }) => (
   <div>
+    <Header />
     <Link to="/">
       <h1>Fullstack Food Delivery</h1>
     </Link>
@@ -18,9 +20,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <a href="#" onClick={handleClick}>
             Logout
           </a>
-          <Link to="/map">Map</Link>
           <Link to="/restaurants">Restaurants</Link>
-          <Link to="/cart"><AiOutlineShoppingCart className="text-[30px]"/></Link> 
+          <Link to="/map">Map</Link>
+          <Link to="/cart"><AiOutlineShoppingCart className="text-[30px]"/>
+            {/* <li>CART ({ cart.lineItems.reduce((acc, lineitem) => acc + lineitem.quantity, 0 ) })</li> */}
+          </Link> 
         </div>
       ) : (
         <div className="container mx-auto flex items-center justify-between py-1 text-black px-2">
@@ -29,7 +33,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/signup">Sign Up</Link>
           <Link to="/restaurants">Restaurants</Link>
           <Link to="/map">Map</Link>
-          <Link to="/cart"><AiOutlineShoppingCart className="text-[30px]"/></Link> 
+          <Link to="/cart"><AiOutlineShoppingCart className="text-[30px]"/>
+            {/* <li>CART ({ cart.lineItems.reduce((acc, lineitem) => acc + lineitem.quantity, 0 ) })</li> */}
+          </Link> 
         </div>
       )}
     </nav>
@@ -40,11 +46,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
 /**
  * CONTAINER
  */
-const mapState = (state) => {
-  return {
-    isLoggedIn: !!state.auth.id,
-  };
-};
+ const mapStateToProps = (state) => {
+  return state;
+}
 
 const mapDispatch = (dispatch) => {
   return {
@@ -54,4 +58,4 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default connect(mapState, mapDispatch)(Navbar);
+export default connect(mapStateToProps, mapDispatch)(Navbar);
