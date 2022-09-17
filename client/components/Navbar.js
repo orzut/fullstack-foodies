@@ -12,7 +12,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
     </Link>
     <nav>
       {isLoggedIn ? (
-        <div>
+        <div className="container mx-auto flex items-center justify-between py-1 text-black px-2">
           {/* The navbar will show these links after you log in */}
           <Link to="/home">Home</Link>
           <a href="#" onClick={handleClick}>
