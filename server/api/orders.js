@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { isLoggedIn } = require('./middleware');
+
 module.exports = router;
 
 router.post('/', isLoggedIn, async(req, res, next)=> {

@@ -50,7 +50,7 @@ export const Carousel = () => {
   }, []);
 
   return (
-    <div className="carousel my-12 mx-auto">
+    <div className="carousel my-5 mx-auto">
       <h2 className="text-4xl leading-8 font-semibold mb-12 text-black-700">
         Our cuisine options
       </h2>
@@ -63,7 +63,7 @@ export const Carousel = () => {
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-12 w-20 -ml-5"
+              className="h-9 w-20 -ml-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -111,13 +111,13 @@ export const Carousel = () => {
               >
                 <a
                   href={resource.link}
-                  className="h-full w-full aspect-square block bg-origin-padding bg-left-top bg-cover bg-no-repeat z-0"
+                  className="h-full w-full aspect-square block bg-origin-padding bg-left-top bg-no-repeat z-0"
                   style={{ backgroundImage: `url(${resource.imageUrl || ''})` }}
                 >
                   <img
                     src={resource.imageUrl || ''}
                     alt={resource.title}
-                    className="w-full aspect-square hidden"
+                    className="w-3 aspect-auto hidden"
                   />
                 </a>
                 <a
