@@ -8,6 +8,7 @@ import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
 import Restaurants from "./components/Pages/Restaurants";
 import LandingPage from "./components/Pages/LandingPage";
+import Cart from "./components/Pages/Cart";
 
 /**
  * COMPONENT
@@ -31,12 +32,14 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
+            <Route path="/cart" component={Cart} />
           </Switch>
         ) : (
           <Switch>
             <Route path="/login" component={SignIn} />
             <Route path="/signup" component={SignUp} />
             <Route path="/map" component={Map} />
+            <Route path="/cart" component={Cart} />
           </Switch>
         )}
       </div>
