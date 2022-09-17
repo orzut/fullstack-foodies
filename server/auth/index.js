@@ -7,8 +7,8 @@ const axios = require("axios");
 const { OAuth2Client } = require("google-auth-library");
 
 const client = new OAuth2Client({
-  clientId: process.env.CLIENT_ID,
-  clientSecret: process.env.CLIENT_SECRET,
+  clientId: process.env.GOOGLE_AUTH_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
 });
 
 router.get("/google", (req, res, next) => {
