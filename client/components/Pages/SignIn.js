@@ -2,15 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../../store";
 
-class SignUp extends Component {
+class SignIn extends Component {
   constructor() {
     super();
     this.state = {
       username: "",
       password: "",
-      firstName: "",
-      lastName: "",
-      email: "",
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -23,49 +20,26 @@ class SignUp extends Component {
 
   onSubmit(ev) {
     ev.preventDefault();
-    const user = this.state;
-    this.props.signup(user);
+    const credentials = {
+      username: this.state.username,
+      password: this.state.password,
+    };
+    this.props.login(credentials);
   }
+
   render() {
-    const { username, password, firstName, lastName, email } = this.state;
+    const { username, password } = this.state;
     const { onChange, onSubmit } = this;
     return (
       <div className="flex flex-col border-solid border-2 w-2/4 m-auto">
-        <h2 className="text-center mt-5 text-xl">Create Your Account</h2>
+        <h2 className="text-center mt-5 text-xl">Sign In</h2>
         <form onSubmit={onSubmit} className="flex flex-col w-2/4 m-auto">
-          <input
-            className="border border-slate-300 rounded-md m-2 p-2"
-            value={firstName}
-            type="text"
-            name="firstName"
-            placeholder="First Name"
-            onChange={onChange}
-            required
-          ></input>
-          <input
-            className="border border-slate-300 rounded-md m-2 p-2"
-            value={lastName}
-            type="text"
-            name="lastName"
-            placeholder="Last Name"
-            onChange={onChange}
-            required
-          ></input>
-          <input
-            className="border border-slate-300 rounded-md m-2 p-2"
-            value={email}
-            type="email"
-            name="email"
-            placeholder="E-mail"
-            onChange={onChange}
-            required
-          ></input>
           <input
             className="border border-slate-300 rounded-md m-2 p-2"
             value={username}
             type="text"
             name="username"
-            placeholder="Username"
+            placeholder="username"
             required
             onChange={onChange}
           ></input>
@@ -74,7 +48,7 @@ class SignUp extends Component {
             value={password}
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="password"
             onChange={onChange}
             required
           ></input>
@@ -82,7 +56,7 @@ class SignUp extends Component {
             type="submit"
             className="bg-slate-400 rounded-md m-2 p-2 text-white"
           >
-            Create account
+            Sign In
           </button>
         </form>
         <a
@@ -98,8 +72,8 @@ class SignUp extends Component {
 
 const mapDispatch = (dispatch) => {
   return {
-    signup: (user) => dispatch(authenticate(user, "signup")),
+    login: (credentials) => dispatch(authenticate(credentials, "login")),
   };
 };
 
-export default connect((state) => state, mapDispatch)(SignUp);
+export default connect((state) => state, mapDispatch)(SignIn);

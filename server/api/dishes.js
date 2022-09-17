@@ -4,6 +4,7 @@ const {
 } = require("../db");
 module.exports = router;
 
+// get all dishes
 router.get("/", async (req, res, next) => {
   try {
     res.send(await Dish.findAll());
@@ -12,6 +13,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+// get details for a dish
 router.get("/:id", async (req, res, next) => {
   try {
     res.send(await Dish.findByPk(req.params.id));
