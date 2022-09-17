@@ -23,11 +23,11 @@ Dish.hasMany(LineItem, { foreignKey: { name: 'dishId', allowNull: false }, sourc
 Address.belongsTo(User);
 Review.belongsTo(User);
 Review.belongsTo(Dish);
-// Category.belongsTo(Dish);
+Category.belongsTo(Dish);
 Dish.belongsTo(Restaurant, { foreignKey: { name: 'restaurantId', allowNull: true }, sourceKey: 'id' });
 Restaurant.hasMany(Dish, { foreignKey: { name: 'restaurantId', allowNull: true }, sourceKey: 'id' });
 Review.belongsTo(Restaurant);
-// Dish.belongsTo(Category);
+Dish.belongsTo(Category);
 Restaurant.belongsTo(Cuisine);
 Dish.belongsTo(Restaurant);
 Order.hasMany(LineItem);
