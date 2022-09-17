@@ -23,10 +23,10 @@ export const processOrder = ()=> {
   };
 };
 
-export const addToCart = (product, diff)=> {
+export const addToCart = (dish, diff)=> {
   return async(dispatch, getState)=> {
-    const lineItem = getState().cart.lineItems.find(lineItem => lineItem.productId === product.id) || { quantity: 0};
-    const response = await axios.put('/api/orders/cart', { product, quantity: lineItem.quantity + diff}, {
+    const lineItem = getState().cart.lineItems.find(lineItem => lineItem.dishId === dish.id) || { quantity: 0};
+    const response = await axios.put('/api/orders/cart', { dish, quantity: lineItem.quantity + diff}, {
       headers: {
         authorization: window.localStorage.getItem('token')
       }
@@ -57,7 +57,7 @@ export const getCartTotal = () => {
   const lineItems = getState().cart.lineItems
   const cartTotal = lineItems &&
     lineItems.reduce((acc, item) => {
-      acc += item.quantity * item.product?.price;
+      acc += item.quantity * item.dish?.price;
       return acc;
     }, 0);
   return cartTotal * 1;
