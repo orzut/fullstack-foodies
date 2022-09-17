@@ -1,6 +1,6 @@
 import React from "react";
 import { Cart } from "./Cart";
-import Search from "./Search";
+import { Search } from "./Search";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export const Header = () => {
