@@ -29,13 +29,13 @@ const Cart = connect(
   return (
     <div>
       <div>
-          <div className='text-textColor text-lg font-semibold'>
+          <div className='text-red-400 text-xl font-semibold'>
               <h1>Shopping Cart</h1>
           </div>
       </div>      
       { cart.lineItems.length === 0 ? (
         <div>
-          <p>Your cart is currently empty.</p>
+          <p className='text-gray-400 text-lg'>Your cart is currently empty.</p>
           <div>
             <Link to='/'>
             <svg xmlns="http://www.w3.org/2000/svg"
@@ -48,7 +48,7 @@ const Cart = connect(
               fillRule="evenodd"
               d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
-              <span>Start Ordering</span>
+              <span className='text-black-200 text-xl font-semibold'>Start Ordering</span>
             </Link>
           </div>
         </div>
@@ -63,18 +63,13 @@ const Cart = connect(
               if (lineItem.quantity > 0){
                 return (
                   <li key={ dish.id }>
-                  {/* <img src={product.image} 
-                    height={200}
-                    width={200}
-                  /> */}
                   <h3>{dish.name}</h3>
-                  {/* <p>{product.description}</p> */}
                   Quantity: {lineItem.quantity}
                   <br></br>
                   ${dish.price}
                     <button onClick={ ()=> addToCart(dish)}>Add Quantity</button>
                     <button disabled={ lineItem.quantity === 0} onClick={ ()=> addToCart(dish, -1)}>Delete Quantity</button>
-                  <div className='className="w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col'>
+                  <div className='text-black-200 text-xl font-semibold'>
                     Dish Total: ${Math.round((Number(dish.price) * lineItem.quantity+ Number.EPSILON) * 100) / 100}
                   </div>
                   <hr></hr>
@@ -91,13 +86,13 @@ const Cart = connect(
       <div>
         <button className='flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base' onClick={ () =>clearCart()}>Clear Cart</button>
         <div>
-          <div className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2'>
-            <span>Subtotal </span>
+          <div className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-end justify-evenly px-8 py-2'>
+            <span className='text-red-400 text-xl font-semibold'>Subtotal </span>
             <span>
               ${Math.round(cartTotal * 100) / 100}
             </span>
-          <p>Taxes: $ {(Math.round((cartTotal * 100) * 0.04) / 100)} Applied at checkout</p>
-          <button>
+          <p className='text-gray-400 text-lg'>Taxes: $ {(Math.round((cartTotal * 100) * 0.04) / 100)} Applied at checkout</p>
+          <button className='flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base'>
               <Link to="/checkout">Checkout</Link>
           </button>
           <div>
@@ -112,7 +107,7 @@ const Cart = connect(
               fillRule="evenodd"
               d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
-              <span>Continue Ordering</span>
+              <span className='text-black-200 text-xl font-semibold'>Continue Ordering</span>
             </Link>
           </div>
         </div>
