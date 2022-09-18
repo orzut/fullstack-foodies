@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 import { logout } from "../store";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Cart from "./Pages/Cart";
+import { Search } from "./Pages/Search";
 
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
-    <nav>
+    <nav className='relative flex flex-wrap items-center justify-between px-2 py-3 bg-indigo-900 mb-3'>
       {isLoggedIn ? (
-        <div className="container mx-auto flex items-center justify-between py-1 text-black px-2">
+        <div className="uppercase text-white text-sm font-bold leading-relaxed container mx-auto flex items-center justify-between py-1 px-2 ">
           {/* The navbar will show these links after you log in */}
           <Link to="/">Home</Link>
           <a href="#" onClick={handleClick}>
@@ -21,7 +22,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/cart"><AiOutlineShoppingCart className="text-[30px]" /></Link>
         </div>
       ) : (
-        <div className="container mx-auto flex items-center justify-between py-1 text-black px-2">
+        <div className="uppercase text-white text-sm font-bold leading-relaxed container mx-auto flex items-center justify-between py-1 px-2 ">
           {/* The navbar will show these links before you log in */}
           <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
@@ -30,6 +31,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/map">Map</Link>
         </div>
       )}
+      <span className="font-normal leading-snug flex text-center white-space-no-wrap border border-solid border-pink-600 rounded-full text-sm bg-pink-100 items-center rounded-r-none pl-2 py-1 text-pink-800 border-r-0 placeholder-pink-300">
+        <Search />
+      </span>
     </nav>
     <hr />
   </div>
