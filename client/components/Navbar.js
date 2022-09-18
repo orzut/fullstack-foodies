@@ -8,7 +8,6 @@ import Cart from "./Pages/Cart";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
-      <h1 className="text-base text-black-500 font-semibold">Fullstack Food Delivery</h1>
     <nav>
       {isLoggedIn ? (
         <div className="container mx-auto flex items-center justify-between py-1 text-black px-2">
