@@ -1,5 +1,8 @@
 import React, {useState, useRef} from 'react';
-import { GoogleMap, useLoadScript, Marker, MarkerClusterer, Autocomplete } from '@react-google-maps/api';
+import {useDispatch, useSelector} from 'react-redux';
+import { GoogleMap, useLoadScript, Marker, MarkerClusterer, Autocomplete, DirectionsRenderer, Circle } from '@react-google-maps/api';
+import Rating from './Rating';
+import DeliveryTime from './DeliveryTime';
 import './Map.css';
 
 
@@ -7,13 +10,13 @@ import './Map.css';
 
 function Map() {
     const [mapState, setMapState] = useState(/** @type google.maps.Map */)
+    const [directionsResponse, setDirectionsResponse] = useState(null);
+    const [distance, setDistance] = useState('')
+    const [duration, setDuration] = useState('')
     const originRef = useRef();
     const destinationRef = useRef();
     const centerRef = useRef({lat: -28.024, lng: 140.88})
-
-
-    const center = { lat: -28.024, lng: 140.887 }
-
+    const librariesRef = useRef(['places'])
     const locations = [
         {lat: -28.024, lng: 140.88},
         {lat: -28.034, lng: 140.88},
@@ -44,17 +47,39 @@ function Map() {
         { lat: -43.999792, lng: 170.463352 },
     ]
 
-
     const createKey = (location) => {
         return location.lat + location.lng
     }
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: 'AIzaSyAGo2NE7sdqcMdbrfboJ1AnbWiAljSl_lI',
-        libraries: ['places']
+        libraries: librariesRef.current
     });
 
+    const calculateRoute = async () => {
+        let results;
+        if (originRef.current.value === '' || destinationRef.current.value === '') {
+            return
+        } else {
+            const directionsService = new google.maps.DirectionsService();
+            results = await directionsService.route({
+                origin: originRef.current.value,
+                destination: destinationRef.current.value,
+                travelMode: google.maps.TravelMode.DRIVING
+            })
+        }
+        setDirectionsResponse(results)
+        setDistance(results.routes[0].legs[0].distance.text)
+        setDuration(results.routes[0].legs[0].duration.text)
+    }
 
+    const clearRoute = () => {
+        setDirectionsResponse(null)
+        setDistance('')
+        setDuration('')
+        originRef.current.value = ''
+        destinationRef.current.value = ''
+    }
 
     if (!isLoaded) {
         return (
@@ -63,16 +88,36 @@ function Map() {
             </div>
         )
     } else {
-
         return (
-            <div>
-                <Autocomplete>
-                    <input type='text' placeholder='Origin' />
-                </Autocomplete>
-                <Autocomplete>
-                    <input type='text' placeholder='Destination' />
-                </Autocomplete>
-                <button onClick={()=>{mapState.panTo(centerRef.current)}}>Center</button>
+            <div className='flex flex-row '>
+                <div className=''>
+                    <Autocomplete>
+                        <input type='text' placeholder='Origin' ref={originRef} />
+                    </Autocomplete>
+                    <Autocomplete>
+                        <input type='text' placeholder='Destination' ref={destinationRef}/>
+                    </Autocomplete>
+                    <div>
+                        <button onClick={calculateRoute}>Calculate Route</button>
+                    </div>
+                    <div>
+                        <button onClick={clearRoute}>Clear Route</button>
+                    </div>
+                    <div>
+                        <button onClick={()=>{mapState.panTo(centerRef.current)}}>Center</button>
+                    </div>
+                    <div>Distance: {distance}</div>
+                    <div>Duration: {duration}</div>
+                    <div>Rating</div>
+                    <Rating />
+                    <div>Price Range</div>
+                    <Rating />
+                    <div>Delivery Time</div>
+                    <DeliveryTime />
+                    <div>Distance</div>
+                    <DeliveryTime />
+                </div>
+                <div>
                     <GoogleMap
                         zoom={10}
                         center={centerRef.current}
@@ -86,6 +131,7 @@ function Map() {
                     >
                         <Marker position={centerRef.current} />
                         <Marker position={locations[1]} />
+                        {directionsResponse && ( <DirectionsRenderer directions={directionsResponse} /> )}
                         {/*<MarkerClusterer>*/}
                         {/*    {(clusterer) =>*/}
                         {/*        locations.map((location) => (*/}
@@ -94,6 +140,7 @@ function Map() {
                         {/*    }*/}
                         {/*</MarkerClusterer>*/}
                     </GoogleMap>
+                </div>
             </div>
         )
     }
