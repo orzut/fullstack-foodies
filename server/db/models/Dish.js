@@ -1,6 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
-const { STRING, DECIMAL, TEXT, UUID, UUIDV4 } = Sequelize;
+const { STRING, FLOAT, DECIMAL, TEXT, UUID, UUIDV4 } = Sequelize;
 
 const Dish = db.define("dish", {
   id: {
@@ -13,13 +13,17 @@ const Dish = db.define("dish", {
     allowNull: false,
   },
   price: {
-    type: DECIMAL(10, 2),
+    type: STRING,
     allowNull: false,
   },
   imageUrl: {
     type: TEXT,
-    allowNull: false,
+    allowNull: true,
   },
+  description: {
+    type: TEXT,
+    allowNull: true
+  }
 });
 
 module.exports = Dish;

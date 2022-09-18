@@ -1,72 +1,141 @@
-import React, { useRef } from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addToCart, fetchCart, clearCart } from '../../store/cart';
+import { Link } from 'react-router-dom'
 
-import { AiOutlinePlusSquare, AiOutlineMinusSquare } from 'react-icons/ai';
+const Cart = connect(
+  state => state,
+  dispatch => {
+    return {
+      addToCart: (dish, diff = 1)=> dispatch(addToCart(dish, diff)),
+      clearCart:() => dispatch(clearCart()),
+    };
+  }
+  
+)
+(({ dishes, cart, addToCart, clearCart })=> {
 
-const Cart = ({
-  setIsShowCart,
-  cart,
-  handleAddToCart,
-  handleRemoveFromCart,
-}) => {
-  const cartRef = useRef();
-  const total = (arr) => {
-    return arr.reduce((cal, item) => {
-      return cal + item.price * item.amount;
-    }, 0);
-  };
+  let cartTotal = 0;
 
-  const DollarUsd = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  cart.lineItems.forEach(lineItem => {
+    let quantity = lineItem.quantity;
+    let price = lineItem.dish.price;
+    if(quantity && price) {
+      let lineItemCost =  price*quantity;
+      cartTotal = lineItemCost + cartTotal;
+    }
   });
 
-  const handleCloseCart = () => {
-    cartRef.current.classList.remove('animate-fade-in');
-    cartRef.current.classList.add('animate-fade-out');
-    setTimeout(() => {
-      setIsShowCart(false);
-    }, 300);
-  };
-
   return (
-    <div
-      className="fixed inset-0 bg-[rgba(0,0,0,0.7)]"
-      onClick={handleCloseCart}
-    >
-      <div
-        ref={cartRef}
-        onClick={(e) => e.stopPropagation()}
-        className="bg-white w-[250px] h-full absolute right-0 overflow-y-scroll animate-fade-in "
-      >
-        <h1 className="bg-red-400 py-2 text-center text-white">Cart</h1>
-        <div className="flex flex-col items-center px-2 py-4">
-          {cart.map((item) => (
-            <div
-              key={item.id}
-              className="text-center border-b-[3px] w-full mb-2 flex flex-col items-center"
-            >
-              <p className="text-white font-bold w-6 h-6 rounded-full bg-blue-700">
-                {item.amount}
-              </p>
-              <h3 className="text-[0.8rem]">{item.name}</h3>
-              <div className="flex items-center my-2">
-                <button onClick={() => handleRemoveFromCart(item.id)}>
-                  <AiOutlineMinusSquare className="text-[30px] text-gray-500" />
-                </button>
-                <p className="text-red-600 mx-2">
-                  {DollarUsd.format(item.price)}
-                </p>
-                <button onClick={() => handleAddToCart(item)}>
-                  <AiOutlinePlusSquare className="text-[30px] text-gray-500" />
-                </button>
-              </div>
-            </div>
-          ))}
-          {cart.length > 0 && <p>Total: {DollarUsd.format(total(cart))} </p>}
+    <div>
+      <div>
+          <div className='text-textColor text-lg font-semibold'>
+              <h1>Shopping Cart</h1>
+          </div>
+      </div>      
+      { cart.lineItems.length === 0 ? (
+        <div>
+          <p>Your cart is currently empty.</p>
+          <div>
+            <Link to='/'>
+            <svg xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor" 
+              className="bi bi-arrow-left" 
+              viewBox="0 0 16 16">
+            <path
+              fillRule="evenodd"
+              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+              <span>Start Ordering</span>
+            </Link>
+          </div>
+        </div>
+      ) : (
+      <div>
+        
+        <ul style={{ listStyleType: "none" }}>
+        {
+          dishes.map( dish => {
+            const lineItem = cart.lineItems.find(lineItem => lineItem.dishId === dish.id) || { quantity: 0 };
+
+              if (lineItem.quantity > 0){
+                return (
+                  <li key={ dish.id }>
+                  {/* <img src={product.image} 
+                    height={200}
+                    width={200}
+                  /> */}
+                  <h3>{dish.name}</h3>
+                  {/* <p>{product.description}</p> */}
+                  Quantity: {lineItem.quantity}
+                  <br></br>
+                  ${dish.price}
+                    <button onClick={ ()=> addToCart(dish)}>Add Quantity</button>
+                    <button disabled={ lineItem.quantity === 0} onClick={ ()=> addToCart(dish, -1)}>Delete Quantity</button>
+                  <div className='className="w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col'>
+                    Dish Total: ${Math.round((Number(dish.price) * lineItem.quantity+ Number.EPSILON) * 100) / 100}
+                  </div>
+                  <hr></hr>
+                  </li>
+                )
+          
+              }
+            }
+          )
+        }   
+      </ul>
+      </div>
+      )}
+      <div>
+        <button className='flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base' onClick={ () =>clearCart()}>Clear Cart</button>
+        <div>
+          <div className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2'>
+            <span>Subtotal </span>
+            <span>
+              ${Math.round(cartTotal * 100) / 100}
+            </span>
+          <p>Taxes: $ {(Math.round((cartTotal * 100) * 0.04) / 100)} Applied at checkout</p>
+          <button>
+              <Link to="/checkout">Checkout</Link>
+          </button>
+          <div>
+            <Link to='/'>
+            <svg xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor" 
+              className="bi bi-arrow-left" 
+              viewBox="0 0 16 16">
+            <path
+              fillRule="evenodd"
+              d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+            </svg>
+              <span>Continue Ordering</span>
+            </Link>
+          </div>
+        </div>
         </div>
       </div>
-    </div>
+      </div>
   );
+  }
+)
+      
+      
+
+const mapStateToProps = (state)=> {
+  return state;
 };
 
-export default Cart;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    exchangeToken: () => dispatch(exchangeToken()),
+    fetchCart: () => dispatch(fetchCart()),
+    fetchMenu: ()=> dispatch(fetchMenu()),
+    dispatchAction: (action)=> dispatch(action)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
