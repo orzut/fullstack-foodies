@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from "react";
 
 // Data
-import data from './data.json';
+import data from "./data.json";
 
 export const Carousel = () => {
   const maxScrollWidth = useRef(0);
@@ -24,11 +24,11 @@ export const Carousel = () => {
   };
 
   const isDisabled = (direction) => {
-    if (direction === 'prev') {
+    if (direction === "prev") {
       return currentIndex <= 0;
     }
 
-    if (direction === 'next' && carousel.current !== null) {
+    if (direction === "next" && carousel.current !== null) {
       return (
         carousel.current.offsetWidth * currentIndex >= maxScrollWidth.current
       );
@@ -59,7 +59,7 @@ export const Carousel = () => {
           <button
             onClick={movePrev}
             className="hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
-            disabled={isDisabled('prev')}
+            disabled={isDisabled("prev")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -80,7 +80,7 @@ export const Carousel = () => {
           <button
             onClick={moveNext}
             className="hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
-            disabled={isDisabled('next')}
+            disabled={isDisabled("next")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -112,10 +112,10 @@ export const Carousel = () => {
                 <a
                   href={resource.link}
                   className="h-full w-full aspect-square block bg-origin-padding bg-left-top bg-no-repeat z-0"
-                  style={{ backgroundImage: `url(${resource.imageUrl || ''})` }}
+                  style={{ backgroundImage: `url(${resource.imageUrl || ""})` }}
                 >
                   <img
-                    src={resource.imageUrl || ''}
+                    src={resource.imageUrl || ""}
                     alt={resource.title}
                     className="w-3 aspect-auto hidden"
                   />
@@ -136,4 +136,3 @@ export const Carousel = () => {
     </div>
   );
 };
-
