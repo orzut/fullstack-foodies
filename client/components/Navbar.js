@@ -30,6 +30,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
           <Link to="/signup">Sign Up</Link>
           <Link to="/restaurants">Restaurants</Link>
           <Link to="/map">Map</Link>
+          <Link to="/cart"><AiOutlineShoppingCart className="text-[30px]" /></Link>
         </div>
       )}
     </nav>
