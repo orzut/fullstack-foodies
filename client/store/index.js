@@ -7,6 +7,11 @@ import reviews from "./reviews";
 import dishes from "./dishes";
 import categories from "./categories";
 import cuisines from "./cuisines";
+import lineItems from "./lineitems";
+import cart from "./cart";
+import address from "./address";
+import orders from "./orders";
+import users from "./users";
 
 const reducer = combineReducers({
   auth,
@@ -15,6 +20,11 @@ const reducer = combineReducers({
   dishes,
   categories,
   cuisines,
+  lineItems,
+  cart,
+  users,
+  orders,
+  address
 });
 const middleware = applyMiddleware(
   thunkMiddleware,
@@ -29,3 +39,8 @@ export * from "./reviews";
 export * from "./dishes";
 export * from "./categories";
 export * from "./cuisines";
+export * from "./lineitems";
+export * from "./cart";
+export * from "./users";
+export * from "./orders";
+export * from "./address";

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const SET_CUISINES = "SET_RESTAUSET_CUISINESRANTS";
+const SET_CUISINES = "SET_RESTAURANT_CUISINES";
 
 const cuisines = (state = [], action) => {
   if (action.type === SET_CUISINES) {

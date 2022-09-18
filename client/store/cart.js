@@ -42,16 +42,16 @@ export const clearCart = () => {
   }
 }
 
-// export const fetchCart = ()=> {
-//   return async(dispatch)=> {
-//     const response = await axios.get('/api/orders/cart', {
-//       headers: {
-//         authorization: window.localStorage.getItem('token')
-//       }
-//     });
-//     dispatch({ type: 'SET_CART', cart: response.data });
-//   };
-// };
+export const fetchCart = ()=> {
+  return async(dispatch)=> {
+    const response = await axios.get('/api/orders/cart', {
+      headers: {
+        authorization: window.localStorage.getItem('token')
+      }
+    });
+    dispatch({ type: 'SET_CART', cart: response.data });
+  };
+};
 
 export const getCartTotal = () => {
   const lineItems = getState().cart.lineItems
