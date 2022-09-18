@@ -9,6 +9,7 @@ import SignUp from "./components/Pages/SignUp";
 import Restaurants from "./components/Pages/Restaurants";
 import LandingPage from "./components/Pages/LandingPage";
 import Cart from "./components/Pages/Cart";
+import { Checkout } from "./components/Pages/Checkout";
 
 /**
  * COMPONENT
@@ -33,6 +34,7 @@ class Routes extends Component {
             <Route path="/home" component={Home} />
             <Route path="/cart" component={Cart} />
             <Route path="/map" component={Map} />
+            <Route path="/checkout" component={Checkout} />
           </Switch>
         ) : (
           <Switch>
