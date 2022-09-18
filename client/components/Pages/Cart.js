@@ -91,7 +91,7 @@ const Cart = connect(
             <span>
               ${Math.round(cartTotal * 100) / 100}
             </span>
-          <p className='text-gray-400 text-lg'>Taxes: $ {(Math.round((cartTotal * 100) * 0.04) / 100)} Applied at checkout</p>
+          <p className='text-gray-400 text-lg'>Taxes: $ {(Math.round((cartTotal * 100) * 0.04) / 100)} (Applied at checkout)</p>
           <button className='flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base'>
               <Link to="/checkout">Checkout</Link>
           </button>
