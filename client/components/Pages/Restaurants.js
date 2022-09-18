@@ -1,15 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchRestaurants } from "../../store";
+import React from "react";
+import { useSelector } from "react-redux";
 
-const Restaurants = () => {
-  const dispatch = useDispatch();
+const Restaurants = (props) => {
   const restaurants = useSelector((state) => state.restaurants.slice(0, 100));
-
-  useEffect(() => {
-    dispatch(fetchRestaurants());
-  }, [dispatch]);
-
+  console.log(props);
   return (
     <main>
       <div>

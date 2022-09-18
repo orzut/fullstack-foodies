@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./components/Home";
 import Map from "./components/Map";
-import { me } from "./store";
+import { me, fetchRestaurants } from "./store";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
 import Restaurants from "./components/Pages/Restaurants";
@@ -62,6 +62,9 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
       dispatch(me());
+      dispatch(fetchRestaurants());
+      // dispatch(fetchCategories());
+      // dispatch(fetchCuisines());
     },
   };
 };
