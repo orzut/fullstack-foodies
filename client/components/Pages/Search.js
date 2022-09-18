@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import Restaurants from "./Restaurants";
 
 export const Search = () => {
   const restaurants = useSelector((state) => state.restaurants.slice(0, 100));
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-
+  console.log(restaurants);
   const searchItems = (value) => {
     setSearch(value);
     const filtered = restaurants.filter(
@@ -14,7 +15,6 @@ export const Search = () => {
         restaurant.category.toLowerCase().includes(search.toLowerCase())
     );
     setFilteredData(filtered);
-    console.log(filtered);
   };
   return (
     <div className="flex items-end">
