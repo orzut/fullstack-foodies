@@ -6,6 +6,8 @@ const csvToJson = require("convert-csv-to-json");
 const createDishes = require("./createDishes");
 const createOrders = require("./createOrders");
 const createLineItems = require("./createLineItems");
+const seedCuisines = require("./seedCuisines");
+
 const path = require("path");
 const syncAndSeed = async () => {
   try {
@@ -29,13 +31,23 @@ const syncAndSeed = async () => {
         return User.create(user);
       })
     );
+    console.log("Seeding cuisines...");
+    const cuisines = await seedCuisines();
+
     console.log("Seeding restaurants...");
     // const restaurants = await Promise.all(createRestaurants(100).map((restaurant) => {
     //     return Restaurant.create(restaurant)
     // }));
     const restaurants = await Promise.all(
       restaurantsData.map((restaurant) => {
-        return Restaurant.create(restaurant);
+        const cuisine = cuisines.find((cuisine) =>
+          restaurant.category.toLowerCase().includes(cuisine.name.toLowerCase())
+        );
+        const cuisineId = cuisine ? cuisine.id : null;
+        return Restaurant.create({
+          ...restaurant,
+          cuisineId: cuisineId,
+        });
       })
     );
     console.log("Seeding dishes...");
