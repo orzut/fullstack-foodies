@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
+import { fetchMenu } from '../../store';
 import {fetchCart } from '../../store/cart';
 import StripeCart from './StripeCart';
 
@@ -31,7 +32,7 @@ const Checkout = ({ dishes, cart})=> {
           <table>
             <thead>
               <tr>
-                <th width='75%'>Products In Cart</th>
+                <th width='75%'>Dishes In Cart</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
@@ -91,7 +92,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     exchangeToken: () => dispatch(exchangeToken()),
     fetchCart: () => dispatch(fetchCart()),
-    fetchProducts: ()=> dispatch(fetchProducts()),
+    fetchMenu: () => dispatch(fetchMenu()),
     dispatchAction: (action)=> dispatch(action)
   };
 };
