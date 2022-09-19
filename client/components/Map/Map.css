@@ -1,4 +1,31 @@
+.map-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.selection-menu {
+    width: 300px;
+    flex: 0 1 auto;
+}
+
+.map-container-wrapper {
+    flex: 1 1 auto;
+}
+
 .map-container {
-    width: 100vh;
-    height: 100vh;
+    height: calc(100vh - 200px);
+}
+
+.map-container-wrapper .marker-info:hover {
+    cursor: pointer;
+}
+
+.restaurant-modal {
+    width: 0px;
+    transition: width 0.4s ease-in-out;
+}
+
+.restaurant-modal.active {
+    width: 300px;
 }
