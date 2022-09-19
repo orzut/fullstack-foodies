@@ -5,6 +5,7 @@ import usePlacesAutocomplete, {getGeocode, getLatLng} from "use-places-autocompl
 import {fetchRestaurants} from "../../store"
 import Rating from './Rating';
 import DeliveryTime from './DeliveryTime';
+import RestaurantModal from './RestaurantModal';
 import './Map.css';
 
 function Map() {
@@ -15,6 +16,7 @@ function Map() {
     const [duration, setDuration] = useState('')
     const [center, setCenter] = useState({lat: 0, lng: 0})
     const [activeMarker, setActiveMarker] = useState(null);
+    const [isRestaurantModalActive, setIsRestaurantModalActive] = useState(false);
     const originRef = useRef();
     const destinationRef = useRef();
     const librariesRef = useRef(['places'])
@@ -32,7 +34,6 @@ function Map() {
     },[])
 
     useEffect(()=>{
-        console.log(filterRestaurants(restaurants,center,500).slice(0,20))
         setDisplayRestaurants(filterRestaurants(restaurants,center,500).slice(0,20))
     },[restaurants, center])
 
@@ -120,6 +121,10 @@ function Map() {
         setActiveMarker(marker);
     };
 
+    const handleRestaurantMenuActive = () => {
+        setIsRestaurantModalActive(true);
+    };
+
     if (!isLoaded) {
         return (
             <div>
@@ -128,8 +133,8 @@ function Map() {
         )
     } else {
         return (
-            <div className='flex flex-row '>
-                <div className=''>
+            <div className='map-wrapper'>
+                <div className='selection-menu'>
                     <form onSubmit={handleSubmit}>
                         <Autocomplete>
                             <input type='text' placeholder='Origin' ref={originRef} />
@@ -159,7 +164,7 @@ function Map() {
                     <div>Distance</div>
                     <DeliveryTime />
                 </div>
-                <div>
+                <div className='map-container-wrapper'>
                     <GoogleMap
                         zoom={10}
                         center={center}
@@ -191,7 +196,7 @@ function Map() {
                                 >
                                     {activeMarker === restaurant.id ? (
                                         <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                                            <div>{restaurant.name}</div>
+                                            <div onClick={handleRestaurantMenuActive} className='marker-info'>{restaurant.name}</div>
                                         </InfoWindow>
                                     ) : null}
                                 </Marker>
@@ -207,6 +212,12 @@ function Map() {
                         {/*    }*/}
                         {/*</MarkerClusterer>*/}
                     </GoogleMap>
+                </div>
+                <div className={`restaurant-modal ${isRestaurantModalActive? 'active':''}`}>
+                    <RestaurantModal
+                        setIsRestaurantModalActive={setIsRestaurantModalActive}
+                        activeRestaurantId={activeMarker}
+                    />
                 </div>
             </div>
         )
