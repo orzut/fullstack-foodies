@@ -18,7 +18,10 @@
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
+    "@emotion/react": "^11.10.4",
+    "@emotion/styled": "^11.10.4",
     "@faker-js/faker": "^7.5.0",
+    "@mui/material": "^5.10.5",
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
     "convert-csv-to-json": "^1.3.3",
