@@ -10,6 +10,7 @@ import Restaurants from "./components/Pages/Restaurants";
 import LandingPage from "./components/Pages/LandingPage";
 import Cart from "./components/Pages/Cart";
 import { Checkout } from "./components/Pages/Checkout";
+import { SearchData } from "./components/Pages/SearchData";
 
 /**
  * COMPONENT
@@ -26,7 +27,8 @@ class Routes extends Component {
       <div>
         <Switch>
           <Route path="/" exact component={LandingPage} />
-          <Route path="/restaurants" component={Restaurants} />
+          <Route path="/restaurants" exact component={Restaurants} />
+          <Route path="/search" component={SearchData} />
         </Switch>
 
         {isLoggedIn ? (

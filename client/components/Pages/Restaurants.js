@@ -1,27 +1,18 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import RestaurantCard from "./RestaurantCard";
 
-const Restaurants = (props) => {
+const Restaurants = () => {
   const restaurants = useSelector((state) => state.restaurants.slice(0, 100));
-  console.log(props);
   return (
-    <main>
+    <main className="m-20">
       <div>
         <h1>Our Restaurants ({restaurants.length})</h1>
       </div>
       {/* Restaurant Listing Begins Here*/}
-      <div>
+      <div className="flex flex-wrap justify-around">
         {restaurants.map((restaurant) => {
-          return (
-            <div key={restaurant.id}>
-              <div>
-                <div>
-                  <p>{restaurant.name}</p>
-                  <p>${restaurant.description}</p>
-                </div>
-              </div>
-            </div>
-          );
+          return <RestaurantCard key={restaurant.id} restaurant={restaurant} />;
         })}
       </div>
     </main>
