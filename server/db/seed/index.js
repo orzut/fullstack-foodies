@@ -45,7 +45,7 @@ const syncAndSeed = async () => {
     );
     console.log("Seeding orders...");
     const orders = await Promise.all(
-      createOrders(10, users).map((order) => {
+      createOrders(20, users).map((order) => {
         return Order.create(order);
       })
     );
