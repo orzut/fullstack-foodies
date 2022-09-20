@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./components/Home";
+import PastOrders from './components/PastOrders';
 import Map from "./components/Map";
 import { me, fetchRestaurants, fetchCuisines } from "./store";
 import SignIn from "./components/Pages/SignIn";
@@ -37,6 +38,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/cart" component={Cart} />
+            <Route path='/past-orders' component={PastOrders} />
             <Route path="/map" component={Map} />
             <Route path="/checkout" component={Checkout} />
             <Route exact path='/success' component={StripeSuccess}/>

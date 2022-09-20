@@ -30,3 +30,12 @@ router.get('/cart', isLoggedIn, async(req, res, next)=> {
     next(ex);
   }
 });
+
+router.get('/past-orders', isLoggedIn, async(req, res, next)=> {
+  try {
+    res.send(await req.user.getOrders());
+  }
+  catch(ex){
+    next(ex);
+  }
+});

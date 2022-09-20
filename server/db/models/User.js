@@ -128,6 +128,21 @@ User.prototype.addToCart = async function(dish, quantity) {
   return this.getCart();
 }
 
+User.prototype.getOrders = async function() {
+  let order = await db.models.order.findAll({
+    where: {
+      userId: this.id,
+    },
+    include: [
+      {
+        model: db.models.lineItem,
+        include: [db.models.dish]
+      }
+    ]
+  });
+  return order;
+}
+
 /**
  * classMethods
  */
@@ -144,9 +159,9 @@ User.authenticate = async function ({ username, password }) {
 User.findByToken = async function (token) {
   try {
     const { id } = await jwt.verify(token, process.env.JWT);
-    const user = User.findByPk(id);
+    const user = await User.findByPk(id);
     if (!user) {
-      throw "nooo";
+      throw "User does not exist!";
     }
     return user;
   } catch (ex) {
