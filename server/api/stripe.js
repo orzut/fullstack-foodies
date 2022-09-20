@@ -1,6 +1,7 @@
-const express = require("express");
-const app = express.Router();
+const router = require('express').Router();
 const { isLoggedIn } = require("./middleware");
+
+module.exports = router;
 
 const key = process.env.STRIPE_KEY || "sk_test_4eC39HqLyjWDarjtT1zdp7dc";
 /*const PUBLIC_KEY = 'pk_test_51LZy6BESE3LZBw3Fhr3frR15agaT6lrOEc3HLwbNUB0Wq20hlXBWrtseBFocU5Tggu29cWUBvOlIhk7QeG2BvkBi00bOxgKfQD';
@@ -10,7 +11,7 @@ const stripeTestPromise = loadStripe(PUBLIC_KEY);
 const stripe = require("stripe")(key);
 const YOUR_DOMAIN = process.env.HEROKU_DOMAIN || "http://localhost:8080";
 
-app.post("/", isLoggedIn, async (req, res, next) => {
+router.post("/", isLoggedIn, async (req, res, next) => {
   try {
 
     const cart = await req.user.getCart()
@@ -46,7 +47,7 @@ app.post("/", isLoggedIn, async (req, res, next) => {
 });
 
 
-app.get("/checkout-session", isLoggedIn, async (req, res, next) => {
+router.get("/checkout-session", isLoggedIn, async (req, res, next) => {
   try {
     const { sessionId } = req.query;
     const session = await stripe.checkout.sessions.retrieve(sessionId);
@@ -57,4 +58,3 @@ app.get("/checkout-session", isLoggedIn, async (req, res, next) => {
   }
 });
 
-module.exports = app;

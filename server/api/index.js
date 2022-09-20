@@ -7,6 +7,7 @@ router.use("/dishes", require("./dishes"));
 router.use("/cuisines", require("./cuisines"));
 router.use("/categories", require("./categories"));
 router.use("/orders", require("./orders"));
+router.use("/stripe", require("./stripe"));
 
 router.use((req, res, next) => {
   const error = new Error("Not Found");
