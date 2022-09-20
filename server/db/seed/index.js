@@ -2,7 +2,6 @@ const { db, models } = require("../index");
 const { User, Restaurant, Order, LineItem, Dish } = models;
 const createUsers = require("./createUsers");
 const { createRestaurants, createRestaurantsFromData } = require("./createRestaurants");
-// const csvToJson = require("convert-csv-to-json");
 const createDishes = require("./createDishes");
 const createOrders = require("./createOrders");
 const createLineItems = require("./createLineItems");
@@ -14,18 +13,7 @@ const syncAndSeed = async () => {
   try {
     await db.authenticate();
     await db.sync({ force: true });
-    // const restaurantsData = csvToJson
-    //   .fieldDelimiter(";")
-    //   .getJsonFromCsv(
-    //     path.join(
-    //       __dirname,
-    //       "..",
-    //       "..",
-    //       "..",
-    //       "public",
-    //       "restaurants-cleaned-delimiter.csv"
-    //     )
-    //   );
+
     console.log("Seeding users...");
     const users = await Promise.all(
       createUsers(20).map((user) => {
