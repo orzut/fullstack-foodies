@@ -52,7 +52,7 @@ const Checkout = ({ dishes, cart})=> {
                   </tr>
                 )
               }})}
-              <tr className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex items-end px-8 py-2'>
+              <tr className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex items-end px-8 py-2 text-gray-400 text-lg'>
                 <td colSpan='2'>Grand Total</td>
                 <td colSpan='4'>${Math.round(cartTotal * 100) / 100}</td>
               </tr>
