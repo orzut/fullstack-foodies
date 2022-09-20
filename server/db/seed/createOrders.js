@@ -5,7 +5,7 @@ const createOrders = (numberOfOrdersPerUser, users) => {
         for (let i = 0; i < numberOfOrdersPerUser; i++) {
             isCart = (i < 1);
             orders.push({
-                userId: users[i].id,
+                userId: users[j].id,
                 isCart
             })
         }

@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { logout } from "../store";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Cart from "./Pages/Cart";
+import UserButton from './UserButton';
 import { Search } from "./Pages/Search";
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
   return (
     <div>
-      <nav className="relative flex flex-wrap items-center justify-between px-2 py-3 bg-indigo-900 mb-3">
+      <nav className="relative flex items-center justify-between px-2 py-3 bg-indigo-900 mb-3">
         {isLoggedIn ? (
           <div className="uppercase text-white text-sm font-bold leading-relaxed container mx-auto flex items-center justify-between py-1 px-2 ">
             {/* The navbar will show these links after you log in */}
@@ -22,6 +23,8 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
             <Link to="/cart">
               <AiOutlineShoppingCart className="text-[30px]" />
             </Link>
+            <UserButton />
+
           </div>
         ) : (
           <div className="uppercase text-white text-sm font-bold leading-relaxed container mx-auto flex items-center justify-between py-1 px-2 ">
