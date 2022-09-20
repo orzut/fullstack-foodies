@@ -52,7 +52,7 @@ const Checkout = ({ dishes, cart})=> {
                   </tr>
                 )
               }})}
-              <tr>
+              <tr className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex items-end px-8 py-2'>
                 <td colSpan='2'>Grand Total</td>
                 <td colSpan='4'>${Math.round(cartTotal * 100) / 100}</td>
               </tr>
@@ -60,7 +60,7 @@ const Checkout = ({ dishes, cart})=> {
           </table>
         </div>
 
-        <div>
+        <div className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-end justify-evenly px-8 py-2'>
             <Link to='/restaurants'>
             <svg xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -72,15 +72,15 @@ const Checkout = ({ dishes, cart})=> {
               fillRule="evenodd"
               d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
             </svg>
-              <span>Cancel and Keep Shopping</span>
+              <span className='text-black-200 text-xl font-semibold'>Cancel and Keep Shopping</span>
             </Link>
-          </div>
 
-            <div>
+            <button className='flex items-start gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base'>
               <StripeCart />
-            </div>
+            </button>
           </div>
         </div>
+      </div>
   )
 }
   
