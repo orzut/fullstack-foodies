@@ -1,5 +1,5 @@
 const { db, models } = require("../index");
-const { User, Restaurant, Order, LineItem, Dish } = models;
+const { User, Restaurant, Order, LineItem, Dish, Category } = models;
 const createUsers = require("./createUsers");
 const createRestaurants = require("./createRestaurants");
 const csvToJson = require("convert-csv-to-json");
@@ -7,6 +7,8 @@ const createDishes = require("./createDishes");
 const createOrders = require("./createOrders");
 const createLineItems = require("./createLineItems");
 const seedCuisines = require("./seedCuisines");
+const { CATEGORIES } = require("./createCategories");
+
 const { faker } = require("@faker-js/faker");
 
 const path = require("path");
@@ -48,13 +50,18 @@ const syncAndSeed = async () => {
         return Restaurant.create({
           ...restaurant,
           cuisineId: cuisineId,
-          imageUrl: faker.image.food(100, 100, true),
+          imageUrl: faker.image.food(400, 300, true),
         });
       })
     );
+    console.log("Seeding categories...");
+    const categories = await Promise.all(
+      CATEGORIES.map((category) => Category.create({ name: category }))
+    );
+
     console.log("Seeding dishes...");
     const dishes = await Promise.all(
-      createDishes(1000, restaurants).map((dish) => {
+      createDishes(1000, restaurants, categories).map((dish) => {
         return Dish.create(dish);
       })
     );

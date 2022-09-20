@@ -3,7 +3,13 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import Home from "./components/Home";
 import Map from "./components/Map";
-import { me, fetchRestaurants, fetchCuisines } from "./store";
+import {
+  me,
+  fetchRestaurants,
+  fetchCuisines,
+  fetchDishes,
+  fetchCategories,
+} from "./store";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
 import Restaurants from "./components/Pages/Restaurants";
@@ -11,7 +17,7 @@ import LandingPage from "./components/Pages/LandingPage";
 import Cart from "./components/Pages/Cart";
 import Checkout from "./components/Pages/Checkout";
 import { SearchData } from "./components/Pages/SearchData";
-
+import { Restaurant } from "./components/Pages/Restaurant";
 
 /**
  * COMPONENT
@@ -30,6 +36,7 @@ class Routes extends Component {
           <Route path="/" exact component={LandingPage} />
           <Route path="/restaurants" exact component={Restaurants} />
           <Route path="/search" component={SearchData} />
+          <Route path="/restaurants/:id" exact component={Restaurant} />
         </Switch>
 
         {isLoggedIn ? (
@@ -68,8 +75,8 @@ const mapDispatch = (dispatch) => {
       dispatch(me());
       dispatch(fetchRestaurants());
       dispatch(fetchCuisines());
-
-      // dispatch(fetchCategories());
+      dispatch(fetchDishes());
+      dispatch(fetchCategories());
     },
   };
 };
