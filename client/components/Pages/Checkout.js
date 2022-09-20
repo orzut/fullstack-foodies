@@ -23,12 +23,12 @@ const Checkout = ({ dishes, cart})=> {
 
       <div>
       <div>
-          <div>
+          <div className='text-red-400 text-xl font-semibold'>
               <h1>Check Out</h1>
           </div>
       </div> 
      
-        <div>
+        <div className='w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col'>
           <table>
             <thead>
               <tr>

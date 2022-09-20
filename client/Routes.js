@@ -11,6 +11,7 @@ import LandingPage from "./components/Pages/LandingPage";
 import Cart from "./components/Pages/Cart";
 import Checkout from "./components/Pages/Checkout";
 import { SearchData } from "./components/Pages/SearchData";
+import StripeSuccess from "./components/Pages/StripeCart";
 
 
 /**
@@ -38,6 +39,7 @@ class Routes extends Component {
             <Route path="/cart" component={Cart} />
             <Route path="/map" component={Map} />
             <Route path="/checkout" component={Checkout} />
+            <Route exact path='/success' component={StripeSuccess}/>
           </Switch>
         ) : (
           <Switch>

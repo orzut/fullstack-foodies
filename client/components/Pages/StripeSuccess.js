@@ -10,11 +10,11 @@ class StripeSuccess extends Component {
     return (
       <div>
         <div>
-                <div>
-                    <div>
-                        <h1>Order Confirmation</h1>
-                    </div>
-                </div>  
+            <div>
+              <div>
+                  <h1>Order Confirmation</h1>
+              </div>
+            </div>  
           </div>
           <div>
             <h2><span>Thank you for your order!</span></h2>

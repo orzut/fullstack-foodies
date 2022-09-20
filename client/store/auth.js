@@ -71,7 +71,7 @@ export default function (state = {}, action) {
     case SET_AUTH:
       return action.auth;
     case UPDATE_AUTH:
-      return action.auth;
+      return action.user;
     default:
       return state;
   }
