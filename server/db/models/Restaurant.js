@@ -3,25 +3,24 @@ const Sequelize = require("sequelize");
 
 const Restaurant = db.define("restaurant", {
   id: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
     primaryKey: true,
-    autoIncrement: true,
   },
   name: {
     type: Sequelize.STRING,
-    unique: true,
-    allowNull: true,
+    allowNull: false,
   },
   description: {
     type: Sequelize.TEXT,
     allowNull: true,
   },
   score: {
-    type: Sequelize.STRING,
+    type: Sequelize.FLOAT,
     allowNull: true,
   },
   ratings: {
-    type: Sequelize.STRING,
+    type: Sequelize.FLOAT,
     allowNull: true,
   },
   category: {
@@ -30,6 +29,7 @@ const Restaurant = db.define("restaurant", {
   },
   imageUrl: {
     type: Sequelize.TEXT,
+    allowNull: true,
   },
   priceRange: {
     type: Sequelize.TEXT,
@@ -44,11 +44,11 @@ const Restaurant = db.define("restaurant", {
     allowNull: true,
   },
   lat: {
-    type: Sequelize.STRING,
+    type: Sequelize.FLOAT,
     allowNull: true,
   },
   lng: {
-    type: Sequelize.STRING,
+    type: Sequelize.FLOAT,
     allowNull: true,
   },
 });
