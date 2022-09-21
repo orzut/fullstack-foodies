@@ -11,7 +11,7 @@ export const fetchOrders = ()=> {
   return async(dispatch) => {
     const token = window.localStorage.getItem('token');
     if(token) {
-        let orders = (await axios.get('/api/orders', {
+        let orders = (await axios.get('/api/orders/past-orders', {
             headers: {
                 authorization: token
             }

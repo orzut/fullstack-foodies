@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { addToCart, fetchCart, clearCart } from '../../store/cart';
 import { Link } from 'react-router-dom'
@@ -126,7 +126,7 @@ const mapStateToProps = (state)=> {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    exchangeToken: () => dispatch(exchangeToken()),
+    authenticate: () => dispatch(authenticate()),
     fetchCart: () => dispatch(fetchCart()),
     fetchMenu: ()=> dispatch(fetchMenu()),
     dispatchAction: (action)=> dispatch(action)

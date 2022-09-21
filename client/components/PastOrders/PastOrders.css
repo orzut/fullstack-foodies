@@ -1,0 +1,37 @@
+.past-orders-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.past-orders-container {
+    padding: 50px;
+    gap: 10px;
+}
+
+.past-orders-container .order-id:hover{
+    cursor: pointer;
+    background-color: #0c5460;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+}
+
+.line-items-container {
+    right: 0px;
+    width: 0px;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(50px);
+    background: linear-gradient(134.17deg, #eef0f5 4.98%, #e6e9ef 94.88%);
+    transition: opacity 0.4s ease, transform 0.4s ease, visibility 0.4s;
+}
+
+.line-items-container.active {
+    width: 600px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}

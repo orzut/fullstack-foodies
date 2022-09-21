@@ -17,6 +17,7 @@ function Map() {
     const [center, setCenter] = useState({lat: 0, lng: 0})
     const [activeMarker, setActiveMarker] = useState(null);
     const [isRestaurantModalActive, setIsRestaurantModalActive] = useState(false);
+    const [restaurantModalDisplay,setRestaurantModalDisplay] = useState();
     const originRef = useRef();
     const destinationRef = useRef();
     const librariesRef = useRef(['places'])
@@ -115,14 +116,16 @@ function Map() {
     }
 
     const handleActiveMarker = (marker) => {
+        /** marker is restaurant.id */
         if (marker === activeMarker) {
             return;
         }
         setActiveMarker(marker);
     };
 
-    const handleRestaurantMenuActive = () => {
+    const handleRestaurantMenuActive = (restaurantId) => {
         setIsRestaurantModalActive(true);
+        setRestaurantModalDisplay(restaurantId);
     };
 
     if (!isLoaded) {
@@ -196,7 +199,7 @@ function Map() {
                                 >
                                     {activeMarker === restaurant.id ? (
                                         <InfoWindow onCloseClick={() => setActiveMarker(null)}>
-                                            <div onClick={handleRestaurantMenuActive} className='marker-info'>{restaurant.name}</div>
+                                            <div onClick={()=>handleRestaurantMenuActive(restaurant.id)} className='marker-info'>{restaurant.name}</div>
                                         </InfoWindow>
                                     ) : null}
                                 </Marker>
@@ -216,7 +219,7 @@ function Map() {
                 <div className={`restaurant-modal ${isRestaurantModalActive? 'active':''}`}>
                     <RestaurantModal
                         setIsRestaurantModalActive={setIsRestaurantModalActive}
-                        activeRestaurantId={activeMarker}
+                        activeRestaurantId={restaurantModalDisplay}
                     />
                 </div>
             </div>

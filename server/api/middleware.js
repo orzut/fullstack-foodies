@@ -1,10 +1,11 @@
-const {
-  models: { User },
-} = require("../db");
+const { models } = require("../db");
+const { User } = models;
 
 const isLoggedIn = async (req, res, next) => {
   try {
-    req.user = await User.findByToken(req.headers.authorization);
+    const token =
+      req.body?.headers?.authorization || req?.headers?.authorization;
+    req.user = await User.findByToken(token);
     next();
   } catch (ex) {
     next(ex);

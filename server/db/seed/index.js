@@ -1,8 +1,10 @@
 const { db, models } = require("../index");
 const { User, Restaurant, Order, LineItem, Dish, Category } = models;
 const createUsers = require("./createUsers");
-const createRestaurants = require("./createRestaurants");
-const csvToJson = require("convert-csv-to-json");
+const {
+  createRestaurants,
+  createRestaurantsFromData,
+} = require("./createRestaurants");
 const createDishes = require("./createDishes");
 const createOrders = require("./createOrders");
 const createLineItems = require("./createLineItems");
@@ -16,18 +18,7 @@ const syncAndSeed = async () => {
   try {
     await db.authenticate();
     await db.sync({ force: true });
-    const restaurantsData = csvToJson
-      .fieldDelimiter(";")
-      .getJsonFromCsv(
-        path.join(
-          __dirname,
-          "..",
-          "..",
-          "..",
-          "public",
-          "restaurants-cleaned-delimiter.csv"
-        )
-      );
+
     console.log("Seeding users...");
     const users = await Promise.all(
       createUsers(20).map((user) => {
@@ -38,11 +29,8 @@ const syncAndSeed = async () => {
     const cuisines = await seedCuisines();
 
     console.log("Seeding restaurants...");
-    // const restaurants = await Promise.all(createRestaurants(100).map((restaurant) => {
-    //     return Restaurant.create(restaurant)
-    // }));
     const restaurants = await Promise.all(
-      restaurantsData.map((restaurant) => {
+      createRestaurantsFromData().map((restaurant) => {
         const cuisine = cuisines.find((cuisine) =>
           restaurant.category.toLowerCase().includes(cuisine.name.toLowerCase())
         );
@@ -50,7 +38,9 @@ const syncAndSeed = async () => {
         return Restaurant.create({
           ...restaurant,
           cuisineId: cuisineId,
-          imageUrl: faker.image.food(500, 300, true),
+          imageUrl: restaurant.imageUrl
+            ? restaurant.imageUrl
+            : faker.image.food(500, 300, true),
         });
       })
     );
@@ -67,7 +57,7 @@ const syncAndSeed = async () => {
     );
     console.log("Seeding orders...");
     const orders = await Promise.all(
-      createOrders(10, users).map((order) => {
+      createOrders(20, users).map((order) => {
         return Order.create(order);
       })
     );

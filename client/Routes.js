@@ -1,12 +1,14 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
+import PastOrders from "./components/PastOrders";
 import Map from "./components/Map";
 import {
-  me,
+  authenticate,
   fetchRestaurants,
   fetchCuisines,
+  fetchCart,
   fetchDishes,
   fetchCategories,
 } from "./store";
@@ -18,6 +20,7 @@ import Cart from "./components/Pages/Cart";
 import Checkout from "./components/Pages/Checkout";
 import { SearchData } from "./components/Pages/SearchData";
 import { Restaurant } from "./components/Pages/Restaurant";
+import success from "./components/Stripe/success";
 
 /**
  * COMPONENT
@@ -43,8 +46,10 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Route path="/cart" component={Cart} />
+            <Route path="/past-orders" component={PastOrders} />
             <Route path="/map" component={Map} />
             <Route path="/checkout" component={Checkout} />
+            <Route exact path="/success" component={success} />
           </Switch>
         ) : (
           <Switch>
@@ -61,7 +66,7 @@ class Routes extends Component {
 /**
  * CONTAINER
  */
-const mapState = (state) => {
+const mapStateToProps = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
@@ -78,9 +83,11 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchDishes());
       dispatch(fetchCategories());
     },
+    fetchCart: () => dispatch(fetchCart()),
+    authenticate: () => dispatch(authenticate()),
   };
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
-export default withRouter(connect(mapState, mapDispatch)(Routes));
+export default withRouter(connect(mapStateToProps, mapDispatch)(Routes));
