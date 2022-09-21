@@ -11,7 +11,7 @@ const isLoggedIn = async (req, res, next) => {
     next(ex);
   }
 };
-  
+
 module.exports = {
   isLoggedIn,
 };

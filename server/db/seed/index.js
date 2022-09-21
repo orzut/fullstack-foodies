@@ -1,11 +1,16 @@
 const { db, models } = require("../index");
-const { User, Restaurant, Order, LineItem, Dish } = models;
+const { User, Restaurant, Order, LineItem, Dish, Category } = models;
 const createUsers = require("./createUsers");
-const { createRestaurants, createRestaurantsFromData } = require("./createRestaurants");
+const {
+  createRestaurants,
+  createRestaurantsFromData,
+} = require("./createRestaurants");
 const createDishes = require("./createDishes");
 const createOrders = require("./createOrders");
 const createLineItems = require("./createLineItems");
 const seedCuisines = require("./seedCuisines");
+const { CATEGORIES } = require("./createCategories");
+
 const { faker } = require("@faker-js/faker");
 
 const path = require("path");
@@ -25,21 +30,28 @@ const syncAndSeed = async () => {
 
     console.log("Seeding restaurants...");
     const restaurants = await Promise.all(
-        createRestaurantsFromData().map((restaurant) => {
-          const cuisine = cuisines.find((cuisine) =>
+      createRestaurantsFromData().map((restaurant) => {
+        const cuisine = cuisines.find((cuisine) =>
           restaurant.category.toLowerCase().includes(cuisine.name.toLowerCase())
         );
         const cuisineId = cuisine ? cuisine.id : null;
         return Restaurant.create({
           ...restaurant,
           cuisineId: cuisineId,
-          imageUrl: restaurant.imageUrl? restaurant.imageUrl : faker.image.food(100, 100, true),
+          imageUrl: restaurant.imageUrl
+            ? restaurant.imageUrl
+            : faker.image.food(500, 300, true),
         });
       })
     );
+    console.log("Seeding categories...");
+    const categories = await Promise.all(
+      CATEGORIES.map((category) => Category.create({ name: category }))
+    );
+
     console.log("Seeding dishes...");
     const dishes = await Promise.all(
-      createDishes(1000, restaurants).map((dish) => {
+      createDishes(1000, restaurants, categories).map((dish) => {
         return Dish.create(dish);
       })
     );

@@ -14,18 +14,41 @@ const Coupon = require("./models/Coupon");
 const Cuisine = require("./models/Cuisine");
 
 //associations could go here!
-User.hasMany(Order, { foreignKey: { name: 'userId', allowNull: false }, sourceKey: 'id' });
-Order.belongsTo(User, { foreignKey: { name: 'userId', allowNull: false }, sourceKey: 'id' });
-Order.hasMany(LineItem, { foreignKey: { name: 'orderId', allowNull: false }, sourceKey: 'id' });
-LineItem.belongsTo(Order, { foreignKey: { name: 'orderId', allowNull: false }, sourceKey: 'id' });
-LineItem.belongsTo(Dish, { foreignKey: { name: 'dishId', allowNull: false }, sourceKey: 'id' });
-Dish.hasMany(LineItem, { foreignKey: { name: 'dishId', allowNull: false }, sourceKey: 'id' });
+User.hasMany(Order, {
+  foreignKey: { name: "userId", allowNull: false },
+  sourceKey: "id",
+});
+Order.belongsTo(User, {
+  foreignKey: { name: "userId", allowNull: false },
+  sourceKey: "id",
+});
+Order.hasMany(LineItem, {
+  foreignKey: { name: "orderId", allowNull: false },
+  sourceKey: "id",
+});
+LineItem.belongsTo(Order, {
+  foreignKey: { name: "orderId", allowNull: false },
+  sourceKey: "id",
+});
+LineItem.belongsTo(Dish, {
+  foreignKey: { name: "dishId", allowNull: false },
+  sourceKey: "id",
+});
+Dish.hasMany(LineItem, {
+  foreignKey: { name: "dishId", allowNull: false },
+  sourceKey: "id",
+});
 Address.belongsTo(User);
 Review.belongsTo(User);
 Review.belongsTo(Dish);
-Category.belongsTo(Dish);
-Dish.belongsTo(Restaurant, { foreignKey: { name: 'restaurantId', allowNull: true }, sourceKey: 'id' });
-Restaurant.hasMany(Dish, { foreignKey: { name: 'restaurantId', allowNull: true }, sourceKey: 'id' });
+Dish.belongsTo(Restaurant, {
+  foreignKey: { name: "restaurantId", allowNull: true },
+  sourceKey: "id",
+});
+Restaurant.hasMany(Dish, {
+  foreignKey: { name: "restaurantId", allowNull: true },
+  sourceKey: "id",
+});
 Review.belongsTo(Restaurant);
 Dish.belongsTo(Category);
 Restaurant.belongsTo(Cuisine);
@@ -49,5 +72,6 @@ module.exports = {
     Restaurant,
     Order,
     LineItem,
+    Category,
   },
 };
