@@ -50,7 +50,7 @@ const syncAndSeed = async () => {
         return Restaurant.create({
           ...restaurant,
           cuisineId: cuisineId,
-          imageUrl: faker.image.food(400, 300, true),
+          imageUrl: faker.image.food(500, 300, true),
         });
       })
     );
