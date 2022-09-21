@@ -1,5 +1,16 @@
 import React, { Fragment, useState } from "react";
-import { Modal, Box, Typography } from "@mui/material";
+import {
+  Modal,
+  Box,
+  Typography,
+  CardMedia,
+  Button,
+  Alert,
+} from "@mui/material";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
+import { useSelector, useDispatch } from "react-redux";
+import { addToCart } from "../../store/cart";
 
 const style = {
   position: "absolute",
@@ -17,6 +28,23 @@ const DishCard = ({ dish }) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [quantity, setQuantity] = useState(1);
+
+  const cart = useSelector((state) => state.cart);
+  const isInTheCart = cart.lineItems.find(
+    (lineItem) => lineItem.dishId === dish.id
+  );
+
+  const dispatch = useDispatch();
+
+  const [alert, setAlert] = useState(false);
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(dish, quantity)),
+      handleClose(),
+      setAlert(true),
+      setTimeout(() => setAlert(false), 2000);
+  };
   return (
     <Fragment>
       <div
@@ -29,13 +57,32 @@ const DishCard = ({ dish }) => {
         </div>
         <img className="w-1/3 ml-1 self-right" src={dish.imageUrl}></img>
       </div>
+
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Typography variant="h6" component="h2">
             {dish.name}
           </Typography>
+          <Typography variant="body2">{dish.description}</Typography>
+          <CardMedia
+            component="img"
+            image={dish.imageUrl}
+            sx={{ height: 90, mt: 2 }}
+          />
+          <div className="flex mt-3 justify-around items-center">
+            <RemoveCircleOutlineIcon
+              disabled={quantity <= 1}
+              onClick={() => setQuantity(quantity - 1)}
+            />
+            <p>{quantity}</p>
+            <ControlPointIcon onClick={() => setQuantity(quantity + 1)} />
+            <Button variant="contained" onClick={() => handleAddToCart()}>
+              Add to Cart - ${(dish.price * quantity).toFixed(2)}
+            </Button>
+          </div>
         </Box>
       </Modal>
+      {alert ? <Alert severity="success">Added to Cart!</Alert> : null}
     </Fragment>
   );
 };

@@ -19,7 +19,7 @@ const User = db.define("user", {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   firstName: {
     type: Sequelize.STRING,
@@ -75,45 +75,45 @@ User.prototype.generateToken = function () {
   return jwt.sign({ id: this.id }, process.env.JWT);
 };
 
-User.prototype.createOrderFromCart = async function(){
+User.prototype.createOrderFromCart = async function () {
   const cart = await this.getCart();
   cart.isCart = false;
   return cart.save();
-}
+};
 
-User.prototype.getCart = async function() {
+User.prototype.getCart = async function () {
   let order = await db.models.order.findOne({
     where: {
       userId: this.id,
-      isCart: true
+      isCart: true,
     },
     include: [
       {
         model: db.models.lineItem,
-        include: [db.models.dish]
-      }
-    ]
+        include: [db.models.dish],
+      },
+    ],
   });
   if (!order) {
-    order = await db.models.order.create({ userId: this.id })
+    order = await db.models.order.create({ userId: this.id });
     order = await db.models.order.findByPk(order.id, {
-      include: [db.models.lineItem]
-    })
+      include: [db.models.lineItem],
+    });
   }
   return order;
-}
+};
 
-User.prototype.addToCart = async function(dish, quantity) {
+User.prototype.addToCart = async function ({ dish, quantity }) {
   const cart = await this.getCart();
   let lineItem = await db.models.lineItem.findOne({
     where: {
       dishId: dish.id,
-      orderId: cart.id
-    }
-  })
+      orderId: cart.id,
+    },
+  });
   if (lineItem) {
     lineItem.quantity = lineItem.quantity + quantity;
-    if (lineItem.quantity != 0 ) {
+    if (lineItem.quantity != 0) {
       await lineItem.save();
     } else {
       await lineItem.destroy();
@@ -122,11 +122,11 @@ User.prototype.addToCart = async function(dish, quantity) {
     await db.models.lineItem.create({
       dishId: dish.id,
       quantity,
-      orderId: cart.id
-    })
+      orderId: cart.id,
+    });
   }
   return this.getCart();
-}
+};
 
 /**
  * classMethods

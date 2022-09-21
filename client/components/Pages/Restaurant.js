@@ -30,7 +30,7 @@ export const Restaurant = ({ match }) => {
         <p className="text-slate-400">{restaurant.address}</p>
       </div>
       {/* loading menu */}
-      <div>
+      <div className="mt-4">
         <ul>
           {categories.map((category) => {
             return (
