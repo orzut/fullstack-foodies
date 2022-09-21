@@ -6,6 +6,7 @@ import PastOrders from "./components/PastOrders";
 import Map from "./components/Map";
 import {
   authenticate,
+  me,
   fetchRestaurants,
   fetchCuisines,
   fetchCart,

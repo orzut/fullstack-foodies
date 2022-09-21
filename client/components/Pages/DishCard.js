@@ -82,7 +82,7 @@ const DishCard = ({ dish }) => {
           </div>
         </Box>
       </Modal>
-      {alert ? <Alert severity="success">Added to Cart!</Alert> : null}
+      {/* {alert ? <Alert severity="success">Added to Cart!</Alert> : null} */}
     </Fragment>
   );
 };
