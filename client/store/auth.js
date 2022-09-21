@@ -13,11 +13,13 @@ const UPDATE_AUTH = "UPDATE_AUTH"
  * ACTION CREATORS
  */
 const setAuth = (auth) => ({ type: SET_AUTH, auth });
+const updateAuth = (auth) => ({ type: UPDATE_AUTH, auth });
 
 /**
  * THUNK CREATORS
  */
-export const me = () => async (dispatch) => {
+export const me = () => {
+  return async(dispatch)=> {
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
     const res = await axios.get("/auth/me", {
@@ -25,7 +27,9 @@ export const me = () => async (dispatch) => {
         authorization: token,
       },
     });
-    return dispatch(setAuth(res.data));
+    const auth = res.data
+    dispatch({ auth, type: SET_AUTH});
+  }
   }
 };
 

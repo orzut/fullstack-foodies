@@ -3,9 +3,19 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { fetchMenu } from '../../store';
 import {fetchCart } from '../../store/cart';
-import StripeCart from './StripeCart';
+import axios from "axios";
+
 
 const Checkout = ({ dishes, cart})=> {
+  const token = localStorage.getItem("token");
+  const stripeSession = async () => {
+    const { data: url } = await axios.post("/api/stripe", {
+      headers: {
+        authorization: token,
+      },
+    });
+    window.location.href = url;
+  };
 
   let cartTotal = 0;
 
@@ -75,9 +85,14 @@ const Checkout = ({ dishes, cart})=> {
               <span className='text-black-200 text-xl font-semibold'>Cancel and Keep Shopping</span>
             </Link>
 
-            <button className='flex items-start gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base'>
-              <StripeCart />
-            </button>
+            <div>
+              <button
+                onClick={() => {stripeSession();
+                }}
+                >
+              Checkout
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -90,7 +105,6 @@ const mapStateToProps = (state)=> {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    exchangeToken: () => dispatch(exchangeToken()),
     fetchCart: () => dispatch(fetchCart()),
     fetchMenu: () => dispatch(fetchMenu()),
     dispatchAction: (action)=> dispatch(action)

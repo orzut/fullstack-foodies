@@ -3,10 +3,8 @@ const { isLoggedIn } = require("./middleware");
 
 module.exports = router;
 
-const key = process.env.STRIPE_KEY || "sk_test_4eC39HqLyjWDarjtT1zdp7dc";
-/*const PUBLIC_KEY = 'pk_test_51LZy6BESE3LZBw3Fhr3frR15agaT6lrOEc3HLwbNUB0Wq20hlXBWrtseBFocU5Tggu29cWUBvOlIhk7QeG2BvkBi00bOxgKfQD';
-const stripeTestPromise = loadStripe(PUBLIC_KEY);
-*/
+const key = process.env.STRIPE_KEY || "sk_test_51LZy6BESE3LZBw3FGYxeLUkeN1xIPf4zPiJyzvOx3LCX5LWFNR8r1PNui5OloFVm5jKRvCjNCdQ6ybHVCTdbbLcu00XaCiGvVo";
+
 
 const stripe = require("stripe")(key);
 const YOUR_DOMAIN = process.env.HEROKU_DOMAIN || "http://localhost:8080";
@@ -16,23 +14,22 @@ router.post("/", isLoggedIn, async (req, res, next) => {
 
     const cart = await req.user.getCart()
     const lineItems = cart.lineItems;
-    console.log(lineItems[0].dish.price);
     
 
     const session = await stripe.checkout.sessions.create({
       client_reference_id: cart.id,
       payment_method_types: ["card"],
       mode: "payment",
-      line_items: cart.lineItems.map((item) => {
+      line_items: cart.lineItems.map(({name, price, quantity}) => {
         return {
           price_data: {
             currency: "usd",
             product_data: {
-              name: item.dish.name,
+              name: name
             },
-            unit_amount: item.dish.price * 100,
+            unit_amount: price * 100,
           },
-          quantity: item.quantity,
+          quantity: quantity,
         };
       }),
 
