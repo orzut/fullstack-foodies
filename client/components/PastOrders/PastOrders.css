@@ -3,14 +3,25 @@
     justify-content: space-between;
 }
 
+.past-orders-container {
+    padding: 50px;
+    gap: 10px;
+}
+
 .past-orders-container .order-id:hover{
     cursor: pointer;
     background-color: #0c5460;
 }
 
+.pagination-container {
+    display: flex;
+    justify-content: center;
+}
+
 .line-items-container {
     right: 0px;
     width: 0px;
+    padding: 20px;
     opacity: 0;
     visibility: hidden;
     transform: translateX(50px);
@@ -19,7 +30,7 @@
 }
 
 .line-items-container.active {
-    width: 500px;
+    width: 600px;
     opacity: 1;
     visibility: visible;
     transform: translateX(0);

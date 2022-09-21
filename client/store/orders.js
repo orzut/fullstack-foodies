@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const orders = (state = [], action)=> {
   if (action.type === 'SET_ORDERS') {
-    console.log(action.orders)
     return action.orders || state;
   }
   return state;
