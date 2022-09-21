@@ -1,0 +1,19 @@
+.pagination ul {
+    display:flex;
+    flex-direction: row;
+    width: 300px;
+    justify-content: space-between;
+}
+
+
+.pagination li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.pagination li:hover {
+    cursor: pointer;
+    background-color: #9ca3af;
+}
