@@ -34,15 +34,26 @@ const Cart = connect(
 
   return (
     <div>
-      <div>
-        <div className="text-red-400 text-xl font-semibold">
-          <h1>Shopping Cart</h1>
-        </div>
-      </div>
+    <div className="breadcrumb-section breadcrumb-bg">
+		<div className="container">
+			<div className="row">
+				<div className="col-lg-8 offset-lg-2 text-center">
+					<div className="breadcrumb-text">
+						<p>Get ready for delicious!</p>
+						<h1>Cart</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div className='cart-container'>
+      <div className='cart-section mt-150 mb-150'>
+        <div className='col-lg-8 col-md-12'>
       {cart.lineItems.length === 0 ? (
-        <div>
-          <p className="text-gray-400 text-lg">Your cart is currently empty.</p>
-          <div>
+        <div className='cart-empty'>
+          <p>Your cart is currently empty.</p>
+          <div className='start-shopping'>
             <Link to="/">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,16 +61,12 @@ const Cart = connect(
                 height="20"
                 fill="currentColor"
                 className="bi bi-arrow-left"
-                viewBox="0 0 16 16"
-              >
+                viewBox="0 0 16 16">
                 <path
                   fillRule="evenodd"
-                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"
-                />
+                  d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
               </svg>
-              <span className="text-black-200 text-xl font-semibold">
-                Start Ordering
-              </span>
+              <span>Add some food to your cart!</span>
             </Link>
           </div>
         </div>
@@ -73,20 +80,22 @@ const Cart = connect(
 
               if (lineItem.quantity > 0) {
                 return (
-                  <li key={dish.id}>
+                  <li className='cart-product' key={dish.id}>
                     <h3>{dish.name}</h3>
                     Quantity: {lineItem.quantity}
-                    <br></br>${dish.price}
-                    <button onClick={() => addToCart(dish)}>
+                    <br></br>
+                    ${dish.price}
+                    <button className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'
+                    onClick={() => addToCart(dish)}>
                       Add Quantity
                     </button>
-                    <button
+                    <button className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'
                       disabled={lineItem.quantity === 0}
                       onClick={() => addToCart(dish, -1)}
                     >
                       Delete Quantity
                     </button>
-                    <div className="text-black-200 text-xl font-semibold">
+                    <div className='cart-product-total-price'>
                       Dish Total: $
                       {Math.round(
                         (Number(dish.price) * lineItem.quantity +
@@ -102,27 +111,28 @@ const Cart = connect(
           </ul>
         </div>
       )}
-      <div>
+      <div className='cart-summary'>
         <button
-          className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base"
+          className='clear-cart'
           onClick={() => clearCart()}
         >
           Clear Cart
         </button>
-        <div>
-          <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-end justify-evenly px-8 py-2">
-            <span className="text-red-400 text-xl font-semibold">
-              Subtotal{" "}
+        <div className='cart-checkout'>
+          <div className='subtotal'>
+            <span>
+              Subtotal
             </span>
-            <span>${Math.round(cartTotal * 100) / 100}</span>
-            <p className="text-gray-400 text-lg">
-              Taxes: $ {Math.round(cartTotal * 100 * 0.04) / 100} (Applied at
-              checkout)
-            </p>
-            <button className="flex items-center gap-2 p-1 px-2 my-2 bg-gray-100 rounded-md hover:shadow-md  cursor-pointer text-textColor text-base">
+            <span className='amount'>${Math.round(cartTotal * 100) / 100}</span>
+            </div>
+            <p>Delivery Fees: Your order qualifies for free delivery!</p>
+            <p>Taxes: $ {Math.round(cartTotal * 100 * 0.04) / 100} (Applied at
+              checkout)</p>
+            <button className="cart-buttons">
               <Link to="/checkout">Checkout</Link>
             </button>
-            <div>
+            <div className='cart-empty'>
+            <div className='continue-shopping'>
               <Link to="/">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -145,6 +155,9 @@ const Cart = connect(
           </div>
         </div>
       </div>
+    </div>
+    </div>
+    </div>
     </div>
   );
 });

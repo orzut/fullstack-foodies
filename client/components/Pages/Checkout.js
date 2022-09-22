@@ -28,21 +28,32 @@ const Checkout = ({ dishes, cart})=> {
     }
   });
   return (
-    
     <div>
+    <div className="breadcrumb-section breadcrumb-bg">
+		<div className="container">
+			<div className="row">
+				<div className="col-lg-8 offset-lg-2 text-center">
+					<div className="breadcrumb-text">
+						<p>Get ready for delicious!</p>
+						<h1>Checkout</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-      <div>
-      <div>
+      <div className='cart-container'>
+      <div className="container-fluid bg-secondary mb-5">
           <div className='text-red-400 text-xl font-semibold'>
-              <h1>Check Out</h1>
+              <h1>Your Current Order</h1>
           </div>
       </div> 
      
         <div className='w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col'>
-          <table>
+          <table className='table table-bordered'>
             <thead>
               <tr>
-                <th width='75%'>Dishes In Cart</th>
+                <th className='cart-product' width='95%'>Dishes In Cart</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
@@ -56,15 +67,15 @@ const Checkout = ({ dishes, cart})=> {
                 return (
                   <tr key={ dish.id }>
                     <td>{dish.name}</td>
-                    <td width='20px'>${dish.price}</td>
+                    <td>${dish.price}</td>
                     <td>{lineItem.quantity}</td>
                     <td>${Math.round((Number(dish.price) * lineItem.quantity+ Number.EPSILON) * 100) / 100}</td>
                   </tr>
                 )
               }})}
               <tr className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex items-end px-8 py-2 text-gray-400 text-lg'>
-                <td colSpan='2'>Grand Total</td>
-                <td colSpan='4'>${Math.round(cartTotal * 100) / 100}</td>
+                <td className='subtotal fw-bold flex items-end' colSpan='2'>Grand Total</td>
+                <td className='subtotal' colSpan='4'>${Math.round(cartTotal * 100) / 100}</td>
               </tr>
             </tbody>
           </table>
@@ -87,6 +98,7 @@ const Checkout = ({ dishes, cart})=> {
 
             <div>
               <button
+                className='bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow'
                 onClick={() => {stripeSession();
                 }}
                 >
