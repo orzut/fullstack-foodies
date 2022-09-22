@@ -12,7 +12,6 @@ export const Restaurant = ({ match }) => {
     restaurants.find((restaurant) => restaurant.id === match.params.id) || {};
   const menu =
     dishes.filter((dish) => dish.restaurantId === restaurant.id) || [];
-  console.log(restaurant);
   return (
     <div className="m-10">
       <div>
