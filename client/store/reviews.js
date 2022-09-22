@@ -7,9 +7,9 @@ const reviews = (state = [], action) => {
   return state;
 };
 
-export const fetchReviews = (restaurant) => {
+export const fetchReviews = () => {
   return async (dispatch) => {
-    const reviews = (await axios.get(`/api/${restaurant.id}/reviews`)).data;
+    const reviews = (await axios.get(`/api/reviews`)).data;
     dispatch({ type: "SET_REVIEWS", reviews });
   };
 };

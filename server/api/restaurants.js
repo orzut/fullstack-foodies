@@ -22,17 +22,3 @@ router.get("/:id/menu", async (req, res, next) => {
     next(err);
   }
 });
-
-// get reviews for a restaurant
-router.get("/:id/reviews", async (req, res, next) => {
-  try {
-    res.send(
-      await Review.findAll({
-        where: { restaurantId: req.params.id },
-        include: [User],
-      })
-    );
-  } catch (err) {
-    next(err);
-  }
-});
