@@ -100,7 +100,6 @@ User.prototype.getCart = async function () {
       include: [db.models.lineItem],
     });
   }
-  console.log("order:", order);
   return order;
 };
 
@@ -112,14 +111,11 @@ User.prototype.addToCart = async function ({ dish, quantity }) {
       orderId: cart.id,
     },
   });
-  console.log(lineItem);
   if (lineItem) {
     lineItem.quantity = lineItem.quantity + quantity;
     if (lineItem.quantity != 0) {
       await lineItem.save();
     } else {
-      console.log("*********************");
-      console.log(lineItem);
       await lineItem.destroy();
     }
   } else {
