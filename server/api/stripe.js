@@ -14,22 +14,23 @@ router.post("/", isLoggedIn, async (req, res, next) => {
 
     const cart = await req.user.getCart()
     const lineItems = cart.lineItems;
-    
+    console.log(lineItems[0].dish.price);
+
 
     const session = await stripe.checkout.sessions.create({
       client_reference_id: cart.id,
       payment_method_types: ["card"],
       mode: "payment",
-      line_items: cart.lineItems.map(({name, price, quantity}) => {
+      line_items: cart.lineItems.map((item) => {
         return {
           price_data: {
             currency: "usd",
             product_data: {
-              name: name
+              name: item.dish.name
             },
-            unit_amount: price * 100,
+            unit_amount: parseInt(item.dish.price * 100),
           },
-          quantity: quantity,
+          quantity: item.quantity,
         };
       }),
 
