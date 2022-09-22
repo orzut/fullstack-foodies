@@ -1,67 +1,71 @@
-import axios from 'axios';
+import axios from "axios";
 
-const cart = (state = { lineItems: [ ] }, action)=> {
-  if(action.type === 'SET_CART'){
+const cart = (state = { lineItems: [] }, action) => {
+  if (action.type === "SET_CART") {
     state = action.cart;
-  }
-  else if(action.type === 'EMPTY_CART') {
-    state = { lineItems: [ ] };
+  } else if (action.type === "EMPTY_CART") {
+    state = { lineItems: [] };
   }
   return state;
 };
 
-
-export const processOrder = ()=> {
-  return async(dispatch)=> {
-    const response = await axios.post('/api/orders', {
+export const processOrder = () => {
+  return async (dispatch) => {
+    const response = await axios.post("/api/orders", {
       headers: {
-        authorization: window.localStorage.getItem('token')
-      }
+        authorization: window.localStorage.getItem("token"),
+      },
     });
-    console.log(response.data)
-    dispatch({ type: 'SET_CART', cart: response.data });
+    console.log(response.data);
+    dispatch({ type: "SET_CART", cart: response.data });
   };
 };
 
-export const addToCart = (dish, diff)=> {
-  return async(dispatch, getState)=> {
-    const lineItem = getState().cart.lineItems.find(lineItem => lineItem.dishId === dish.id) || { quantity: 0};
-    const response = await axios.put('/api/orders/cart', { dish, quantity: lineItem.quantity + diff}, {
-      headers: {
-        authorization: window.localStorage.getItem('token')
-      }
-    });
-    dispatch({ type: 'SET_CART', cart: response.data });
+export const addToCart = (dish, diff) => {
+  return async (dispatch, getState) => {
+    const lineItem = getState().cart.lineItems.find(
+      (lineItem) => lineItem.dishId === dish.id
+    ) || { quantity: 0 };
 
+    const response = await axios.put(
+      "/api/orders/cart",
+      { dish, quantity: diff },
+      {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      }
+    );
+    dispatch({ type: "SET_CART", cart: response.data });
   };
 };
 
 export const clearCart = () => {
-  return { 
-    type: 'EMPTY_CART'
-  }
-}
+  return {
+    type: "EMPTY_CART",
+  };
+};
 
-export const fetchCart = ()=> {
-  return async(dispatch)=> {
-    const response = await axios.get('/api/orders/cart', {
+export const fetchCart = () => {
+  return async (dispatch) => {
+    const response = await axios.get("/api/orders/cart", {
       headers: {
-        authorization: window.localStorage.getItem('token')
-      }
+        authorization: window.localStorage.getItem("token"),
+      },
     });
-    dispatch({ type: 'SET_CART', cart: response.data });
+    dispatch({ type: "SET_CART", cart: response.data });
   };
 };
 
 export const getCartTotal = () => {
-  const lineItems = getState().cart.lineItems
-  const cartTotal = lineItems &&
+  const lineItems = getState().cart.lineItems;
+  const cartTotal =
+    lineItems &&
     lineItems.reduce((acc, item) => {
       acc += item.quantity * item.dish?.price;
       return acc;
     }, 0);
   return cartTotal * 1;
-}
-
+};
 
 export default cart;

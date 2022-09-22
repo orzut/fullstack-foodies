@@ -61,12 +61,12 @@ const syncAndSeed = async () => {
         return Order.create(order);
       })
     );
-    console.log("Seeding line items...");
-    const lineItems = await Promise.all(
-      createLineItems(10, dishes, orders).map((lineItem) => {
-        return LineItem.create(lineItem);
-      })
-    );
+    // console.log("Seeding line items...");
+    // const lineItems = await Promise.all(
+    //   createLineItems(10, dishes, orders).map((lineItem) => {
+    //     return LineItem.create(lineItem);
+    //   })
+    // );
   } catch (ex) {
     console.log(ex);
   }
