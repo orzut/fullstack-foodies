@@ -14,7 +14,6 @@ router.post("/", isLoggedIn, async (req, res, next) => {
 
     const cart = await req.user.getCart()
     const lineItems = cart.lineItems;
-    console.log(lineItems[0].dish.price);
 
 
     const session = await stripe.checkout.sessions.create({
