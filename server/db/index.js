@@ -40,7 +40,6 @@ Dish.hasMany(LineItem, {
 });
 Address.belongsTo(User);
 Review.belongsTo(User);
-Review.belongsTo(Dish);
 Dish.belongsTo(Restaurant, {
   foreignKey: { name: "restaurantId", allowNull: true },
   sourceKey: "id",
