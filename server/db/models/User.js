@@ -100,6 +100,7 @@ User.prototype.getCart = async function () {
       include: [db.models.lineItem],
     });
   }
+  console.log("order:", order);
   return order;
 };
 
@@ -111,11 +112,14 @@ User.prototype.addToCart = async function ({ dish, quantity }) {
       orderId: cart.id,
     },
   });
+  console.log(lineItem);
   if (lineItem) {
     lineItem.quantity = lineItem.quantity + quantity;
     if (lineItem.quantity != 0) {
       await lineItem.save();
     } else {
+      console.log("*********************");
+      console.log(lineItem);
       await lineItem.destroy();
     }
   } else {
@@ -128,7 +132,7 @@ User.prototype.addToCart = async function ({ dish, quantity }) {
   return this.getCart();
 };
 
-User.prototype.getOrders = async function() {
+User.prototype.getOrders = async function () {
   let order = await db.models.order.findAll({
     where: {
       userId: this.id,
@@ -136,12 +140,12 @@ User.prototype.getOrders = async function() {
     include: [
       {
         model: db.models.lineItem,
-        include: [db.models.dish]
-      }
-    ]
+        include: [db.models.dish],
+      },
+    ],
   });
   return order;
-}
+};
 
 /**
  * classMethods
