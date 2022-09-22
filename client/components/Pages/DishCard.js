@@ -67,12 +67,18 @@ const DishCard = ({ dish }) => {
             sx={{ height: 90, mt: 2 }}
           />
           <div className="flex mt-3 justify-around items-center">
-            <RemoveCircleOutlineIcon
+            <Button
               disabled={quantity <= 1}
               onClick={() => setQuantity(quantity - 1)}
-            />
+            >
+              <RemoveCircleOutlineIcon />
+            </Button>
+
             <p>{quantity}</p>
-            <ControlPointIcon onClick={() => setQuantity(quantity + 1)} />
+            <Button onClick={() => setQuantity(quantity + 1)}>
+              {" "}
+              <ControlPointIcon />
+            </Button>
             <Button variant="contained" onClick={() => handleAddToCart()}>
               Add to Cart - ${(dish.price * quantity).toFixed(2)}
             </Button>
