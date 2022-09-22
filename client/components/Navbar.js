@@ -10,7 +10,7 @@ import { Search } from "./Pages/Search";
 const Navbar = ({ handleClick, isLoggedIn }) => {
   return (
     <div>
-      <nav className="relative flex items-center justify-between px-2 py-3 bg-indigo-900 mb-3">
+      <nav className="relative flex items-center justify-between px-2 py-3 bg-gray-900 mb-3">
         {isLoggedIn ? (
           <div className="uppercase text-white text-sm font-bold leading-relaxed container mx-auto flex items-center justify-between py-1 px-2 ">
             {/* The navbar will show these links after you log in */}

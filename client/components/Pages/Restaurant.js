@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import StarIcon from "@mui/icons-material/Star";
 import DishCard from "./DishCard";
+import { NavHashLink } from "react-router-hash-link";
 
 export const Restaurant = ({ match }) => {
   const restaurants = useSelector((state) => state.restaurants);
@@ -12,7 +13,6 @@ export const Restaurant = ({ match }) => {
     restaurants.find((restaurant) => restaurant.id === match.params.id) || {};
   const menu =
     dishes.filter((dish) => dish.restaurantId === restaurant.id) || [];
-  console.log(restaurant);
   return (
     <div className="m-10">
       <div>
@@ -29,13 +29,34 @@ export const Restaurant = ({ match }) => {
         ) : null}
         <p className="text-slate-400">{restaurant.address}</p>
       </div>
+      <nav className="sticky top-0 bg-white border-y">
+        {categories.map((category) => {
+          return (
+            <NavHashLink
+              key={category.id}
+              smooth
+              to={`/restaurants/${restaurant.id}#${category.name}`}
+              activeStyle={{
+                fontWeight: "bold",
+                borderBottom: "2px solid black",
+              }}
+              className=""
+            >
+              {category.name}
+            </NavHashLink>
+          );
+        })}
+      </nav>
+
       {/* loading menu */}
       <div className="mt-4">
         <ul>
           {categories.map((category) => {
             return (
               <li key={category.id}>
-                <h3 className="font-bold text-xl mt-3">{category.name}</h3>
+                <h3 className="font-bold text-xl mt-3" id={category.name}>
+                  {category.name}
+                </h3>
                 <ul className="flex flex-wrap">
                   {menu.map((dish) => {
                     if (dish.categoryId === category.id) {
