@@ -4,7 +4,8 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import StarIcon from "@mui/icons-material/Star";
 import DishCard from "./DishCard";
 import { NavHashLink } from "react-router-hash-link";
-import { CardContent, Typography, Card } from "@mui/material";
+import { CardContent, Typography, Card, Rating } from "@mui/material";
+
 export const Restaurant = ({ match }) => {
   const restaurants = useSelector((state) => state.restaurants);
   const dishes = useSelector((state) => state.dishes);
@@ -74,7 +75,7 @@ export const Restaurant = ({ match }) => {
           })}
         </ul>
       </div>
-      <div>
+      <div className="mt-4">
         <h3 className="text-xl font-bold">Reviews</h3>
         {restaurant.score ? (
           <p className="text-slate-400">
@@ -85,11 +86,12 @@ export const Restaurant = ({ match }) => {
         <ul className="flex justify-around">
           {restaurantReviews.slice(0, 3).map((review) => {
             return (
-              <Card sx={{ width: 200 }} key={review.id}>
+              <Card sx={{ width: 300 }} key={review.id}>
                 <CardContent>
-                  <Typography>
+                  <Typography variant="h6">
                     {review.user.firstName} {review.user.lastName}
                   </Typography>
+                  <Rating name="read-only" value={review.rating} readOnly />
                   <Typography>{review.review}</Typography>
                 </CardContent>
               </Card>
