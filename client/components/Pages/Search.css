@@ -1,0 +1,27 @@
+.search-bar {
+    display: flex;
+    flexDirection: row;
+    border: none
+}
+
+.search-result {
+    position: absolute;
+    z-index: 10;
+    top: 70px;
+    background-color: #d3d3d3;
+    border-radius: 10px;
+}
+
+.search-result ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.search-result li {
+    border-bottom: #0f0f0f solid 1px;
+}
+
+.search-result li:last-child {
+    border-bottom: none;
+}
