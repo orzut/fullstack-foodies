@@ -40,9 +40,16 @@ export const addToCart = (dish, diff) => {
   };
 };
 
+
 export const clearCart = () => {
-  return {
-    type: "EMPTY_CART",
+  return (dispatch) => {
+    window.localStorage.setItem(
+      "localCart",
+      JSON.stringify({
+        lineItems: [],
+      })
+    );
+    dispatch({ type: "EMPTY_CART" });
   };
 };
 
