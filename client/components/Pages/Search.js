@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import axios from 'axios';
 import './Search.css';
 
@@ -13,6 +13,7 @@ export const Search = () => {
   const [filteredData, setFilteredData] = useState([]);
   const searchBar = useRef(null);
   const clearIcon = useRef(null);
+  const history = useHistory();
   const searchItems = (value) => {
     setSearch(value);
     const filtered = restaurants.filter(
@@ -69,6 +70,8 @@ export const Search = () => {
     // navigate(`/search/?key=${search}`);
     searchItems(filteredData)
     handleClearSearch();
+    history.push({pathname: "/search", state: { filteredData }})
+
   }
 
   const handleClearSearch = () => {

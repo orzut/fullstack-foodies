@@ -8,6 +8,7 @@
 
 .search-bar img {
     width: 25px;
+    cursor: pointer;
 }
 
 .search-bar input {
