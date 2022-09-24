@@ -82,13 +82,6 @@ export const LandingPage = () => {
 		</div>
 	</div>
 
-      <section className="shop-banner">
-    	<div className="container">
-        	<h3>Sign up for our membership! <br></br> we offer <span className="orange-text">Discounts...</span></h3>
-            <div className="sale-percent"><span><br></br> Up to</span>20% <span>off</span></div>
-        </div>
-    </section>
-
 	<div className="abt-section mb-150">
 		<div className="container">
 			<div className="row">
@@ -108,10 +101,8 @@ export const LandingPage = () => {
 			</div>
 		</div>
 	</div>
-
     <div className="latest-news pt-150 pb-150">
 		<div className="container">
-
 			<div className="row">
 				<div className="col-lg-8 offset-lg-2 text-center">
 					<div className="section-title">	
