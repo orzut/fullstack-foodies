@@ -65,7 +65,66 @@ class SignIn extends Component {
         >
           <button>Sign in with Google</button>
         </a>
+
+        <div>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-7">
+              <div class="featured-text">
+                <h1 class="pb-3">Welcome <span class="orange-text">to Fullstack Foodies!</span></h1>
+                <div class="row">
+                  <div>
+                    <div class="list-box d-flex">
+                      <div class="list-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                      </div>
+                      <div class="content">
+                        <h3>Home Delivery</h3>
+                        <p>Get quick delivery in your area.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="list-box d-flex">
+                      <div class="list-icon">
+                        <i class="fas fa-money-bill-alt"></i>
+                      </div>
+                      <div class="content">
+                        <h3>Best Price</h3>
+                        <p>We offer competitive pricing and regular coupons for our members.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="list-box d-flex">
+                      <div class="list-icon">
+                        <i class="fas fa-briefcase"></i>
+                      </div>
+                      <div class="content">
+                        <h3>Great Restaurants</h3>
+                        <p>We offer great restaurants in your area.</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="list-box d-flex">
+                      <div class="list-icon">
+                        <i class="fas fa-sync-alt"></i>
+                      </div>
+                      <div class="content">
+                        <h3>Low Fees</h3>
+                        <p>We do our best to keep delivery fees at a minimum</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <img src="https://about.grubhub.com/wp-content/uploads/2022/03/Icon_Burger.png"/>
+        </div>
       </div>
+    </div>
     );
   }
 }
