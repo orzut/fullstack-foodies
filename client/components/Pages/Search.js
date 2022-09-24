@@ -7,6 +7,7 @@ import './Search.css';
 export const Search = () => {
   // const restaurants = useSelector((state) => state.restaurants.slice(0, 100));
   const restaurants = useSelector(state => state.restaurants)
+  const cuisines = useSelector(state => state.cuisines)
   const [search, setSearch] = useState("");
   const [isActive, setIsActive] = useState(false);
   const [searchResult, setSearchResult] = useState([]);
@@ -16,10 +17,15 @@ export const Search = () => {
   const history = useHistory();
   const searchItems = (value) => {
     setSearch(value);
+    console.log(restaurants)
+    console.log(cuisines)
     const filtered = restaurants.filter(
       (restaurant) =>
         restaurant.name.toLowerCase().includes(search.toLowerCase()) ||
-        restaurant.category.toLowerCase().includes(search.toLowerCase())
+        restaurant.category.toLowerCase().includes(search.toLowerCase()) ||
+        (restaurant.cuisine ?
+                restaurant.cuisine.name.toLowerCase().includes(search.toLowerCase()) :
+                false)
     );
     setFilteredData(filtered);
   };

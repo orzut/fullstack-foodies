@@ -51,6 +51,7 @@ Restaurant.hasMany(Dish, {
 Review.belongsTo(Restaurant);
 Dish.belongsTo(Category);
 Restaurant.belongsTo(Cuisine);
+Cuisine.hasMany(Restaurant);
 Dish.belongsTo(Restaurant);
 Order.hasMany(LineItem);
 LineItem.belongsTo(Dish);
