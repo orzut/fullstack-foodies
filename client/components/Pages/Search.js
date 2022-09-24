@@ -17,8 +17,6 @@ export const Search = () => {
   const history = useHistory();
   const searchItems = (value) => {
     setSearch(value);
-    console.log(restaurants)
-    console.log(cuisines)
     const filtered = restaurants.filter(
       (restaurant) =>
         restaurant.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -77,7 +75,6 @@ export const Search = () => {
     searchItems(filteredData)
     handleClearSearch();
     history.push({pathname: "/search", state: { filteredData }})
-
   }
 
   const handleClearSearch = () => {

@@ -5,6 +5,7 @@ import { logout } from "../store";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Cart from "./Pages/Cart";
 import UserButton from "./UserButton";
+import UserLocation from './UserLocation';
 import { Search } from "./Pages/Search";
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
@@ -35,6 +36,9 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
             <Link to="/map">Map</Link>
           </div>
         )}
+        <div>
+          <UserLocation />
+        </div>
         <span className="h-12 font-normal leading-snug flex text-center white-space-no-wrap border border-solid border-pink-600 rounded-full text-sm bg-pink-100 items-center rounded-r-none pl-2 py-1 text-pink-800 border-r-0 placeholder-pink-300">
           <Search />
         </span>

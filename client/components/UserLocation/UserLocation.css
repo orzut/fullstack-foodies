@@ -1,0 +1,31 @@
+.user-location-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2px;
+    padding:7px;
+    border-radius: 20px 20px;
+    background: #b7d4d1;
+    height: 40px;
+    width: 220px;
+}
+
+.location-input-icon-container {
+    display: flex;
+    justify-content: center;
+    align-item: center;
+}
+
+.location-input-icon {
+    font-size: 30px;
+}
+
+.user-location-container input {
+    background: #b7d4d1;
+    width: 150px;
+}
+
+.user-location-container input:focus {
+    outline: none;
+}
