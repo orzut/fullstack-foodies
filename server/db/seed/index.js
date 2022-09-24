@@ -39,9 +39,9 @@ const syncAndSeed = async () => {
         return Restaurant.create({
           ...restaurant,
           cuisineId: cuisineId,
-          imageUrl: restaurant.imageUrl
-            ? restaurant.imageUrl
-            : faker.image.food(500, 300, true),
+          // imageUrl: restaurant.imageUrl
+          //   ? restaurant.imageUrl
+          //   : faker.image.food(500, 300, true),
         });
       })
     );

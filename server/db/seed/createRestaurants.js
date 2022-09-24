@@ -22,19 +22,19 @@ const createRestaurants = (numberOfRestaurants) => {
 };
 
 const createRestaurantsFromData = () => {
-    const restaurantsData = csvToJson
-        .fieldDelimiter(";")
-        .getJsonFromCsv(path.join(__dirname, "..", "..", "..", "public", "restaurants-cleaned-delimiter.csv"));
-
-    const newRestaurantsData = restaurantsData.map(oldData => ({
-        ...oldData,
-        id: uuidv4(),
-        score: parseFloat(oldData.score),
-        ratings: parseInt(oldData.ratings),
-        lat: parseFloat(oldData.lat),
-        lng: parseFloat(oldData.lng),
-        imageUrl: ''
-    }))
+    // const restaurantsData = csvToJson
+    //     .fieldDelimiter(";")
+    //     .getJsonFromCsv(path.join(__dirname, "..", "..", "..", "public", "restaurants-cleaned-delimiter.csv"));
+    //
+    // const newRestaurantsData = restaurantsData.map(oldData => ({
+    //     ...oldData,
+    //     id: uuidv4(),
+    //     score: parseFloat(oldData.score),
+    //     ratings: parseInt(oldData.ratings),
+    //     lat: parseFloat(oldData.lat),
+    //     lng: parseFloat(oldData.lng),
+    //     imageUrl: ''
+    // }))
 
     const yelpData = [];
     const re = new RegExp('yelp_business_location_.*response\.json')
@@ -61,7 +61,9 @@ const createRestaurantsFromData = () => {
             })
         }
     }
-    return [...newRestaurantsData, ...yelpData]
+    // return [...newRestaurantsData, ...yelpData]
+    return yelpData
+
 };
 
 module.exports = { createRestaurants, createRestaurantsFromData };
