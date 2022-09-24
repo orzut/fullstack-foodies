@@ -112,7 +112,7 @@ export const LandingPage = () => {
 			</div>
 		</div>
 	</div>
-    <div className="latest-news pt-150 pb-150">
+    <div className="latest-news pt-40 pb-40">
 		<div className="container">
 			<div className="row">
 				<div className="col-lg-8 offset-lg-2 text-center">
@@ -167,6 +167,7 @@ export const LandingPage = () => {
 			<div className="row">
 				<div className="col-lg-12 text-center">
 					<a href="news.html" className="boxed-btn">More News</a>
+					<br></br>
 				</div>
 			</div>
 		</div>

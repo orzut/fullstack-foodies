@@ -76,22 +76,22 @@ export const Restaurant = ({ match }) => {
     return (
 
       
-      <div className="m-10">
-        <div class="breadcrumb-section breadcrumb-bg">
-		      <div class="container">
-            <div class="row">
-              <div class="col-lg-8 offset-lg-2 text-center">
-                <div class="breadcrumb-text">
-                  <p>Fresh and Organic</p>
-                  <h1>Shop</h1>
+      <div>
+        <div className="breadcrumb-section breadcrumb-bg">
+		      <div className="container">
+            <div className="row">
+              <div className="col-lg-8 offset-lg-2 text-center">
+                <div className="breadcrumb-text">
+                  <p>Fresh and Tasty</p>
+                  <h1>Restaurant</h1>
                 </div>
               </div>
             </div>
           </div>
   	    </div>
 
-        <div>
-          <img className="w-2/3 h-60" src={restaurant.imageUrl}></img>
+        <div className="pt-24">
+          <img className="h-60" src={restaurant.imageUrl}></img>
           <h2 className="mt-5 text-2xl font-bold">{restaurant.name}</h2>
           <p className="text-slate-400">
             {restaurant.priceRange}{" "}
