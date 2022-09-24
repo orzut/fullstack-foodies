@@ -143,6 +143,11 @@ User.prototype.getOrders = async function () {
   return order;
 };
 
+User.prototype.emptyCart = async function () {
+  const cart = await this.getCart();
+  console.log(cart);
+};
+
 /**
  * classMethods
  */
