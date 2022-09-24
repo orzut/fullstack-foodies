@@ -111,7 +111,9 @@ export const Search = () => {
               {
                 filteredData.slice(0,5).map(data => {
                   return (
-                      <li key={data.id}>{data.name}</li>
+                      <li key={data.id}>
+                        <Link to={`/restaurants/${data.id}`}>{data.name}</Link>
+                      </li>
                   )
                 })
               }
