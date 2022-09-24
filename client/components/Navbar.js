@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { logout } from "../store";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Cart from "./Pages/Cart";
-import UserButton from './UserButton';
+import UserButton from "./UserButton";
 import { Search } from "./Pages/Search";
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
@@ -24,7 +24,6 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
               <AiOutlineShoppingCart className="text-[30px]" />
             </Link>
             <UserButton />
-
           </div>
         ) : (
           <div className="uppercase text-white text-sm font-bold leading-relaxed container mx-auto flex items-center justify-between py-1 px-2 ">

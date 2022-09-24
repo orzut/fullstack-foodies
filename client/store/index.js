@@ -12,6 +12,7 @@ import cart from "./cart";
 import address from "./address";
 import orders from "./orders";
 import users from "./users";
+import location from "./location";
 
 const reducer = combineReducers({
   auth,
@@ -24,7 +25,8 @@ const reducer = combineReducers({
   cart,
   users,
   orders,
-  address
+  address,
+  location,
 });
 const middleware = applyMiddleware(
   thunkMiddleware,
@@ -44,3 +46,4 @@ export * from "./cart";
 export * from "./users";
 export * from "./orders";
 export * from "./address";
+export * from "./location";

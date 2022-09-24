@@ -1,10 +1,12 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import StarIcon from "@mui/icons-material/Star";
 import DishCard from "./DishCard";
 import { NavHashLink } from "react-router-hash-link";
 import { CardContent, Typography, Card, Rating } from "@mui/material";
+import { GoogleMap, useLoadScript } from "@react-google-maps/api";
+import { getUserLocation } from "../../store";
 
 export const Restaurant = ({ match }) => {
   const restaurants = useSelector((state) => state.restaurants);
@@ -18,7 +20,20 @@ export const Restaurant = ({ match }) => {
     dishes.filter((dish) => dish.restaurantId === restaurant.id) || [];
   const restaurantReviews =
     reviews.filter((review) => review.restaurantId === restaurant.id) || [];
-  console.log(restaurantReviews);
+
+  const [center, setCenter] = useState({ lat: 0, lng: 0 });
+
+  const { isLoaded } = useLoadScript({
+    googleMapsApiKey: "AIzaSyAGo2NE7sdqcMdbrfboJ1AnbWiAljSl_lI",
+  });
+  const coord = useSelector((state) => state.location);
+  console.log(coord);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserLocation());
+  }, []);
+  // console.log(center);
+
   return (
     <div className="m-10">
       <div>
@@ -35,46 +50,60 @@ export const Restaurant = ({ match }) => {
         ) : null}
         <p className="text-slate-400">{restaurant.address}</p>
       </div>
-      <nav className="sticky top-0 bg-white border-y m-2 p-2 text-xl">
-        {categories.map((category) => {
-          return (
-            <NavHashLink
-              key={category.id}
-              smooth
-              to={`/restaurants/${restaurant.id}#${category.name}`}
-              activeStyle={{
-                fontWeight: "bold",
-                borderBottom: "2px solid black",
-              }}
-              className="m-2"
-            >
-              {category.name}
-            </NavHashLink>
-          );
-        })}
-      </nav>
-
-      {/* loading menu */}
-      <div className="mt-4">
-        <ul>
+      <div>
+        <GoogleMap
+          zoom={10}
+          center={center}
+          options={{
+            zoomControl: false,
+            streetViewControl: false,
+            mapTypeControl: false,
+          }}
+        ></GoogleMap>
+      </div>
+      <div>
+        <nav className="sticky top-0 bg-white border-y m-2 p-2 text-xl">
           {categories.map((category) => {
             return (
-              <li key={category.id}>
-                <h3 className="font-bold text-xl mt-3" id={category.name}>
-                  {category.name}
-                </h3>
-                <ul className="flex flex-wrap">
-                  {menu.map((dish) => {
-                    if (dish.categoryId === category.id) {
-                      return <DishCard key={dish.id} dish={dish} />;
-                    }
-                  })}
-                </ul>
-              </li>
+              <NavHashLink
+                key={category.id}
+                smooth
+                to={`/restaurants/${restaurant.id}#${category.name}`}
+                activeStyle={{
+                  fontWeight: "bold",
+                  borderBottom: "2px solid black",
+                }}
+                className="m-2"
+              >
+                {category.name}
+              </NavHashLink>
             );
           })}
-        </ul>
+        </nav>
+
+        {/* loading menu */}
+        <div className="mt-4">
+          <ul>
+            {categories.map((category) => {
+              return (
+                <li key={category.id}>
+                  <h3 className="font-bold text-xl mt-3" id={category.name}>
+                    {category.name}
+                  </h3>
+                  <ul className="flex flex-wrap">
+                    {menu.map((dish) => {
+                      if (dish.categoryId === category.id) {
+                        return <DishCard key={dish.id} dish={dish} />;
+                      }
+                    })}
+                  </ul>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </div>
+      {/* loading reviews */}
       <div className="mt-4">
         <h3 className="text-xl font-bold">Reviews</h3>
         {restaurant.score ? (
