@@ -5,6 +5,7 @@ const Op = Sequelize.Op;
 const {
   models: { Restaurant, Dish, Review, User },
 } = require("../db");
+const db = require("../db/db");
 module.exports = router;
 
 // get menu for a restaurant
@@ -40,11 +41,14 @@ router.get("/", async (req, res, next) => {
             where: {
               name: {[Op.iLike]:`%${req.query.key}%`}
             },
+            include: [db.models.cuisine],
             limit: req.query.limit
           })
       )
     } else {
-      res.send(await Restaurant.findAll());
+      res.send(await Restaurant.findAll({
+          include: [db.models.cuisine]
+      }));
     }
   } catch (err) {
     next(err);
