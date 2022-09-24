@@ -22,6 +22,7 @@ const Cart = connect(
     }
     loadCart();
   }, []);
+
   let cartTotal = 0;
   cart.lineItems.forEach((lineItem) => {
     let quantity = lineItem.quantity;
@@ -166,13 +167,13 @@ const mapStateToProps = (state) => {
   return state;
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    authenticate: () => dispatch(authenticate()),
-    fetchCart: () => dispatch(fetchCart()),
-    fetchMenu: () => dispatch(fetchMenu()),
-    dispatchAction: (action) => dispatch(action),
-  };
-};
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     authenticate: () => dispatch(authenticate()),
+//     fetchCart: () => dispatch(fetchCart()),
+//     fetchMenu: () => dispatch(fetchMenu()),
+//     dispatchAction: (action) => dispatch(action),
+//   };
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps)(Cart);
