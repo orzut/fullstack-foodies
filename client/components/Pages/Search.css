@@ -1,15 +1,39 @@
 .search-bar {
     display: flex;
     flexDirection: row;
-    border: none
+    border: none;
+    gap: 5px;
+    font-size: 20px;
+}
+
+.search-bar img {
+    width: 25px;
+}
+
+.search-bar input {
+    width: 80%;
+    background-color: #fce7f3;
+}
+
+.search-bar input:focus {
+    outline: none;
 }
 
 .search-result {
     position: absolute;
     z-index: 10;
     top: 70px;
-    background-color: #d3d3d3;
+    right: 10px;
+    min-width: 350px;
+    max-width: 350px;
+    background-color: #efefef;
     border-radius: 10px;
+    border: #0f0f0f 1px solid;
+    visibility: hidden;
+}
+
+.search-result.active {
+    visibility: visible;
 }
 
 .search-result ul {
@@ -25,3 +49,4 @@
 .search-result li:last-child {
     border-bottom: none;
 }
+
