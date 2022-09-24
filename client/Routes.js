@@ -12,6 +12,7 @@ import {
   fetchCart,
   fetchDishes,
   fetchCategories,
+  fetchReviews,
 } from "./store";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
@@ -83,6 +84,7 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchCuisines());
       dispatch(fetchDishes());
       dispatch(fetchCategories());
+      dispatch(fetchReviews());
     },
     fetchCart: () => dispatch(fetchCart()),
     authenticate: () => dispatch(authenticate()),

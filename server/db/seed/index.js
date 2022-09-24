@@ -1,5 +1,5 @@
 const { db, models } = require("../index");
-const { User, Restaurant, Order, LineItem, Dish, Category } = models;
+const { User, Restaurant, Order, LineItem, Dish, Category, Review } = models;
 const createUsers = require("./createUsers");
 const {
   createRestaurants,
@@ -10,6 +10,7 @@ const createOrders = require("./createOrders");
 const createLineItems = require("./createLineItems");
 const seedCuisines = require("./seedCuisines");
 const { CATEGORIES } = require("./createCategories");
+const { REVIEWS } = require("./createReviews");
 
 const { faker } = require("@faker-js/faker");
 
@@ -61,12 +62,22 @@ const syncAndSeed = async () => {
         return Order.create(order);
       })
     );
-    console.log("Seeding line items...");
-    const lineItems = await Promise.all(
-      createLineItems(10, dishes, orders).map((lineItem) => {
-        return LineItem.create(lineItem);
+    const user = console.log("Seeding reviews ...");
+    const reviews = await Promise.all(
+      REVIEWS.map((review) => {
+        Review.create({
+          ...review,
+          userId: users[Math.floor(Math.random() * users.length)].id,
+          restaurantId: restaurants[Math.floor(Math.random() * 100)].id,
+        });
       })
     );
+    // console.log("Seeding line items...");
+    // const lineItems = await Promise.all(
+    //   createLineItems(10, dishes, orders).map((lineItem) => {
+    //     return LineItem.create(lineItem);
+    //   })
+    // );
   } catch (ex) {
     console.log(ex);
   }

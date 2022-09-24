@@ -6,6 +6,7 @@ import {
   CardMedia,
   Button,
   Alert,
+  Dialog,
 } from "@mui/material";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import RemoveCircleOutlineIcon from "@mui/icons-material/RemoveCircleOutline";
@@ -30,11 +31,6 @@ const DishCard = ({ dish }) => {
   const handleClose = () => setOpen(false);
   const [quantity, setQuantity] = useState(1);
 
-  const cart = useSelector((state) => state.cart);
-  const isInTheCart = cart.lineItems.find(
-    (lineItem) => lineItem.dishId === dish.id
-  );
-
   const dispatch = useDispatch();
 
   const [alert, setAlert] = useState(false);
@@ -43,19 +39,20 @@ const DishCard = ({ dish }) => {
     dispatch(addToCart(dish, quantity)),
       handleClose(),
       setAlert(true),
-      setTimeout(() => setAlert(false), 2000);
+      setTimeout(() => setAlert(false), 1000);
   };
   return (
     <Fragment>
       <div
-        className="flex border border-slate-300 rounded-md w-1/3 h-1/4 m-2 p-2 hover:cursor-pointer"
+        className="flex justify-between border border-slate-300 rounded-md w-1/3 h-1/4 m-2 p-2 hover:cursor-pointer"
         onClick={handleOpen}
       >
         <div>
           <p className="font-bold text-base">{dish.name}</p>
           <p className="text-sm">{dish.description}</p>
+          <p>${dish.price}</p>
         </div>
-        <img className="w-1/3 ml-1 self-right" src={dish.imageUrl}></img>
+        <img className="w-1/3 ml-1" src={dish.imageUrl}></img>
       </div>
 
       <Modal open={open} onClose={handleClose}>
@@ -70,19 +67,33 @@ const DishCard = ({ dish }) => {
             sx={{ height: 90, mt: 2 }}
           />
           <div className="flex mt-3 justify-around items-center">
-            <RemoveCircleOutlineIcon
+            <Button
               disabled={quantity <= 1}
               onClick={() => setQuantity(quantity - 1)}
-            />
+            >
+              <RemoveCircleOutlineIcon />
+            </Button>
+
             <p>{quantity}</p>
-            <ControlPointIcon onClick={() => setQuantity(quantity + 1)} />
+            <Button onClick={() => setQuantity(quantity + 1)}>
+              {" "}
+              <ControlPointIcon />
+            </Button>
             <Button variant="contained" onClick={() => handleAddToCart()}>
               Add to Cart - ${(dish.price * quantity).toFixed(2)}
             </Button>
           </div>
         </Box>
       </Modal>
-      {/* {alert ? <Alert severity="success">Added to Cart!</Alert> : null} */}
+      {alert ? (
+        <Dialog
+          open={alert}
+          onClose={() => setAlert(false)}
+          aria-describedby="alert-dialog-description"
+        >
+          <Alert severity="success">Added to Cart!</Alert>
+        </Dialog>
+      ) : null}
     </Fragment>
   );
 };

@@ -128,7 +128,7 @@ User.prototype.addToCart = async function ({ dish, quantity }) {
   return this.getCart();
 };
 
-User.prototype.getOrders = async function() {
+User.prototype.getOrders = async function () {
   let order = await db.models.order.findAll({
     where: {
       userId: this.id,
@@ -136,12 +136,12 @@ User.prototype.getOrders = async function() {
     include: [
       {
         model: db.models.lineItem,
-        include: [db.models.dish]
-      }
-    ]
+        include: [db.models.dish],
+      },
+    ],
   });
   return order;
-}
+};
 
 /**
  * classMethods
