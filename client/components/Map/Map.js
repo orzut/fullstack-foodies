@@ -136,6 +136,22 @@ function Map() {
         )
     } else {
         return (
+
+            <div>
+
+            <div className="breadcrumb-section breadcrumb-bg">
+                <div className="container">
+                    <div className="row">
+                        <div className="col-lg-8 offset-lg-2 text-center">
+                        <div className="breadcrumb-text">
+                            <p>Locate your restaurant selections</p>
+                            <h1>Food Delivery Map</h1>
+                        </div>
+                    </div>
+                </div>
+                </div>
+      	    </div>
+            <br></br>
             <div className='map-wrapper'>
                 <div className='selection-menu'>
                     <form onSubmit={handleSubmit}>
@@ -222,6 +238,7 @@ function Map() {
                         activeRestaurantId={restaurantModalDisplay}
                     />
                 </div>
+            </div>
             </div>
         )
     }
