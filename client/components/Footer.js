@@ -4,6 +4,7 @@ export const Footer = () => {
   return (
     <div className="footer-area">
 		<div className="container">
+			<div className='row'>
 				<div className="col-lg-3 col-md-6">
 					<div className="footer-box about-widget">
 						<h2 className="widget-title">About us</h2>
@@ -43,5 +44,6 @@ export const Footer = () => {
 				</div>
 			</div>
 		</div>
+	</div>
   )
 }

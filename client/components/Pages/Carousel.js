@@ -1,9 +1,12 @@
 import React, { useState, useRef, useEffect } from "react";
 
 // Data
-import data from "./data.json";
+import _data from "./data.json";
+
 
 export const Carousel = () => {
+
+  const [data, setData]= useState({resources:[]})
   const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef(null);
@@ -48,6 +51,10 @@ export const Carousel = () => {
       ? carousel.current.scrollWidth - carousel.current.offsetWidth
       : 0;
   }, []);
+
+  useEffect(() => {
+    setData(_data)
+  },[])
 
   return (
     <div className="carousel my-5 mx-auto">
