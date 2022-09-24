@@ -67,7 +67,7 @@ function UserLocation() {
                     <input
                         type='text'
                         name='locationInput'
-                        placeholder="Search..."
+                        placeholder="Enter your address..."
                         onKeyUp={keyUpHandler}
                         value={userInputLocation}
                         onChange={handleChange}

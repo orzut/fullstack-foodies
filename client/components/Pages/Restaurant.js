@@ -14,6 +14,7 @@ import {
 import { getUserLocation } from "../../store";
 
 export const Restaurant = ({ match }) => {
+
   const restaurants = useSelector((state) => state.restaurants);
   const dishes = useSelector((state) => state.dishes);
   const categories = useSelector((state) => state.categories);
@@ -73,7 +74,22 @@ export const Restaurant = ({ match }) => {
     return <div>Loading...</div>;
   } else {
     return (
+
+      
       <div className="m-10">
+        <div class="breadcrumb-section breadcrumb-bg">
+		      <div class="container">
+            <div class="row">
+              <div class="col-lg-8 offset-lg-2 text-center">
+                <div class="breadcrumb-text">
+                  <p>Fresh and Organic</p>
+                  <h1>Shop</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+  	    </div>
+
         <div>
           <img className="w-2/3 h-60" src={restaurant.imageUrl}></img>
           <h2 className="mt-5 text-2xl font-bold">{restaurant.name}</h2>
