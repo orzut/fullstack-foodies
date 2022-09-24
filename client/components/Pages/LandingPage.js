@@ -89,18 +89,18 @@ export const LandingPage = () => {
         </div>
     </section>
 
-	<div class="abt-section mb-150">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-bg">
+	<div className="abt-section mb-150">
+		<div className="container">
+			<div className="row">
+				<div className="col-lg-6 col-md-12">
+					<div className="abt-bg">
 						<img src="https://about.grubhub.com/wp-content/uploads/2022/03/header-about.png" />
 					</div>
 				</div>
-				<div class="col-lg-6 col-md-12">
-					<div class="abt-text">
-						<p class="top-sub">Since 2022</p>
-						<h2>We are <span class="orange-text">Fullstack Foodies</span></h2>
+				<div className="col-lg-6 col-md-12">
+					<div className="abt-text">
+						<p className="top-sub">Since 2022</p>
+						<h2>We are <span className="orange-text">Fullstack Foodies</span></h2>
 						<p>Restaurants sit at the heart of communities. It’s our mission to strengthen their roots, deepen their connections, and increase the positive impact they have on people and society.</p>
 						<p>We help restaurants grow their businesses and experiment with new concepts. We provide drivers flexible opportunities to work and earn.</p>
 					</div>
