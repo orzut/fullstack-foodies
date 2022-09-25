@@ -23,6 +23,7 @@ import Checkout from "./components/Pages/Checkout";
 import { SearchData } from "./components/Pages/SearchData";
 import { Restaurant } from "./components/Pages/Restaurant";
 import success from "./components/Stripe/success";
+import NotFound from "./components/Pages/NotFound";
 
 /**
  * COMPONENT
@@ -42,6 +43,7 @@ class Routes extends Component {
           <Route path="/restaurants" exact component={Restaurants} />
           <Route path="/search" component={SearchData} />
           <Route path="/restaurants/:id" exact component={Restaurant} />
+          <Route path="" component={NotFound} />
         </Switch>
 
         {isLoggedIn ? (
