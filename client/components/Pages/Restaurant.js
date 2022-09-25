@@ -90,10 +90,18 @@ export const Restaurant = ({ match }) => {
           </div>
   	    </div>
 
-        <div className="pt-24">
-          <img className="h-80" src={restaurant.imageUrl}></img>
-          <h2 className="mt-5 text-2xl font-bold">{restaurant.name}</h2>
-          <p className="text-slate-400">
+    <div class="single-product mt-150 mb-150">
+      <div class="container">
+			    <div class="row">
+				    <div class="col-md-5">
+              <div class="single-product-img">
+                <img width='100%' src={restaurant.imageUrl}></img>
+            </div>
+          </div>
+          <div class="col-md-7">
+					<div class="single-product-content">
+          <h1 className="mt-5 text-2xl font-bold">{restaurant.name}</h1>
+          <p className="single-product-pricing">
             {restaurant.priceRange}{" "}
             <FiberManualRecordIcon sx={{ fontSize: 8 }} /> {restaurant.category}
           </p>
@@ -104,6 +112,8 @@ export const Restaurant = ({ match }) => {
           ) : null}
           <p className="text-slate-400">{restaurant.address}</p>
         </div>
+        </div>
+      </div>
         <button onClick={() => loadTheMap()}>Show on the map</button>
         {displayMap ? (
           <div>
@@ -199,6 +209,8 @@ export const Restaurant = ({ match }) => {
           </ul>
         </div>
       </div>
+      </div>
+    </div>
     );
   }
 };

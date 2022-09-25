@@ -58,9 +58,7 @@ export const Carousel = () => {
 
   return (
     <div className="carousel my-5 mx-auto">
-      <h2 className="text-4xl leading-8 font-semibold mb-12 text-black-700">
-        Our cuisine options
-      </h2>
+      <h1><span className="orange-text">Our</span> Cuisines</h1>
       <div className="relative overflow-hidden">
         <div className="flex justify-between absolute top left w-full h-full">
           <button
