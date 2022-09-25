@@ -167,7 +167,7 @@ export const Restaurant = ({ match }) => {
               {categories.map((category) => {
                 return (
                   <li key={category.id}>
-                    <h3 className="font-bold text-xl mt-3" id={category.name}>
+                    <h3 className="single-team-item" id={category.name}>
                       {category.name}
                     </h3>
                     <ul className="flex flex-wrap">
