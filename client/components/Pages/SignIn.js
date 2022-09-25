@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { authenticate } from "../../store";
+import { useHistory } from "react-router-dom";
 
 class SignIn extends Component {
   constructor() {
@@ -25,6 +26,7 @@ class SignIn extends Component {
       password: this.state.password,
     };
     this.props.login(credentials);
+    this.props.history.push('/restaurants')
   }
 
   render() {
@@ -123,6 +125,7 @@ class SignIn extends Component {
         >
           <button>Sign in with Google</button>
         </a>
+
     </div>
     );
   }

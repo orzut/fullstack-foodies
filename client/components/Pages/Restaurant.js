@@ -91,7 +91,7 @@ export const Restaurant = ({ match }) => {
   	    </div>
 
         <div className="pt-24">
-          <img className="h-60" src={restaurant.imageUrl}></img>
+          <img className="h-80" src={restaurant.imageUrl}></img>
           <h2 className="mt-5 text-2xl font-bold">{restaurant.name}</h2>
           <p className="text-slate-400">
             {restaurant.priceRange}{" "}
