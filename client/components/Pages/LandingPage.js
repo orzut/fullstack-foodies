@@ -164,12 +164,6 @@ export const LandingPage = () => {
 					</div>
 				</div>
 			</div>
-			<div className="row">
-				<div className="col-lg-12 text-center">
-					<a href="news.html" className="boxed-btn">More News</a>
-					<br></br>
-				</div>
-			</div>
 		</div>
 	</div>
 	</div>

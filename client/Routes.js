@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter, Route, Switch } from "react-router-dom";
+import { withRouter, Route, Switch, Router } from "react-router-dom";
 import Home from "./components/Home";
 import PastOrders from "./components/PastOrders";
 import Map from "./components/Map";
@@ -37,32 +37,31 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     return (
-      <div>
+      <main>
         <Switch>
-          <Route path="/" exact component={LandingPage} />
-          <Route path="/restaurants" exact component={Restaurants} />
-          <Route path="/search" component={SearchData} />
-          <Route path="/restaurants/:id" exact component={Restaurant} />
-          <Route path="" component={NotFound} />
-        </Switch>
+          <Route exact path="/" component={LandingPage} />
+          <Route exact path="/restaurants" component={Restaurants} />
+          <Route exact path="/search" component={SearchData} />
+          <Route exact path="/restaurants/:id" component={Restaurant} />
+          <Route exact path="/map" component={Map} />
 
         {isLoggedIn ? (
           <Switch>
-            <Route path="/home" component={Home} />
-            <Route path="/cart" component={Cart} />
-            <Route path="/past-orders" component={PastOrders} />
-            <Route path="/map" component={Map} />
-            <Route path="/checkout" component={Checkout} />
-            <Route exact path="/success" component={success} />
+              <Route exact path="/cart" component={Cart} />
+              <Route exact path="/past-orders" component={PastOrders} />
+              <Route exact path="/checkout" component={Checkout} />
+              <Route exact path="/success" component={success} />
           </Switch>
         ) : (
           <Switch>
-            <Route path="/login" component={SignIn} />
-            <Route path="/signup" component={SignUp} />
-            <Route path="/map" component={Map} />
+            <Route exact path="/login" component={SignIn} />
+            <Route exact path="/signup" component={SignUp} />
           </Switch>
         )}
-      </div>
+
+        <Route path="" component={NotFound} />
+        </Switch>
+      </main>
     );
   }
 }

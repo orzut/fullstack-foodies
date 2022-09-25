@@ -90,16 +90,16 @@ export const Restaurant = ({ match }) => {
           </div>
   	    </div>
 
-    <div class="single-product mt-150 mb-150">
-      <div class="container">
-			    <div class="row">
-				    <div class="col-md-5">
-              <div class="single-product-img">
+    <div className="single-product mt-150 mb-150">
+      <div className="container">
+			    <div className="row">
+				    <div className="col-md-5">
+              <div className="single-product-img">
                 <img width='100%' src={restaurant.imageUrl}></img>
             </div>
           </div>
-          <div class="col-md-7">
-					<div class="single-product-content">
+          <div className="col-md-7">
+					<div className="single-product-content">
           <h1 className="mt-5 text-2xl font-bold">{restaurant.name}</h1>
           <p className="single-product-pricing">
             {restaurant.priceRange}{" "}
