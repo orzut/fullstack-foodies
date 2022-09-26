@@ -78,8 +78,7 @@ export const Restaurant = ({ match }) => {
     return <div>Loading...</div>;
   } else {
     return (
-
-      
+      <div>
       <div>
         <div className="breadcrumb-section breadcrumb-bg">
 		      <div className="container">
@@ -228,6 +227,9 @@ export const Restaurant = ({ match }) => {
         </div>
       </div>
       </div>
+    </div>
+    </div>
+    </div>
     </div>
     );
   }
