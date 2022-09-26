@@ -12,6 +12,7 @@ const Dish = require("./models/Dish");
 const Category = require("./models/Category");
 const Coupon = require("./models/Coupon");
 const Cuisine = require("./models/Cuisine");
+const Location = require("./models/Location");
 
 //associations could go here!
 User.hasMany(Order, {
@@ -56,6 +57,7 @@ Dish.belongsTo(Restaurant);
 Order.hasMany(LineItem);
 LineItem.belongsTo(Dish);
 User.hasMany(Order);
+Location.belongsTo(User);
 
 module.exports = {
   db,
@@ -73,5 +75,6 @@ module.exports = {
     Order,
     LineItem,
     Category,
+    Location,
   },
 };

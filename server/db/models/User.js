@@ -143,9 +143,21 @@ User.prototype.getOrders = async function () {
   return order;
 };
 
-User.prototype.emptyCart = async function () {
-  const cart = await this.getCart();
-  console.log(cart);
+User.prototype.setLocation = async function (location) {
+  return await db.models.location.create({
+    ...location,
+    userId: this.id,
+  });
+};
+
+User.prototype.getLocation = async function () {
+  const location = await db.models.location.findOne({
+    where: {
+      userId: this.id,
+    },
+    order: [["createdAt", "DESC"]],
+  });
+  return location;
 };
 
 /**
