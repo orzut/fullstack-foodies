@@ -2800,6 +2800,12 @@ border-top: 1px solid rgb(187, 187, 187);
 padding-top: 2rem
 }
 
+.cart-summary-buttons{
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
 .cart-summary .clear-cart{
 width: 130px;
 max-width: 100%;
@@ -2812,6 +2818,25 @@ color: gray;
 background: none;
 outline: none;
 cursor: pointer
+}
+
+.cart-summary .favorite-button{
+  width: 130px;
+  max-width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  font-weight: 400;
+  letter-spacing: 1.15px;
+  border: 0.5px solid rgb(177, 177, 177);
+  color: gray;
+  background: none;
+  outline: none;
+  cursor: pointer
+}
+
+.cart-summary .favorite-button.favorited{
+  background: #d46d59;
+  color: black;
 }
 
 .cart-checkout {

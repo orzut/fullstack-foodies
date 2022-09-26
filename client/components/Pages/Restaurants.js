@@ -4,6 +4,7 @@ import RestaurantCard from "./RestaurantCard";
 
 const Restaurants = () => {
   const restaurants = useSelector((state) => state.restaurants.slice(0, 100));
+  const savedRestaurants = useSelector(state => state.savedRestaurants)
   return (
     <main>
     <div className="breadcrumb-section breadcrumb-bg">

@@ -1,0 +1,8 @@
+.restaurant-card-favorite-icon {
+    position: relative;
+    bottom: 50px;
+    width: 35px;
+    height: 35px;
+    left: 270px;
+    cursor: pointer;
+}
