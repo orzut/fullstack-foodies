@@ -43,7 +43,22 @@ function PastOrders() {
 
 
     return ((orders.length>0)?
-        (<div className='past-orders-wrapper'>
+        (
+        <div>
+            <div className="breadcrumb-section breadcrumb-bg">
+            <div className="container">
+          <div className="row">
+            <div className="col-lg-8 offset-lg-2 text-center">
+              <div className="breadcrumb-text">
+                <p>View Order History</p>
+                <h1>Past Orders</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+        
+        <div className='past-orders-wrapper'>
             <div className='past-orders-container'>
                 <div className={'text-xl font-bold'}>Past Orders</div>
                 <table>
@@ -77,8 +92,10 @@ function PastOrders() {
             <div className={`line-items-container ${isLineItemsActive?'active':''}`}>
                 <LineItems selectedOrder={selectedOrder} setIsLineItemsActive={setIsLineItemsActive}/>
             </div>
-        </div>):(
-            <div>No Past Orders!</div>
+        </div>
+        </div>
+        ):(
+            <div>No Past Orders!</div>    
         )
     )
 };

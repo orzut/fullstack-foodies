@@ -49,8 +49,8 @@ const Cart = connect(
 	</div>
 
     <div className='cart-container'>
-      <div className='cart-section mt-150 mb-150'>
-        <div className='col-lg-8 col-md-12'>
+      <div>
+        <div>
       {cart.lineItems.length === 0 ? (
         <div className='cart-empty'>
           <p>Your cart is currently empty.</p>

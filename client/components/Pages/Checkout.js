@@ -43,13 +43,13 @@ const Checkout = ({ dishes, cart})=> {
 	</div>
 
       <div className='cart-container'>
-      <div className="container-fluid bg-secondary mb-5">
+      <div>
           <div className='text-red-400 text-xl font-semibold'>
               <h1>Your Current Order</h1>
           </div>
       </div> 
      
-        <div className='w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col'>
+        <div>
           <table className='table table-bordered'>
             <thead>
               <tr>
@@ -74,7 +74,7 @@ const Checkout = ({ dishes, cart})=> {
                 )
               }})}
               <tr className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex items-end px-8 py-2 text-gray-400 text-lg'>
-                <td className='subtotal fw-bold flex items-end' colSpan='2'>Grand Total</td>
+                <td className='subtotal fw-bold flex items-end'>Grand Total</td>
                 <td className='subtotal' colSpan='4'>${Math.round(cartTotal * 100) / 100}</td>
               </tr>
             </tbody>

@@ -78,27 +78,34 @@ export const Restaurant = ({ match }) => {
     return <div>Loading...</div>;
   } else {
     return (
-      <div className="m-10">
+
+      
+      <div>
         <div className="breadcrumb-section breadcrumb-bg">
-          <div className="container">
+		      <div className="container">
             <div className="row">
               <div className="col-lg-8 offset-lg-2 text-center">
                 <div className="breadcrumb-text">
-                  <p>Fresh and Organic</p>
-                  <h1>Shop</h1>
+                  <p>Fresh and Tasty</p>
+                  <h1>Restaurant</h1>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div>
-          <img
-            className="object-cover w-2/3 h-60"
-            src={restaurant.imageUrl}
-          ></img>
-          <h2 className="mt-5 text-2xl font-bold">{restaurant.name}</h2>
-          <p className="text-slate-400">
+    <div className="single-product mt-150 mb-150">
+      <div className="container">
+			    <div className="row">
+				    <div className="col-md-5">
+              <div className="single-product-img">
+                <img width='100%' src={restaurant.imageUrl}></img>
+            </div>
+          </div>
+          <div className="col-md-7">
+					<div className="single-product-content">
+          <h1 className="mt-5 text-2xl font-bold">{restaurant.name}</h1>
+          <p className="single-product-pricing">
             {restaurant.priceRange}{" "}
             <FiberManualRecordIcon sx={{ fontSize: 8 }} /> {restaurant.category}
           </p>
@@ -178,7 +185,7 @@ export const Restaurant = ({ match }) => {
               {categories.map((category) => {
                 return (
                   <li key={category.id}>
-                    <h3 className="font-bold text-xl mt-3" id={category.name}>
+                    <h3 className="single-team-item" id={category.name}>
                       {category.name}
                     </h3>
                     <ul className="flex flex-wrap">
@@ -220,6 +227,8 @@ export const Restaurant = ({ match }) => {
           </ul>
         </div>
       </div>
+      </div>
+    </div>
     );
   }
 };
