@@ -4,7 +4,14 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import StarIcon from "@mui/icons-material/Star";
 import DishCard from "./DishCard";
 import { NavHashLink } from "react-router-hash-link";
-import { CardContent, Typography, Card, Rating } from "@mui/material";
+import {
+  CardContent,
+  Typography,
+  Card,
+  Rating,
+  FormControlLabel,
+  Switch,
+} from "@mui/material";
 import {
   GoogleMap,
   useLoadScript,
@@ -14,7 +21,6 @@ import {
 import { getUserLocation } from "../../store";
 
 export const Restaurant = ({ match }) => {
-
   const restaurants = useSelector((state) => state.restaurants);
   const dishes = useSelector((state) => state.dishes);
   const categories = useSelector((state) => state.categories);
@@ -41,14 +47,12 @@ export const Restaurant = ({ match }) => {
     googleMapsApiKey: "AIzaSyAGo2NE7sdqcMdbrfboJ1AnbWiAljSl_lI",
     libraries: librariesRef.current,
   });
-  const coord = useSelector((state) => state.location);
-  console.log(coord);
+  const userLocation = useSelector((state) => state.location);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserLocation());
   }, []);
 
-  const userLocation = { lat: 33.09, lng: -85.53 };
   const restLocation = { lat: restaurant.lat || 0, lng: restaurant.lng || 0 };
 
   const calculateRoute = async () => {
@@ -88,7 +92,7 @@ export const Restaurant = ({ match }) => {
               </div>
             </div>
           </div>
-  	    </div>
+        </div>
 
     <div className="single-product mt-150 mb-150">
       <div className="container">
@@ -112,9 +116,21 @@ export const Restaurant = ({ match }) => {
           ) : null}
           <p className="text-slate-400">{restaurant.address}</p>
         </div>
+        <div className="inline-block p-1 m-2 rounded-full border-2 border-slate-200">
+          <button
+            className="p-2 m-1 rounded-full bg-slate-200"
+            onClick={() => loadTheMap()}
+          >
+            Pickup
+          </button>
+          <button
+            className="p-2 m-1 rounded-full bg-slate-200"
+            onClick={() => setDisplayMap(false)}
+          >
+            Delivery
+          </button>
         </div>
-      </div>
-        <button onClick={() => loadTheMap()}>Show on the map</button>
+
         {displayMap ? (
           <div>
             <div className="h-64">
@@ -136,8 +152,10 @@ export const Restaurant = ({ match }) => {
                 <DirectionsRenderer directions={directionsResponse} />
               </GoogleMap>
             </div>
-            <p>Duration: {duration}</p>
-            <p>Distance: {distance}</p>
+            <p className="mt-3">
+              {duration} <FiberManualRecordIcon sx={{ fontSize: 6 }} />{" "}
+              {distance}
+            </p>
           </div>
         ) : null}
 

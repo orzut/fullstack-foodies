@@ -1,11 +1,13 @@
+import axios from "axios";
+
 const FETCH_USER_LOCATION = "FETCH_USER_LOCATION";
-const SET_USER_LOCATION = 'SET_USER_LOCATION';
+const SET_USER_LOCATION = "SET_USER_LOCATION";
 
 const location = (state = {}, action) => {
   if (action.type === FETCH_USER_LOCATION) {
     return action.location;
   } else if (action.type === SET_USER_LOCATION) {
-    return action.location
+    return action.location;
   }
   return state;
 };
@@ -13,15 +15,14 @@ const location = (state = {}, action) => {
 export const getUserLocation = () => {
   return async (dispatch) => {
     try {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const userLocation = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          }
-          dispatch({ type: FETCH_USER_LOCATION, location: userLocation });
-        });
-      }
+      const location = (
+        await axios.get("/api/location", {
+          headers: {
+            authorization: window.localStorage.getItem("token"),
+          },
+        })
+      ).data;
+      dispatch({ type: FETCH_USER_LOCATION, location });
     } catch (ex) {
       console.log(ex);
     }
@@ -29,13 +30,19 @@ export const getUserLocation = () => {
 };
 
 export const setUserLocation = (userLocation) => {
-  return (dispatch) => {
+  return async (dispatch) => {
     try {
-      dispatch({type: SET_USER_LOCATION, location: userLocation});
+      console.log(userLocation);
+      const response = await axios.post("/api/location", userLocation, {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      });
+      dispatch({ type: SET_USER_LOCATION, location: response.data });
     } catch (ex) {
       console.log(ex);
     }
-  }
-}
+  };
+};
 
 export default location;
