@@ -227,8 +227,8 @@ export const Restaurant = ({ match }) => {
         </div>
       </div>
       </div>
-    </div>
-    </div>
+      </div>
+      </div>
     </div>
     </div>
     );
