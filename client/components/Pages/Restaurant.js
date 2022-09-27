@@ -97,165 +97,160 @@ export const Restaurant = ({ match }) => {
             </div>
           </div>
 
-          <div className="single-product mt-150 mb-150">
+          <div className="single-product mt-100 mb-10">
             <div className="container">
-              <div className="row">
-                <div className="col-md-5">
-                  <div className="single-product-img">
-                    <img width="100%" src={restaurant.imageUrl}></img>
+              {/* <div className="row"> */}
+              {/* <div className="col-md-5"> */}
+              <div className="single-product-img">
+                <img
+                  className="w-full h-96 object-cover"
+                  src={restaurant.imageUrl}
+                ></img>
+              </div>
+              {/* </div>
+                <div className="col-md-7"> */}
+              <div className="single-product-content">
+                <h1 className="mt-5 text-2xl font-bold">{restaurant.name}</h1>
+                <p className="single-product-pricing">
+                  {restaurant.priceRange}{" "}
+                  <FiberManualRecordIcon sx={{ fontSize: 8 }} />{" "}
+                  {restaurant.category}
+                </p>
+                {restaurant.score ? (
+                  <p className="text-slate-400">
+                    Rating: {restaurant.score}{" "}
+                    <StarIcon sx={{ fontSize: 18 }} />
+                  </p>
+                ) : null}
+                <p className="text-slate-400">{restaurant.address}</p>
+              </div>
+              <div className="inline-block p-1 m-2 rounded-full border-2 border-slate-200">
+                <button
+                  className="p-2 m-1 rounded-full bg-slate-200"
+                  onClick={() => loadTheMap()}
+                >
+                  Pickup
+                </button>
+                <button
+                  className="p-2 m-1 rounded-full bg-slate-200"
+                  onClick={() => setDisplayMap(false)}
+                >
+                  Delivery
+                </button>
+              </div>
+
+              {displayMap ? (
+                <div>
+                  <div className="h-64">
+                    <GoogleMap
+                      zoom={10}
+                      center={center}
+                      mapContainerStyle={{ width: "50%", height: "100%" }}
+                      options={{
+                        zoomControl: false,
+                        streetViewControl: false,
+                        mapTypeControl: false,
+                        fullscreenControl: false,
+                      }}
+                      onLoad={(map) => setMapState(map)}
+                    >
+                      <Marker position={restLocation}></Marker>
+                      <Marker position={userLocation}></Marker>
+
+                      <DirectionsRenderer directions={directionsResponse} />
+                    </GoogleMap>
                   </div>
+                  <p className="mt-3">
+                    {duration} <FiberManualRecordIcon sx={{ fontSize: 6 }} />{" "}
+                    {distance}
+                  </p>
                 </div>
-                <div className="col-md-7">
-                  <div className="single-product-content">
-                    <h1 className="mt-5 text-2xl font-bold">
-                      {restaurant.name}
-                    </h1>
-                    <p className="single-product-pricing">
-                      {restaurant.priceRange}{" "}
-                      <FiberManualRecordIcon sx={{ fontSize: 8 }} />{" "}
-                      {restaurant.category}
-                    </p>
-                    {restaurant.score ? (
-                      <p className="text-slate-400">
-                        Rating: {restaurant.score}{" "}
-                        <StarIcon sx={{ fontSize: 18 }} />
-                      </p>
-                    ) : null}
-                    <p className="text-slate-400">{restaurant.address}</p>
-                  </div>
-                  <div className="inline-block p-1 m-2 rounded-full border-2 border-slate-200">
-                    <button
-                      className="p-2 m-1 rounded-full bg-slate-200"
-                      onClick={() => loadTheMap()}
-                    >
-                      Pickup
-                    </button>
-                    <button
-                      className="p-2 m-1 rounded-full bg-slate-200"
-                      onClick={() => setDisplayMap(false)}
-                    >
-                      Delivery
-                    </button>
-                  </div>
+              ) : null}
+              {alert ? (
+                <Dialog
+                  open={alert}
+                  onClose={() => setAlert(false)}
+                  aria-describedby="alert-dialog-description"
+                >
+                  <Alert severity="warning">
+                    Please sign in/sign up and enter your address!
+                  </Alert>
+                </Dialog>
+              ) : null}
+              <div>
+                <nav className="sticky top-0 bg-white border-y m-2 p-2 text-xl">
+                  {categories.map((category) => {
+                    return (
+                      <NavHashLink
+                        key={category.id}
+                        smooth
+                        to={`/restaurants/${restaurant.id}#${category.name}`}
+                        activeStyle={{
+                          fontWeight: "bold",
+                          borderBottom: "2px solid black",
+                        }}
+                        className="m-2"
+                      >
+                        {category.name}
+                      </NavHashLink>
+                    );
+                  })}
+                </nav>
 
-                  {displayMap ? (
-                    <div>
-                      <div className="h-64">
-                        <GoogleMap
-                          zoom={10}
-                          center={center}
-                          mapContainerStyle={{ width: "50%", height: "100%" }}
-                          options={{
-                            zoomControl: false,
-                            streetViewControl: false,
-                            mapTypeControl: false,
-                            fullscreenControl: false,
-                          }}
-                          onLoad={(map) => setMapState(map)}
-                        >
-                          <Marker position={restLocation}></Marker>
-                          <Marker position={userLocation}></Marker>
-
-                          <DirectionsRenderer directions={directionsResponse} />
-                        </GoogleMap>
-                      </div>
-                      <p className="mt-3">
-                        {duration}{" "}
-                        <FiberManualRecordIcon sx={{ fontSize: 6 }} />{" "}
-                        {distance}
-                      </p>
-                    </div>
-                  ) : null}
-                  {alert ? (
-                    <Dialog
-                      open={alert}
-                      onClose={() => setAlert(false)}
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <Alert severity="warning">
-                        Please sign in/sign up and enter your address!
-                      </Alert>
-                    </Dialog>
-                  ) : null}
-                  <div>
-                    <nav className="sticky top-0 bg-white border-y m-2 p-2 text-xl">
-                      {categories.map((category) => {
-                        return (
-                          <NavHashLink
-                            key={category.id}
-                            smooth
-                            to={`/restaurants/${restaurant.id}#${category.name}`}
-                            activeStyle={{
-                              fontWeight: "bold",
-                              borderBottom: "2px solid black",
-                            }}
-                            className="m-2"
-                          >
+                {/* loading menu */}
+                <div className="mt-4">
+                  <ul>
+                    {categories.map((category) => {
+                      return (
+                        <li key={category.id}>
+                          <h3 className="text-xl font-bold" id={category.name}>
                             {category.name}
-                          </NavHashLink>
-                        );
-                      })}
-                    </nav>
-
-                    {/* loading menu */}
-                    <div className="mt-4">
-                      <ul>
-                        {categories.map((category) => {
-                          return (
-                            <li key={category.id}>
-                              <h3
-                                className="single-team-item"
-                                id={category.name}
-                              >
-                                {category.name}
-                              </h3>
-                              <ul className="flex flex-wrap">
-                                {menu.map((dish) => {
-                                  if (dish.categoryId === category.id) {
-                                    return (
-                                      <DishCard key={dish.id} dish={dish} />
-                                    );
-                                  }
-                                })}
-                              </ul>
-                            </li>
-                          );
-                        })}
-                      </ul>
-                    </div>
-                  </div>
-                  {/* loading reviews */}
-                  <div className="mt-4">
-                    <h3 className="text-xl font-bold">Reviews</h3>
-                    {restaurant.score ? (
-                      <p className="text-slate-400">
-                        Rating: {restaurant.score}{" "}
-                        <StarIcon sx={{ fontSize: 18 }} />
-                      </p>
-                    ) : null}
-                    <p>{restaurantReviews.length} reviews</p>
-                    <ul className="flex justify-around">
-                      {restaurantReviews.slice(0, 3).map((review) => {
-                        return (
-                          <Card sx={{ width: 300 }} key={review.id}>
-                            <CardContent>
-                              <Typography variant="h6">
-                                {review.user.firstName} {review.user.lastName}
-                              </Typography>
-                              <Rating
-                                name="read-only"
-                                value={review.rating}
-                                readOnly
-                              />
-                              <Typography>{review.review}</Typography>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </ul>
-                  </div>
+                          </h3>
+                          <ul className="flex flex-wrap">
+                            {menu.map((dish) => {
+                              if (dish.categoryId === category.id) {
+                                return <DishCard key={dish.id} dish={dish} />;
+                              }
+                            })}
+                          </ul>
+                        </li>
+                      );
+                    })}
+                  </ul>
                 </div>
               </div>
+              {/* loading reviews */}
+              <div className="mt-4">
+                <h3 className="text-xl font-bold">Reviews</h3>
+                {restaurant.score ? (
+                  <p className="text-slate-400">
+                    Rating: {restaurant.score}{" "}
+                    <StarIcon sx={{ fontSize: 18 }} />
+                  </p>
+                ) : null}
+                <p>{restaurantReviews.length} reviews</p>
+                <ul className="flex justify-around">
+                  {restaurantReviews.slice(0, 3).map((review) => {
+                    return (
+                      <Card sx={{ width: 300, m: 1 }} key={review.id}>
+                        <CardContent>
+                          <Typography variant="h6">
+                            {review.user.firstName} {review.user.lastName}
+                          </Typography>
+                          <Rating
+                            name="read-only"
+                            value={review.rating}
+                            readOnly
+                          />
+                          <Typography>{review.review}</Typography>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </ul>
+              </div>
+              {/* </div> */}
+              {/* </div> */}
             </div>
           </div>
         </div>
