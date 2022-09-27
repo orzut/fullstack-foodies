@@ -8,6 +8,12 @@ const Address = db.define("address", {
     defaultValue: UUIDV4,
     primaryKey: true,
   },
+  firstName: {
+    type: STRING,
+  },
+  lastName: {
+    type: STRING,
+  },
   apt: {
     type: STRING,
   },

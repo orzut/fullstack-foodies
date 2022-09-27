@@ -18,7 +18,11 @@ const addresses = (state = [], action)=> {
 
 export const fetchAddresses = ()=> {
   return async(dispatch) => {
-    const addresses = (await axios.get('/api/addresses')).data;
+    const addresses = (await axios.get('/api/addresses', {
+      headers: {
+        authorization: window.localStorage.getItem('token')
+      }
+    })).data;
     dispatch({ type: 'SET_ADDRESSES', addresses });
   };
 };  
