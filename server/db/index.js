@@ -110,7 +110,7 @@ module.exports = {
     LineItem,
     Category,
     SavedRestaurant,
-    SavedOrder
+    SavedOrder,
     Location,
   },
 };
