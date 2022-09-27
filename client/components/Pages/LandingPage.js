@@ -19,15 +19,15 @@ export const LandingPage = () => {
       	</div>
 
       <div className="pt-24">
-      <div class="hero-area hero-bg">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-8 offset-lg-2 text-center">
-					<div class="hero-text">
-						<div class="hero-text-tablecell">
+      <div className="hero-area hero-bg">
+		<div className="container">
+			<div className="row">
+				<div className="col-lg-8 offset-lg-2 text-center">
+					<div className="hero-text">
+						<div className="hero-text-tablecell">
 							<img src="https://afar.brightspotcdn.com/dims4/default/3aa6f3c/2147483647/strip/true/crop/1440x720+0+0/resize/1440x720!/quality/90/?url=https%3A%2F%2Fafar-media-production-web.s3.amazonaws.com%2Fbrightspot%2F5f%2F8e%2F2d27f7aa47c58e210b626d30b59f%2Ffood-neighborhoods-01-lede-champys-chicken-chattanooga-new.jpg"
 							/>
-							<p class="subtitle">Really Good Food</p>
+							<p className="subtitle">Really Good Food</p>
 							<h1>Order Now</h1>
 						</div>
 					</div>
@@ -162,12 +162,6 @@ export const LandingPage = () => {
 							<a href="single-news.html" className="read-more-btn">read more <i className="fas fa-angle-right"></i></a>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div className="row">
-				<div className="col-lg-12 text-center">
-					<a href="news.html" className="boxed-btn">More News</a>
-					<br></br>
 				</div>
 			</div>
 		</div>

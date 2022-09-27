@@ -14,6 +14,7 @@ const Coupon = require("./models/Coupon");
 const Cuisine = require("./models/Cuisine");
 const SavedRestaurant = require('./models/SavedRestaurant');
 const SavedOrder = require('./models/SavedOrder');
+const Location = require("./models/Location");
 
 //associations could go here!
 User.hasMany(Order, {
@@ -90,7 +91,7 @@ SavedOrder.belongsTo(Order, {
   foreignKey: { name: "orderId", allowNull: false },
   sourceKey: "id",
 });
-
+Location.belongsTo(User);
 
 module.exports = {
   db,
@@ -110,5 +111,6 @@ module.exports = {
     Category,
     SavedRestaurant,
     SavedOrder
+    Location,
   },
 };

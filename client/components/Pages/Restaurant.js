@@ -4,7 +4,14 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import StarIcon from "@mui/icons-material/Star";
 import DishCard from "./DishCard";
 import { NavHashLink } from "react-router-hash-link";
-import { CardContent, Typography, Card, Rating } from "@mui/material";
+import {
+  CardContent,
+  Typography,
+  Card,
+  Rating,
+  FormControlLabel,
+  Switch,
+} from "@mui/material";
 import {
   GoogleMap,
   useLoadScript,
@@ -14,7 +21,6 @@ import {
 import { getUserLocation } from "../../store";
 
 export const Restaurant = ({ match }) => {
-
   const restaurants = useSelector((state) => state.restaurants);
   const dishes = useSelector((state) => state.dishes);
   const categories = useSelector((state) => state.categories);
@@ -41,14 +47,12 @@ export const Restaurant = ({ match }) => {
     googleMapsApiKey: "AIzaSyAGo2NE7sdqcMdbrfboJ1AnbWiAljSl_lI",
     libraries: librariesRef.current,
   });
-  const coord = useSelector((state) => state.location);
-  console.log(coord);
+  const userLocation = useSelector((state) => state.location);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getUserLocation());
   }, []);
 
-  const userLocation = { lat: 33.09, lng: -85.53 };
   const restLocation = { lat: restaurant.lat || 0, lng: restaurant.lng || 0 };
 
   const calculateRoute = async () => {
@@ -74,8 +78,7 @@ export const Restaurant = ({ match }) => {
     return <div>Loading...</div>;
   } else {
     return (
-
-      
+      <div>
       <div>
         <div className="breadcrumb-section breadcrumb-bg">
 		      <div className="container">
@@ -88,12 +91,20 @@ export const Restaurant = ({ match }) => {
               </div>
             </div>
           </div>
-  	    </div>
+        </div>
 
-        <div className="pt-24">
-          <img className="h-60" src={restaurant.imageUrl}></img>
-          <h2 className="mt-5 text-2xl font-bold">{restaurant.name}</h2>
-          <p className="text-slate-400">
+    <div className="single-product mt-150 mb-150">
+      <div className="container">
+			    <div className="row">
+				    <div className="col-md-5">
+              <div className="single-product-img">
+                <img width='100%' src={restaurant.imageUrl}></img>
+            </div>
+          </div>
+          <div className="col-md-7">
+					<div className="single-product-content">
+          <h1 className="mt-5 text-2xl font-bold">{restaurant.name}</h1>
+          <p className="single-product-pricing">
             {restaurant.priceRange}{" "}
             <FiberManualRecordIcon sx={{ fontSize: 8 }} /> {restaurant.category}
           </p>
@@ -104,7 +115,21 @@ export const Restaurant = ({ match }) => {
           ) : null}
           <p className="text-slate-400">{restaurant.address}</p>
         </div>
-        <button onClick={() => loadTheMap()}>Show on the map</button>
+        <div className="inline-block p-1 m-2 rounded-full border-2 border-slate-200">
+          <button
+            className="p-2 m-1 rounded-full bg-slate-200"
+            onClick={() => loadTheMap()}
+          >
+            Pickup
+          </button>
+          <button
+            className="p-2 m-1 rounded-full bg-slate-200"
+            onClick={() => setDisplayMap(false)}
+          >
+            Delivery
+          </button>
+        </div>
+
         {displayMap ? (
           <div>
             <div className="h-64">
@@ -126,8 +151,10 @@ export const Restaurant = ({ match }) => {
                 <DirectionsRenderer directions={directionsResponse} />
               </GoogleMap>
             </div>
-            <p>Duration: {duration}</p>
-            <p>Distance: {distance}</p>
+            <p className="mt-3">
+              {duration} <FiberManualRecordIcon sx={{ fontSize: 6 }} />{" "}
+              {distance}
+            </p>
           </div>
         ) : null}
 
@@ -157,7 +184,7 @@ export const Restaurant = ({ match }) => {
               {categories.map((category) => {
                 return (
                   <li key={category.id}>
-                    <h3 className="font-bold text-xl mt-3" id={category.name}>
+                    <h3 className="single-team-item" id={category.name}>
                       {category.name}
                     </h3>
                     <ul className="flex flex-wrap">
@@ -199,6 +226,11 @@ export const Restaurant = ({ match }) => {
           </ul>
         </div>
       </div>
+      </div>
+      </div>
+      </div>
+    </div>
+    </div>
     );
   }
 };
