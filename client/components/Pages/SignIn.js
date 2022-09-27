@@ -25,6 +25,7 @@ class SignIn extends Component {
       password: this.state.password,
     };
     this.props.login(credentials);
+    this.props.history.push('/restaurants')
   }
 
   render() {
@@ -131,6 +132,7 @@ class SignIn extends Component {
 const mapDispatch = (dispatch) => {
   return {
     login: (credentials) => dispatch(authenticate(credentials, "login")),
+    fetchSavedRestaurants: () => dispatch(fetchSavedRestaurants())
   };
 };
 

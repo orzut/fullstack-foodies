@@ -88,7 +88,6 @@ const mapDispatch = (dispatch) => {
       dispatch(fetchDishes());
       dispatch(fetchCategories());
       dispatch(fetchReviews());
-      dispatch(fetchSavedRestaurants());
     },
     fetchCart: () => dispatch(fetchCart()),
     authenticate: () => dispatch(authenticate()),

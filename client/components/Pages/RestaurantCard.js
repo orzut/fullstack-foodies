@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {useDispatch} from 'react-redux';
 import {
   CardActionArea,
@@ -13,9 +13,12 @@ import {addSavedRestaurants, removeSavedRestaurants} from '../../store';
 import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
 import './RestaurantCard.css';
 
-const RestaurantCard = ({ restaurant }) => {
+const RestaurantCard = ({ restaurant, liked }) => {
   const [isFavorited, setIsFavorited] = useState(false)
   const dispatch = useDispatch();
+  useEffect(() => {
+    liked ? setIsFavorited(true) : setIsFavorited(false)
+  }, [])
   const handleClick = () => {
     if(isFavorited){
       dispatch(removeSavedRestaurants(restaurant))

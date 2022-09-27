@@ -14,7 +14,8 @@ router.get("/", isLoggedIn, async (req, res, next) => {
         res.send(await SavedRestaurant.findAll({
             where: {
                 userId: req.user.id
-            }
+            },
+            include: [db.models.restaurant]
         }));
     } catch (err) {
         next(err);
@@ -47,39 +48,3 @@ router.delete('/:id',isLoggedIn, async (req,res,next) => {
         console.log(ex)
     }
 })
-// get reviews for a restaurant
-// router.get("/:id/reviews", async (req, res, next) => {
-//     try {
-//         res.send(
-//             await Review.findAll({
-//                 where: { restaurantId: req.params.id },
-//                 include: [User],
-//             })
-//         );
-//     } catch (err) {
-//         next(err);
-//     }
-// });
-
-// // get all restaurants
-// router.get("/", async (req, res, next) => {
-//     try {
-//         if (req.query.key) {
-//             res.send(
-//                 await Restaurant.findAll({
-//                     where: {
-//                         name: {[Op.iLike]:`%${req.query.key}%`}
-//                     },
-//                     include: [db.models.cuisine],
-//                     limit: req.query.limit
-//                 })
-//             )
-//         } else {
-//             res.send(await Restaurant.findAll({
-//                 include: [db.models.cuisine]
-//             }));
-//         }
-//     } catch (err) {
-//         next(err);
-//     }
-// });

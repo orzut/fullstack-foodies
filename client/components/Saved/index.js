@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import RestaurantCard from "../Pages/RestaurantCard";
 
 const Saved = () => {
-    const restaurants = useSelector(state => state.restaurants)
+    // const restaurants = useSelector(state => state.restaurants)
     const savedRestaurants = useSelector(state => state.savedRestaurants)
     console.log(savedRestaurants)
     return (
@@ -25,13 +25,13 @@ const Saved = () => {
             </div>
             {/* Restaurant Listing Begins Here*/}
             <div className="flex flex-wrap justify-around">
-                {restaurants.map((restaurant) => {
+                {savedRestaurants.map((restaurant) => {
                     /**
                      * TO DO DISPLAY SACVED RESTAURNTS .......
                      * .......................................
                      * .........................................
                      */
-                    return <RestaurantCard key={restaurant.id} restaurant={restaurant} />;
+                    return <RestaurantCard key={restaurant.restaurantId} restaurant={restaurant} />;
                 })}
             </div>
         </main>

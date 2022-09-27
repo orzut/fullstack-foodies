@@ -21,7 +21,11 @@ const savedRestaurants = (state = [], action) => {
 
 const fetchSavedRestaurants = () => {
     return async (dispatch) => {
-        const savedRestaurants = (await axios.get('/api/savedRestaurants')).data
+        const savedRestaurants = (await axios.get('/api/savedRestaurants', {
+            headers: {
+                authorization: window.localStorage.getItem('token')
+            }
+        })).data
         dispatch({type: SET_SAVED_RESTAURANTS, savedRestaurants})
     }
 }
