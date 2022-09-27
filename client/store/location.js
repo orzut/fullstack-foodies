@@ -32,7 +32,6 @@ export const getUserLocation = () => {
 export const setUserLocation = (userLocation) => {
   return async (dispatch) => {
     try {
-      console.log(userLocation);
       const response = await axios.post("/api/location", userLocation, {
         headers: {
           authorization: window.localStorage.getItem("token"),
