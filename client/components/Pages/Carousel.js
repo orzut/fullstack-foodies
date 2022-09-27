@@ -1,15 +1,18 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 
 // Data
-import data from "./data.json";
+import _data from "./data.json";
 
 
 export const Carousel = () => {
 
-  // const [data, setData]= useState({resources:[]})
+  const [data, setData]= useState({resources:[]})
   const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef(null);
+  const cuisines = useSelector((state) => state.cuisines);
 
   const movePrev = () => {
     if (currentIndex > 0) {
@@ -52,9 +55,9 @@ export const Carousel = () => {
       : 0;
   }, []);
 
-  // useEffect(() => {
-  //   setData(_data)
-  // },[])
+  useEffect(() => {
+    setData(_data)
+  },[])
 
   return (
     <div className="carousel my-5 mx-auto">
@@ -64,7 +67,7 @@ export const Carousel = () => {
           <button
             onClick={movePrev}
             className="hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
-            disabled={isDisabled("prev")}
+            // disabled={isDisabled("prev")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +88,7 @@ export const Carousel = () => {
           <button
             onClick={moveNext}
             className="hover:bg-blue-900/75 text-white w-10 h-full text-center opacity-75 hover:opacity-100 disabled:opacity-25 disabled:cursor-not-allowed z-10 p-0 m-0 transition-all ease-in-out duration-300"
-            disabled={isDisabled("next")}
+            // disabled={isDisabled("next")}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -108,29 +111,29 @@ export const Carousel = () => {
           ref={carousel}
           className="carousel-container relative flex gap-1 overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0"
         >
-          {data.resources.map((resource, index) => {
+          {cuisines.map((cuisine, index) => {
             return (
               <div
                 key={index}
                 className="carousel-item text-center relative w-64 h-64 snap-start"
               >
                 <a
-                  href={resource.link}
+                  href={cuisine.link}
                   className="h-full w-full aspect-square block bg-origin-padding bg-left-top bg-no-repeat z-0"
-                  style={{ backgroundImage: `url(${resource.imageUrl || ""})` }}
+                  style={{ backgroundImage: `url(${cuisine.imageUrl || ""})` }}
                 >
                   <img
-                    src={resource.imageUrl || ""}
-                    alt={resource.title}
+                    src={cuisine.imageUrl || ""}
+                    alt={cuisine.name}
                     className="w-3 aspect-auto hidden"
                   />
                 </a>
                 <a
-                  href={resource.link}
+                  href={cuisine.link}
                   className="h-full w-full aspect-square block absolute top-0 left-0 transition-opacity duration-300 opacity-0 hover:opacity-100 bg-blue-800/75 z-10"
                 >
                   <h3 className="text-white py-6 px-3 mx-auto text-xl">
-                    {resource.title}
+                    {cuisine.name}
                   </h3>
                 </a>
               </div>

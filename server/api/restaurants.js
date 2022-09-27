@@ -11,7 +11,6 @@ module.exports = router;
 // get menu for a restaurant
 router.get("/:id/menu", async (req, res, next) => {
   try {
-    console.log(req.params.id);
     res.send(await Dish.findAll({ where: { restaurantId: req.params.id } }));
   } catch (err) {
     next(err);

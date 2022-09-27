@@ -1,5 +1,5 @@
 const { db, models } = require("../index");
-const { User, Restaurant, Order, LineItem, Dish, Category, Review } = models;
+const { User, Address, Restaurant, Order, LineItem, Dish, Category, Review } = models;
 const createUsers = require("./createUsers");
 const {
   createRestaurants,
@@ -8,6 +8,7 @@ const {
 const createDishes = require("./createDishes");
 const createOrders = require("./createOrders");
 const createLineItems = require("./createLineItems");
+const createAddresses = require('./createAddresses');
 const seedCuisines = require("./seedCuisines");
 const { CATEGORIES } = require("./createCategories");
 const { REVIEWS } = require("./createReviews");
@@ -26,6 +27,13 @@ const syncAndSeed = async () => {
         return User.create(user);
       })
     );
+    console.log("Seeding addresses...");
+    const addresses = await Promise.all(
+        createAddresses(users).map(address => {
+          Address.create(address)
+        })
+    )
+
     console.log("Seeding cuisines...");
     const cuisines = await seedCuisines();
 
@@ -56,12 +64,12 @@ const syncAndSeed = async () => {
         return Dish.create(dish);
       })
     );
-    console.log("Seeding orders...");
-    const orders = await Promise.all(
-      createOrders(20, users).map((order) => {
-        return Order.create(order);
-      })
-    );
+    // console.log("Seeding orders...");
+    // const orders = await Promise.all(
+    //   createOrders(20, users).map((order) => {
+    //     return Order.create(order);
+    //   })
+    // );
     const user = console.log("Seeding reviews ...");
     const reviews = await Promise.all(
       REVIEWS.map((review) => {

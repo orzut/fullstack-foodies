@@ -2,7 +2,8 @@
     "resources": [
       {
         "title": "Indian Food",
-        "imageUrl": "https://media-cdn.grubhub.com/d_search:browse-images:fallback2-illustration-v4.svg/w_80,q_auto:low,fl_lossy,dpr_2.0,c_fill,f_svg,h_80/search/browse-images/indian-illustration-v4.svg"
+        "imageUrl": "https://media-cdn.grubhub.com/d_search:browse-images:fallback2-illustration-v4.svg/w_80,q_auto:low,fl_lossy,dpr_2.0,c_fill,f_svg,h_80/search/browse-images/indian-illustration-v4.svg",
+        "link": "https://ark-labs.co.uk"
       },
       {
         "title": "Sushi",

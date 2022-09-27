@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
+import { composeWithDevTools } from 'redux-devtools-extension'
 import { createLogger } from "redux-logger";
 import thunkMiddleware from "redux-thunk";
 import auth from "./auth";
@@ -13,6 +14,7 @@ import address from "./address";
 import orders from "./orders";
 import users from "./users";
 import location from "./location";
+import savedRestaurants from './savedRestaurants';
 
 const reducer = combineReducers({
   auth,
@@ -27,12 +29,13 @@ const reducer = combineReducers({
   orders,
   address,
   location,
+  savedRestaurants
 });
 const middleware = applyMiddleware(
   thunkMiddleware,
   createLogger({ collapsed: true })
 );
-const store = createStore(reducer, middleware);
+const store = createStore(reducer, composeWithDevTools(middleware));
 
 export default store;
 export * from "./auth";
@@ -47,3 +50,4 @@ export * from "./users";
 export * from "./orders";
 export * from "./address";
 export * from "./location";
+export * from './savedRestaurants';

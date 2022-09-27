@@ -196,6 +196,7 @@ export const Restaurant = ({ match }) => {
                         );
                       })}
                     </nav>
+
                     {/* loading menu */}
                     <div className="mt-4">
                       <ul>
@@ -236,7 +237,7 @@ export const Restaurant = ({ match }) => {
                     <ul className="flex justify-around">
                       {restaurantReviews.slice(0, 3).map((review) => {
                         return (
-                          <Card sx={{ width: 300, m: 1 }} key={review.id}>
+                          <Card sx={{ width: 300 }} key={review.id}>
                             <CardContent>
                               <Typography variant="h6">
                                 {review.user.firstName} {review.user.lastName}

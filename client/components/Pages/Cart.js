@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { addToCart, fetchCart, clearCart } from "../../store/cart";
 import { Link } from "react-router-dom";
@@ -16,6 +16,7 @@ const Cart = connect(
     };
   }
 )(({ dishes, cart, addToCart, clearCart, fetchCart }) => {
+  const [isFavorited, setIsFavorited] = useState(false)
   useEffect(() => {
     async function loadCart() {
       await fetchCart();
@@ -32,6 +33,10 @@ const Cart = connect(
       cartTotal = lineItemCost + cartTotal;
     }
   });
+
+  const addToFavorite = () => {
+    setIsFavorited(!isFavorited)
+  }
 
   return (
     <div>
@@ -113,12 +118,20 @@ const Cart = connect(
         </div>
       )}
       <div className='cart-summary'>
-        <button
-          className='clear-cart'
-          onClick={() => clearCart()}
-        >
-          Clear Cart
-        </button>
+        <div className='cart-summary-buttons'>
+          <button
+            className='clear-cart'
+            onClick={() => clearCart()}
+          >
+            Clear Cart
+          </button>
+          <button
+              className={`favorite-button ${isFavorited?'favorited':''}`}
+              onClick={() => {addToFavorite()}}
+          >
+            {isFavorited ? 'Favorited' : 'Save'}
+          </button>
+        </div>
         <div className='cart-checkout'>
           <div className='subtotal'>
             <span>
