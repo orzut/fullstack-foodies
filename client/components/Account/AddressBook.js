@@ -11,25 +11,31 @@ class AddressBook extends React.Component{
         this.deleteAddress = this.deleteAddress.bind(this);
     }
     componentDidMount(){
+        console.log('im mounting!!!!')
         this.props.fetchAddresses();
+        console.log(this.props.auth)
     }
-    componentDidUpdate(){
+    componentDidUpdate(prevProps, prevState, snapshot){
+        if ((prevProps.address.length===0) && (this.props.address.length>0)) {
+
+        }
     }
     deleteAddress(address) {
       this.props.deleteAddress(address);
     }
+
     render() {
-      const { addresses, auth } = this.props;
-      const userAddresses = addresses.filter(address => address.userId === auth.id)
+      const { address, auth } = this.props;
+      const userAddresses = address ? address.filter(address => address.userId === auth.id) : []
       const { deleteAddress } = this;
       return (
         <div>
             <div>
                   <div>
-                      <h1>Address Book</h1>
+                      <h1 className='font-bold text-lg'>Address Book</h1>
                       <div>
                           <p>-</p>
-                          <p>Saved Addresses</p>
+                          <p className='font-bold text-lg'>Saved Addresses</p>
                       </div>
                   </div>
               </div>
@@ -40,10 +46,9 @@ class AddressBook extends React.Component{
                         return (
                             <li key={ address.id }>
                               <p>
-                                { address.firstName } { address.lastName }<br />
-                                { address.address }<br />
-                                { address.city }, { address.state } { address.zipCode }<br />
-                                { address.country }
+                                { address.firstName ? this.props.auth.firstName : address.firstName} { address.lastName ? this.props.auth.lastName : address.lastName }<br />
+                                { address.street } { `APT ${address.apt}` }<br />
+                                { address.city }, { address.state } { address.zipcode }<br />
                               </p>
                               <Link to={`/account/addressbook/${address.id}`} style={{ textDecoration: 'none'}} id='editLink'>Edit</Link>
                               <button onClick={ () => deleteAddress(address) } id='deleteButton' style={{ border: 'none' }}>Delete</button>
@@ -59,8 +64,9 @@ class AddressBook extends React.Component{
     }
 }
 
-const mapStateToProps = ({ addresses, auth }) => {
-    return { addresses, auth };
+const mapStateToProps = ({ address, auth }) => {
+    console.log(address)
+    return { address, auth };
 };
 
 const mapDispatch = (dispatch)=> {

@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const { models: { User }} = require('../db')
+const { isLoggedIn } = require('./middleware')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -13,5 +14,14 @@ router.get('/', async (req, res, next) => {
     res.json(users)
   } catch (err) {
     next(err)
+  }
+})
+
+router.put('/:id', isLoggedIn, async (req,res,next) => {
+  try {
+    await req.user.update(req.body)
+    res.status(200).send(req.user)
+  } catch (ex) {
+    console.log(ex)
   }
 })
