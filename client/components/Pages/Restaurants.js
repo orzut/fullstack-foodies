@@ -1,9 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, {useEffect, useState} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {fetchSavedRestaurants,addSavedRestaurants, removeSavedRestaurants} from '../../store';
 import RestaurantCard from "./RestaurantCard";
 
 const Restaurants = () => {
   const restaurants = useSelector((state) => state.restaurants.slice(0, 100));
+  const savedRestaurants = useSelector(state => state.savedRestaurants)
+  const savedRestaurantsId = savedRestaurants.map(restaurant => restaurant.restaurantId)
+  const auth = useSelector(state => state.auth)
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (auth.id) dispatch(fetchSavedRestaurants())
+  },[auth.id,savedRestaurantsId.length])
+
   return (
     <main>
     <div className="breadcrumb-section breadcrumb-bg">
@@ -24,7 +34,15 @@ const Restaurants = () => {
       {/* Restaurant Listing Begins Here*/}
       <div className="flex flex-wrap justify-around">
         {restaurants.map((restaurant) => {
-          return <RestaurantCard key={restaurant.id} restaurant={restaurant} />;
+          if (savedRestaurantsId.includes(restaurant.id)) {
+            return <RestaurantCard key={restaurant.id}
+                                   restaurant={restaurant}
+                                   liked={true}/>
+          } else {
+            return <RestaurantCard key={restaurant.id}
+                                   restaurant={restaurant}
+                                   liked={false}/>
+          }
         })}
       </div>
     </main>

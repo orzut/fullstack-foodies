@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter, Route, Switch, Router } from "react-router-dom";
 import Home from "./components/Home";
 import PastOrders from "./components/PastOrders";
+import Saved from './components/Saved';
 import Map from "./components/Map";
 import {
   authenticate,
@@ -13,6 +14,7 @@ import {
   fetchDishes,
   fetchCategories,
   fetchReviews,
+  fetchSavedRestaurants
 } from "./store";
 import SignIn from "./components/Pages/SignIn";
 import SignUp from "./components/Pages/SignUp";
@@ -47,10 +49,13 @@ class Routes extends Component {
 
         {isLoggedIn ? (
           <Switch>
-              <Route exact path="/cart" component={Cart} />
-              <Route exact path="/past-orders" component={PastOrders} />
-              <Route exact path="/checkout" component={Checkout} />
-              <Route exact path="/success" component={success} />
+            //<Route path="/home" component={Home} />
+            <Route path="/cart" component={Cart} />
+            <Route path="/past-orders" component={PastOrders} />
+            <Route path="/saved" component={Saved} />
+            //<Route path="/map" component={Map} />
+            <Route path="/checkout" component={Checkout} />
+            <Route exact path="/success" component={success} />
           </Switch>
         ) : (
           <Switch>

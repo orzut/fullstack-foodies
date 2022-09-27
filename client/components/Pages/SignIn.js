@@ -134,6 +134,7 @@ class SignIn extends Component {
 const mapDispatch = (dispatch) => {
   return {
     login: (credentials) => dispatch(authenticate(credentials, "login")),
+    fetchSavedRestaurants: () => dispatch(fetchSavedRestaurants())
   };
 };
 

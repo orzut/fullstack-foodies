@@ -12,6 +12,8 @@ const Dish = require("./models/Dish");
 const Category = require("./models/Category");
 const Coupon = require("./models/Coupon");
 const Cuisine = require("./models/Cuisine");
+const SavedRestaurant = require('./models/SavedRestaurant');
+const SavedOrder = require('./models/SavedOrder');
 const Location = require("./models/Location");
 
 //associations could go here!
@@ -57,6 +59,38 @@ Dish.belongsTo(Restaurant);
 Order.hasMany(LineItem);
 LineItem.belongsTo(Dish);
 User.hasMany(Order);
+User.hasMany(SavedRestaurant, {
+  foreignKey: { name: "userId", allowNull: false },
+  sourceKey: "id",
+});
+SavedRestaurant.belongsTo(User, {
+  foreignKey: { name: "userId", allowNull: false },
+  sourceKey: "id",
+});
+Restaurant.hasMany(SavedRestaurant, {
+  foreignKey: { name: "restaurantId", allowNull: false },
+  sourceKey: "id",
+});
+SavedRestaurant.belongsTo(Restaurant, {
+  foreignKey: { name: "restaurantId", allowNull: false },
+  sourceKey: "id",
+});
+User.hasMany(SavedOrder, {
+  foreignKey: { name: "userId", allowNull: false },
+  sourceKey: "id",
+});
+SavedOrder.belongsTo(User, {
+  foreignKey: { name: "userId", allowNull: false },
+  sourceKey: "id",
+});
+Order.hasMany(SavedOrder, {
+  foreignKey: { name: "orderId", allowNull: false },
+  sourceKey: "id",
+});
+SavedOrder.belongsTo(Order, {
+  foreignKey: { name: "orderId", allowNull: false },
+  sourceKey: "id",
+});
 Location.belongsTo(User);
 
 module.exports = {
@@ -75,6 +109,8 @@ module.exports = {
     Order,
     LineItem,
     Category,
+    SavedRestaurant,
+    SavedOrder
     Location,
   },
 };
