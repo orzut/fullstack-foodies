@@ -1,6 +1,6 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {fetchSavedRestaurants} from '../../store';
+import {fetchSavedRestaurants,addSavedRestaurants, removeSavedRestaurants} from '../../store';
 import RestaurantCard from "./RestaurantCard";
 
 const Restaurants = () => {
@@ -12,7 +12,7 @@ const Restaurants = () => {
 
   useEffect(() => {
     if (auth.id) dispatch(fetchSavedRestaurants())
-  },[auth.id,savedRestaurants.length])
+  },[auth.id,savedRestaurantsId.length])
 
   return (
     <main>
@@ -35,9 +35,13 @@ const Restaurants = () => {
       <div className="flex flex-wrap justify-around">
         {restaurants.map((restaurant) => {
           if (savedRestaurantsId.includes(restaurant.id)) {
-            return <RestaurantCard key={restaurant.id} restaurant={restaurant} liked={true}/>
+            return <RestaurantCard key={restaurant.id}
+                                   restaurant={restaurant}
+                                   liked={true}/>
           } else {
-            return <RestaurantCard key={restaurant.id} restaurant={restaurant} liked={false}/>
+            return <RestaurantCard key={restaurant.id}
+                                   restaurant={restaurant}
+                                   liked={false}/>
           }
         })}
       </div>

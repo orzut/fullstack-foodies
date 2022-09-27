@@ -11,9 +11,10 @@ const savedRestaurants = (state = [], action) => {
         case ADD_SAVED_RESTAURANT:
             return [...state, action.newSavedRestaurant]
         case REMOVE_SAVED_RESTAURANT:
-            return [...state.filter(restaurant => {
-                return restaurant.id !== action.restaurant.id
-            })]
+            const output= state.filter(restaurant => {
+                return restaurant.restaurantId !== action.restaurant.id
+            })
+            return output
         default:
             return state
     }

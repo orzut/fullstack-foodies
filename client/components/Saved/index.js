@@ -1,11 +1,18 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import RestaurantCard from "../Pages/RestaurantCard";
+import {fetchSavedRestaurants} from "../../store";
 
 const Saved = () => {
-    // const restaurants = useSelector(state => state.restaurants)
     const savedRestaurants = useSelector(state => state.savedRestaurants)
-    console.log(savedRestaurants)
+    const savedRestaurantsId = savedRestaurants.map(restaurant => restaurant.restaurantId)
+    const auth = useSelector(state => state.auth)
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (auth.id) dispatch(fetchSavedRestaurants())
+    },[auth.id,savedRestaurantsId.length])
+
     return (
         <main>
             <div className="breadcrumb-section breadcrumb-bg">
@@ -25,13 +32,16 @@ const Saved = () => {
             </div>
             {/* Restaurant Listing Begins Here*/}
             <div className="flex flex-wrap justify-around">
-                {savedRestaurants.map((restaurant) => {
-                    /**
-                     * TO DO DISPLAY SACVED RESTAURNTS .......
-                     * .......................................
-                     * .........................................
-                     */
-                    return <RestaurantCard key={restaurant.restaurantId} restaurant={restaurant} />;
+                {savedRestaurants.map((savedRestaurant) => {
+                    if (savedRestaurantsId.includes(savedRestaurant.restaurantId)) {
+                        return <RestaurantCard key={savedRestaurant.id}
+                                               restaurant={savedRestaurant.restaurant}
+                                               liked={true}/>
+                    } else {
+                        return <RestaurantCard key={savedRestaurant.restaurantId}
+                                               restaurant={savedRestaurant.restaurant}
+                                               liked={false}/>
+                    }
                 })}
             </div>
         </main>

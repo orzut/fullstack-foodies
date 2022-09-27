@@ -9,23 +9,18 @@ import {
 } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import { Link } from "react-router-dom";
-import {addSavedRestaurants, removeSavedRestaurants} from '../../store';
+import {addSavedRestaurants, fetchSavedRestaurants, removeSavedRestaurants} from '../../store';
 import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
 import './RestaurantCard.css';
 
 const RestaurantCard = ({ restaurant, liked }) => {
-  const [isFavorited, setIsFavorited] = useState(false)
   const dispatch = useDispatch();
-  useEffect(() => {
-    liked ? setIsFavorited(true) : setIsFavorited(false)
-  }, [])
   const handleClick = () => {
-    if(isFavorited){
+    if(liked){
       dispatch(removeSavedRestaurants(restaurant))
     } else {
       dispatch(addSavedRestaurants(restaurant));
     }
-    setIsFavorited(!isFavorited)
   }
   return (
     <div>
@@ -59,7 +54,7 @@ const RestaurantCard = ({ restaurant, liked }) => {
         </Card>
       </Link>
       <div className='restaurant-card-favorite' onClick={handleClick}>
-        {isFavorited ?
+        {liked ?
             <AiFillHeart className="restaurant-card-favorite-icon"/> :
             <AiOutlineHeart className="restaurant-card-favorite-icon"/>
         }
