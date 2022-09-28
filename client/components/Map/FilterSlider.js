@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import ReactSlider from "react-slider";
-import './DeliveryTime.css';
+import './FilterSlider.css';
 
-const DeliveryTime = () => {
-    const [currentValue, setCurrentValue] = useState(0);
-
+const FilterSlider = ({sliderVal, setSliderVal, min, max, defaultValue, sliderType}) => {
     return (
         <ReactSlider
             className="customSlider"
@@ -12,15 +10,15 @@ const DeliveryTime = () => {
             trackClassName="customSlider-track"
             markClassName="customSlider-mark"
             marks={20}
-            min={0}
-            max={100}
-            defaultValue={0}
-            value={currentValue}
-            onChange={(value) => setCurrentValue(value)}
+            min={min}
+            max={max}
+            defaultValue={defaultValue}
+            value={sliderVal}
+            onChange={(value) => setSliderVal(oldValue => ({...oldValue, [`${sliderType}`]: value}))}
             renderMark={(props) => {
-                if (props.key < currentValue) {
+                if (props.key < sliderVal) {
                     props.className = "customSlider-mark customSlider-mark-before";
-                } else if (props.key === currentValue) {
+                } else if (props.key === sliderVal) {
                     props.className = "customSlider-mark customSlider-mark-active";
                 }
                 return <span {...props} />;
@@ -29,4 +27,4 @@ const DeliveryTime = () => {
     );
 };
 
-export default DeliveryTime;
+export default FilterSlider;

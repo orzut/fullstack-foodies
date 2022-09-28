@@ -13,6 +13,23 @@ export const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef(null);
   const cuisines = useSelector((state) => state.cuisines);
+  const [search, setSearch] = useState("");
+  const [searchResult, setSearchResult] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+
+  const searchItems = (value) => {
+    setSearch(value);
+    const filtered = restaurants.filter(
+      (restaurant) =>
+        restaurant.name.toLowerCase().includes(search.toLowerCase()) ||
+        restaurant.category.toLowerCase().includes(search.toLowerCase()) ||
+        (restaurant.cuisine ?
+                restaurant.cuisine.name.toLowerCase().includes(search.toLowerCase()) :
+                false)
+    );
+    setFilteredData(filtered);
+  };
+
 
   const movePrev = () => {
     if (currentIndex > 0) {
@@ -58,6 +75,7 @@ export const Carousel = () => {
   useEffect(() => {
     setData(_data)
   },[])
+
 
   return (
     <div className="carousel my-5 mx-auto">

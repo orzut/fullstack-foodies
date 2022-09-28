@@ -2,9 +2,9 @@ import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import { GoogleMap, useLoadScript, Marker, MarkerClusterer, Autocomplete, DirectionsRenderer, Circle, InfoWindow } from '@react-google-maps/api';
 import usePlacesAutocomplete, {getGeocode, getLatLng} from "use-places-autocomplete";
-import {fetchRestaurants, setUserLocation} from "../../store"
+import {fetchRestaurants} from "../../store"
 import Rating from './Rating';
-import FilterSlider from './FilterSlider';
+import DeliveryTime from './DeliveryTime';
 import RestaurantModal from './RestaurantModal';
 import './Map.css';
 
@@ -14,36 +14,29 @@ function Map() {
     const [displayRestaurants, setDisplayRestaurants] = useState([]);
     const [distance, setDistance] = useState('')
     const [duration, setDuration] = useState('')
-    const [destination, setDestination] = useState({lat: null, lng: null})
+    const [center, setCenter] = useState({lat: 0, lng: 0})
     const [activeMarker, setActiveMarker] = useState(null);
     const [isRestaurantModalActive, setIsRestaurantModalActive] = useState(false);
     const [restaurantModalDisplay,setRestaurantModalDisplay] = useState();
-    const [filterParams, setFilterParams] = useState({score:0, priceRange:0, deliveryTime:60, distance: 20});
+    const originRef = useRef();
+    const destinationRef = useRef();
     const librariesRef = useRef(['places'])
-    const userLocation = useSelector(state=> state.location)
     const restaurants = useSelector(state => state.restaurants)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        if(Object.keys(userLocation).length===0) {
-            navigator.geolocation.getCurrentPosition(position => {
-                dispatch(setUserLocation({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude
-                }))
+        navigator.geolocation.getCurrentPosition(position => {
+            setCenter({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
             })
-        }
+        })
         dispatch(fetchRestaurants())
-    },[JSON.stringify(userLocation)])
+    },[])
 
     useEffect(()=>{
-        console.log(filterParams)
-        setDisplayRestaurants(filterRestaurants(restaurants,userLocation,filterParams.deliveryTime,filterParams.distance,filterParams.score).slice(0,100))
-    },[restaurants, JSON.stringify(userLocation), JSON.stringify(filterParams)])
-
-    useEffect(() => {
-        calculateRoute()
-    },[JSON.stringify(destination)])
+        setDisplayRestaurants(filterRestaurants(restaurants,center,500).slice(0,20))
+    },[restaurants, center])
 
     const { isLoaded } = useLoadScript({
         googleMapsApiKey: 'AIzaSyAGo2NE7sdqcMdbrfboJ1AnbWiAljSl_lI',
@@ -52,13 +45,13 @@ function Map() {
 
     const calculateRoute = async () => {
         let results;
-        if ((userLocation.lat===null) || (destination.lat===null)) {
+        if (originRef.current.value === '' || destinationRef.current.value === '') {
             return
         } else {
             const directionsService = new google.maps.DirectionsService();
             results = await directionsService.route({
-                origin: userLocation,
-                destination: destination,
+                origin: originRef.current.value,
+                destination: destinationRef.current.value,
                 travelMode: google.maps.TravelMode.DRIVING
             })
         }
@@ -71,6 +64,8 @@ function Map() {
         setDirectionsResponse(null)
         setDistance('')
         setDuration('')
+        originRef.current.value = ''
+        destinationRef.current.value = ''
     }
 
     const getDistanceFromLatLng = (lat1, lon1, lat2, lon2) => {
@@ -90,17 +85,15 @@ function Map() {
         return deg * (Math.PI/180)
     }
 
-    const filterRestaurants = (restaurants, center, deliveryTimeLimit, distanceLimit, scoreLimit) => {
+    const filterRestaurants = (restaurants, center, distanceLimit) => {
         const filteredRestaurants = []
         restaurants.forEach(restaurant => {
             const distance = getDistanceFromLatLng(restaurant.lat,restaurant.lng,center.lat,center.lng);
-            const deliveryTime = 3*getDistanceFromLatLng(restaurant.lat,restaurant.lng,center.lat,center.lng);
-            const score = restaurant.score;
-            if ((distance<=distanceLimit)&&(deliveryTime<=deliveryTimeLimit)&&(score>=scoreLimit)) {
+            if (distance<distanceLimit) {
                 filteredRestaurants.push({distance, restaurant});
-                console.log(restaurant)
             }
         });
+        console.log(filteredRestaurants)
         filteredRestaurants.sort(distanceComparison)
         return filteredRestaurants.map(item=>item.restaurant)
     }
@@ -115,14 +108,19 @@ function Map() {
         };
     }
 
+    const handleSubmit = async (ev) => {
+        ev.preventDefault()
+        const results = await getGeocode({ address: originRef.current.value })
+        const latLng = getLatLng(results[0]);
+        setCenter(latLng)
+    }
+
     const handleActiveMarker = (marker) => {
         /** marker is restaurant.id */
         if (marker === activeMarker) {
             return;
         }
         setActiveMarker(marker);
-        const selectedRestaurant = restaurants.find(restaurant=>restaurant.id===marker)
-        setDestination({lat:selectedRestaurant.lat, lng:selectedRestaurant.lng})
     };
 
     const handleRestaurantMenuActive = (restaurantId) => {
@@ -136,59 +134,59 @@ function Map() {
                 Loading...
             </div>
         )
-    } else if (Object.keys(userLocation).length===0) {
-        return (
-            <div>
-                Awaiting user location...
-            </div>
-        )
     } else {
         return (
+
             <div>
+
                 <div className="breadcrumb-section breadcrumb-bg">
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-8 offset-lg-2 text-center">
-                            <div className="breadcrumb-text">
-                                <p>Locate your restaurant selections</p>
-                                <h1>Food Delivery Map</h1>
+                                <div className="breadcrumb-text">
+                                    <p>Locate your restaurant selections</p>
+                                    <h1>Food Delivery Map</h1>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <br></br>
                 <div className='map-wrapper'>
                     <div className='selection-menu'>
-                        <div className='map-buttons'>
-                            <div className='map-center-button'>
-                                <button onClick={()=>{mapState.panTo(userLocation)}}>Center</button>
-                            </div>
-
-                            <div className='route-clear-button'>
-                                <button onClick={clearRoute}>Clear Map</button>
-                            </div>
+                        <form onSubmit={handleSubmit}>
+                            <Autocomplete>
+                                <input type='text' placeholder='Origin' ref={originRef} />
+                            </Autocomplete>
+                            <button type='submit'>Search</button>
+                        </form>
+                        <Autocomplete>
+                            <input type='text' placeholder='Destination' ref={destinationRef}/>
+                        </Autocomplete>
+                        <div>
+                            <button onClick={calculateRoute}>Calculate Route</button>
                         </div>
-                        <div className='restaurant-filter-wrapper'>
-                            <div className='restaurant-filter-title'>Filter</div>
-                            <div>Rating</div>
-                            <Rating rating={filterParams.score} setRating={setFilterParams} ratingType={'score'}/>
-                            <div>Price Range</div>
-                            <Rating />
-                            <div className='restaurant-filter-deliver-time'>Delivery Time</div>
-                            <div className='filter-slider'>
-                                <FilterSlider sliderVal={filterParams.deliveryTime} setSliderVal={setFilterParams} min={0} max={60} defaultValue={60} sliderType={'deliveryTime'}/>
-                            </div>
-                            <div className='restaurant-filter-distance'>Distance</div>
-                            <div className='filter-slider'>
-                                <FilterSlider sliderVal={filterParams.distance} setSliderVal={setFilterParams} min={0} max={20} defaultValue={20} sliderType={'distance'}/>
-                            </div>
+                        <div>
+                            <button onClick={clearRoute}>Clear Route</button>
                         </div>
+                        <div>
+                            <button onClick={()=>{mapState.panTo(center)}}>Center</button>
+                        </div>
+                        <div>Distance: {distance}</div>
+                        <div>Duration: {duration}</div>
+                        <div>Rating</div>
+                        <Rating />
+                        <div>Price Range</div>
+                        <Rating />
+                        <div>Delivery Time</div>
+                        <DeliveryTime />
+                        <div>Distance</div>
+                        <DeliveryTime />
                     </div>
                     <div className='map-container-wrapper'>
                         <GoogleMap
                             zoom={10}
-                            center={userLocation}
+                            center={center}
                             mapContainerClassName='map-container'
                             options={{
                                 streetViewControl: false,
@@ -198,7 +196,7 @@ function Map() {
                             onLoad={map=>setMapState(map)}
                             onClick={() => setActiveMarker(null)}
                         >
-                            <Marker position={{lat:parseFloat(userLocation.lat),lng:parseFloat(userLocation.lng)}}
+                            <Marker position={center}
                                     icon={{
                                         path: google.maps.SymbolPath.CIRCLE,
                                         fillColor: "yellow",
@@ -225,14 +223,19 @@ function Map() {
                             })}
 
                             {directionsResponse && ( <DirectionsRenderer directions={directionsResponse} /> )}
+                            {/*<MarkerClusterer>*/}
+                            {/*    {(clusterer) =>*/}
+                            {/*        locations.map((location) => (*/}
+                            {/*            <Marker key={createKey(location)} position={location} clusterer={clusterer} />*/}
+                            {/*        ))*/}
+                            {/*    }*/}
+                            {/*</MarkerClusterer>*/}
                         </GoogleMap>
                     </div>
                     <div className={`restaurant-modal ${isRestaurantModalActive? 'active':''}`}>
                         <RestaurantModal
                             setIsRestaurantModalActive={setIsRestaurantModalActive}
                             activeRestaurantId={restaurantModalDisplay}
-                            distance={distance}
-                            duration={duration}
                         />
                     </div>
                 </div>
