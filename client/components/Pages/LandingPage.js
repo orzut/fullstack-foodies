@@ -11,7 +11,7 @@ export const LandingPage = () => {
 				<div className="col-lg-8 offset-lg-2 text-center">
 				<div className="breadcrumb-text">
 					<p>Order your favorites</p>
-					<h1>Food Delivery Service</h1>
+					<h1>Fullstack Foodies</h1>
 				</div>
 				</div>
 			</div>
