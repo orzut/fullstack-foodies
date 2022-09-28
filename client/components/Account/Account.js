@@ -63,39 +63,48 @@ class Account extends Component {
         const { logout } = this.props;
         return (
             <div className=''>
-                
-                <div>
-                    <div>
-                    <div>
-                        <h1>Account Info</h1>
+                <div className="breadcrumb-section breadcrumb-bg">
+                    <div className="container">
+                        <div className="row">
+                            <div className="col-lg-8 offset-lg-2 text-center">
+                            <div className="breadcrumb-text">
+                                <p>Fullstack Foodies</p>
+                                <h1>Account Info</h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                <div>
-                <form onSubmit={ save } className='account-form'>
-                    <h2><span>Update and View Profile</span></h2>
-                    <div>
-                        <p>Profile Picture</p>
-                    </div>
-                    <div>
-                    { avatar && <img src={ avatar } style={{ height: 300, width: 300 }} /> }<br />
-                    <input type='file' ref={ el => this.el = el }/>
-                    </div>
-                    <p className='font-bold text-lg'>Username</p>
-                    <input value={ username || '' } onChange={ ev => this.setState({ username: ev.target.value })}></input>
-                    <p className='font-bold text-lg'>First Name</p>
-                    <input value={ firstName || '' } onChange={ ev => this.setState({ firstName: ev.target.value })}></input>
-                    <p className='font-bold text-lg'>Last Name</p>
-                    <input value={ lastName || ''} onChange={ ev => this.setState({ lastName: ev.target.value })}></input>
-                    <p className='font-bold text-lg'>Email Address</p>
+            </div>
+                
+                <div className='container'>
+                    <div className='col-lg-8 offset-lg-2 text-center'>
+                    <div className='section-title'>
+                    <form onSubmit={ save } className='flex flex-col w-2/4 m-auto"'>
+                        <div>
+                            <p>Profile Picture</p>
+                        </div>
+                        <div>
+                        { avatar && <img src={ avatar } style={{ height: 300, width: 300 }} /> }<br />
+                        <input className='text-center' type='file' ref={ el => this.el = el }/>
+                        </div>
+                        <p className='rounded-md m-2 p-2'>Username:</p>
+                        <input className='border border-slate-300 rounded-md m-2 p-2' value={ username || '' } onChange={ ev => this.setState({ username: ev.target.value })}></input>
+                        <p className='rounded-md m-2 p-2'>First Name:</p>
+                        <input className='border border-slate-300 rounded-md m-2 p-2' value={ firstName || '' } onChange={ ev => this.setState({ firstName: ev.target.value })}></input>
+                        <p className='rounded-md m-2 p-2'>Last Name:</p>
+                        <input className='border border-slate-300 rounded-md m-2 p-2' value={ lastName || ''} onChange={ ev => this.setState({ lastName: ev.target.value })}></input>
+                        <p className='rounded-md m-2 p-2'>Email Address:</p>
 
-                    <input value={ email || ''} onChange={ ev => this.setState({ email: ev.target.value })}></input><br />
-                    <div className='saved-addresses'>
-                        <Link to='/account/addressbook'>Saved Addresses</Link>
-                    </div>
-                    <button className='save-changes'>Save Changes</button>
+                        <input className='border border-slate-300 rounded-md m-2 p-2' value={ email || ''} onChange={ ev => this.setState({ email: ev.target.value })}></input><br />
+                        
+                        
+                        <button className='bg-slate-400 rounded-md m-2 p-2 text-white'>Save Changes</button>
 
-                </form>
+                        <div className='bg-slate-400 rounded-md m-2 p-2 text-white'>
+                            <Link to='/account/addressbook'>View Saved Addresses</Link>
+                        </div>
+
+                    </form>
                 </div>
                 {/*<div>*/}
                 {/*<h2><span>Address Book</span></h2>*/}
