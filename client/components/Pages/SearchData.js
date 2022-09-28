@@ -1,17 +1,21 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import RestaurantCard from "./RestaurantCard";
-import Pagination from '../Pagination';
+import Pagination from "../Pagination";
 
 export const SearchData = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(100);
   const location = useLocation();
   const searchData = location.state.filteredData;
+  console.log(location);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const displaySearchData = searchData.slice(indexOfFirstRecord, indexOfLastRecord);
-  const nPages = Math.ceil(searchData.length / recordsPerPage)
+  const displaySearchData = searchData.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord
+  );
+  const nPages = Math.ceil(searchData.length / recordsPerPage);
 
   return (
     <div>
@@ -25,11 +29,11 @@ export const SearchData = () => {
               );
             })}
           </div>
-          <div className='pagination-container'>
+          <div className="pagination-container">
             <Pagination
-                nPages = { nPages }
-                currentPage = { currentPage }
-                setCurrentPage = { setCurrentPage }
+              nPages={nPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
             />
           </div>
         </div>
