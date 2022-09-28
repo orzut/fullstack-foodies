@@ -43,13 +43,17 @@ function UserLocation() {
 
   const handleSubmit = async (ev) => {
     ev.preventDefault();
-    setUserInputLocation(userLocationBar.current.value);
-    const results = await getGeocode({
-      address: userLocationBar.current.value,
-    });
-    const latLng = getLatLng(results[0]);
-    // setUserCoord(latLng)
-    dispatch(setUserLocation(latLng));
+    try {
+      setUserInputLocation(userLocationBar.current.value);
+      const results = await getGeocode({
+        address: userLocationBar.current.value,
+      });
+      const latLng = getLatLng(results[0]);
+      // setUserCoord(latLng)
+      dispatch(setUserLocation(latLng));
+    } catch (ex) {
+      alert('Enter a valid address!')
+    }
   };
 
   if (!isLoaded) {

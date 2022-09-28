@@ -17,6 +17,10 @@
     align-item: center;
 }
 
+.location-input-icon-container:hover {
+    cursor: pointer;
+}
+
 .location-input-icon {
     font-size: 30px;
 }

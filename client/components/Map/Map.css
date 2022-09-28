@@ -29,3 +29,42 @@
 .restaurant-modal.active {
     width: 300px;
 }
+
+.map-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 0 0 20px 0;
+    border-bottom: 1px black solid;
+}
+
+.map-buttons button {
+    background: #0f6273;
+    border-radius: 20px;
+    width: 120px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.restaurant-filter-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    font-size: 20px;
+}
+
+.restaurant-filter-title {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.marker-info {
+    font-size: 15px;
+    padding: 5px;
+}
+
+.marker-info:hover {
+    background: #9ca3af;
+    font-weight: bold;
+}
