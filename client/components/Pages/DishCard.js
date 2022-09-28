@@ -44,15 +44,15 @@ const DishCard = ({ dish }) => {
   return (
     <Fragment>
       <div
-        className="flex justify-between border border-slate-300 rounded-md w-1/3 h-1/4 m-2 p-2 hover:cursor-pointer"
+        className="flex justify-between border border-slate-300 rounded-md w-5/12 h-1/3 m-2 p-2 hover:cursor-pointer"
         onClick={handleOpen}
       >
-        <div>
+        <div className="h-40 w-60">
           <p className="font-bold text-base">{dish.name}</p>
           <p className="text-sm">{dish.description}</p>
-          <p>${dish.price}</p>
+          <p className="font-bold">${dish.price}</p>
         </div>
-        <img className="w-1/3 ml-1" src={dish.imageUrl}></img>
+        <img className="w-1/3 ml-1 object-cover" src={dish.imageUrl}></img>
       </div>
 
       <Modal open={open} onClose={handleClose}>
