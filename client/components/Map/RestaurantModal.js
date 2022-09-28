@@ -1,7 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
+import './RestaurantModal.css';
 
-function RestaurantModal({setIsRestaurantModalActive, activeRestaurantId}) {
+function RestaurantModal({setIsRestaurantModalActive, activeRestaurantId, distance, duration}) {
     const [selectedRestaurant, setSelectedRestaurant]=useState();
     const restaurants = useSelector(state => state.restaurants);
     useEffect(() => {
@@ -14,14 +15,19 @@ function RestaurantModal({setIsRestaurantModalActive, activeRestaurantId}) {
         <div>
             {selectedRestaurant ?
                     (
-                        <div>
+                        <div className='restaurant-modal-wrapper'>
                             <div>
-                                <div>{selectedRestaurant.name}</div>
-                                <div>{selectedRestaurant.address}</div>
-                                <div>{selectedRestaurant.score}</div>
+                                <div className="restaurant-modal-img">
+                                    <img width='100%' src={selectedRestaurant.imageUrl}></img>
+                                </div>
+                                <div className="restaurant-modal-name">{selectedRestaurant.name}</div>
+                                <div className="restaurant-modal-address">{selectedRestaurant.address}</div>
+                                <div>Distance: {distance}</div>
+                                <div>Duration: {duration}</div>
+                                <div>Score: {selectedRestaurant.score}</div>
                                 <div>{selectedRestaurant.description}</div>
                             </div>
-                            <button onClick={handleExitClick}>X</button>
+                            <button className='restaurant-modal-exit-button' onClick={handleExitClick}>X</button>
                         </div>
                     ) :
                     null

@@ -145,8 +145,8 @@ export const Restaurant = ({ match }) => {
                 }}
                 onLoad={(map) => setMapState(map)}
               >
-                <Marker position={restLocation}></Marker>
-                <Marker position={userLocation}></Marker>
+                {/*<Marker position={restLocation}></Marker>*/}
+                {/*<Marker position={userLocation}></Marker>*/}
 
                 <DirectionsRenderer directions={directionsResponse} />
               </GoogleMap>
