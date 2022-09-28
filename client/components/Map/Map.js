@@ -4,7 +4,7 @@ import { GoogleMap, useLoadScript, Marker, MarkerClusterer, Autocomplete, Direct
 import usePlacesAutocomplete, {getGeocode, getLatLng} from "use-places-autocomplete";
 import {fetchRestaurants, setUserLocation} from "../../store"
 import Rating from './Rating';
-import DeliveryTime from './DeliveryTime';
+import FilterSlider from './FilterSlider';
 import RestaurantModal from './RestaurantModal';
 import './Map.css';
 
@@ -18,8 +18,7 @@ function Map() {
     const [activeMarker, setActiveMarker] = useState(null);
     const [isRestaurantModalActive, setIsRestaurantModalActive] = useState(false);
     const [restaurantModalDisplay,setRestaurantModalDisplay] = useState();
-    const originRef = useRef();
-    const destinationRef = useRef();
+    const [filterParams, setFilterParams] = useState({score:0, priceRange:0, deliveryTime:60, distance: 20});
     const librariesRef = useRef(['places'])
     const userLocation = useSelector(state=> state.location)
     const restaurants = useSelector(state => state.restaurants)
@@ -38,8 +37,9 @@ function Map() {
     },[JSON.stringify(userLocation)])
 
     useEffect(()=>{
-        setDisplayRestaurants(filterRestaurants(restaurants,userLocation,500).slice(0,20))
-    },[restaurants, JSON.stringify(userLocation)])
+        console.log(filterParams)
+        setDisplayRestaurants(filterRestaurants(restaurants,userLocation,filterParams.deliveryTime,filterParams.distance,filterParams.score).slice(0,100))
+    },[restaurants, JSON.stringify(userLocation), JSON.stringify(filterParams)])
 
     useEffect(() => {
         calculateRoute()
@@ -90,12 +90,15 @@ function Map() {
         return deg * (Math.PI/180)
     }
 
-    const filterRestaurants = (restaurants, center, distanceLimit) => {
+    const filterRestaurants = (restaurants, center, deliveryTimeLimit, distanceLimit, scoreLimit) => {
         const filteredRestaurants = []
         restaurants.forEach(restaurant => {
             const distance = getDistanceFromLatLng(restaurant.lat,restaurant.lng,center.lat,center.lng);
-            if (distance<distanceLimit) {
+            const deliveryTime = 3*getDistanceFromLatLng(restaurant.lat,restaurant.lng,center.lat,center.lng);
+            const score = restaurant.score;
+            if ((distance<=distanceLimit)&&(deliveryTime<=deliveryTimeLimit)&&(score>=scoreLimit)) {
                 filteredRestaurants.push({distance, restaurant});
+                console.log(restaurant)
             }
         });
         filteredRestaurants.sort(distanceComparison)
@@ -157,12 +160,6 @@ function Map() {
                 <br></br>
                 <div className='map-wrapper'>
                     <div className='selection-menu'>
-                        {/*<Autocomplete>*/}
-                        {/*    <input type='text' placeholder='Destination' ref={destinationRef}/>*/}
-                        {/*</Autocomplete>*/}
-                        {/*<div>*/}
-                        {/*    <button onClick={calculateRoute}>Calculate Route</button>*/}
-                        {/*</div>*/}
                         <div className='map-buttons'>
                             <div className='map-center-button'>
                                 <button onClick={()=>{mapState.panTo(userLocation)}}>Center</button>
@@ -175,13 +172,17 @@ function Map() {
                         <div className='restaurant-filter-wrapper'>
                             <div className='restaurant-filter-title'>Filter</div>
                             <div>Rating</div>
-                            <Rating />
+                            <Rating rating={filterParams.score} setRating={setFilterParams} ratingType={'score'}/>
                             <div>Price Range</div>
                             <Rating />
-                            <div>Delivery Time</div>
-                            <DeliveryTime />
-                            <div>Distance</div>
-                            <DeliveryTime />
+                            <div className='restaurant-filter-deliver-time'>Delivery Time</div>
+                            <div className='filter-slider'>
+                                <FilterSlider sliderVal={filterParams.deliveryTime} setSliderVal={setFilterParams} min={0} max={60} defaultValue={60} sliderType={'deliveryTime'}/>
+                            </div>
+                            <div className='restaurant-filter-distance'>Distance</div>
+                            <div className='filter-slider'>
+                                <FilterSlider sliderVal={filterParams.distance} setSliderVal={setFilterParams} min={0} max={20} defaultValue={20} sliderType={'distance'}/>
+                            </div>
                         </div>
                     </div>
                     <div className='map-container-wrapper'>

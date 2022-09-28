@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
 import './RestaurantModal.css';
 
 function RestaurantModal({setIsRestaurantModalActive, activeRestaurantId, distance, duration}) {
@@ -20,7 +21,9 @@ function RestaurantModal({setIsRestaurantModalActive, activeRestaurantId, distan
                                 <div className="restaurant-modal-img">
                                     <img width='100%' src={selectedRestaurant.imageUrl}></img>
                                 </div>
-                                <div className="restaurant-modal-name">{selectedRestaurant.name}</div>
+                                <div className="restaurant-modal-name">
+                                    <Link to={`/restaurants/${selectedRestaurant.id}`}>{selectedRestaurant.name}</Link>
+                                </div>
                                 <div className="restaurant-modal-address">{selectedRestaurant.address}</div>
                                 <div>Distance: {distance}</div>
                                 <div>Duration: {duration}</div>
