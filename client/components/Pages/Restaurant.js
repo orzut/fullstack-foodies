@@ -173,7 +173,7 @@ export const Restaurant = ({ match }) => {
                 </Dialog>
               ) : null}
               <div>
-                <nav className="sticky top-0 bg-white border-y m-2 p-2 text-xl">
+                <nav className="sticky top-0 bg-slate-200 border-y m-2 p-2 text-xl">
                   {categories.map((category) => {
                     return (
                       <NavHashLink

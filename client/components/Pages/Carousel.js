@@ -1,35 +1,17 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
 
 // Data
 import _data from "./data.json";
 
-
 export const Carousel = () => {
-
-  const [data, setData]= useState({resources:[]})
+  const [data, setData] = useState({ resources: [] });
   const maxScrollWidth = useRef(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const carousel = useRef(null);
   const cuisines = useSelector((state) => state.cuisines);
-  const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
-  const [filteredData, setFilteredData] = useState([]);
-
-  const searchItems = (value) => {
-    setSearch(value);
-    const filtered = restaurants.filter(
-      (restaurant) =>
-        restaurant.name.toLowerCase().includes(search.toLowerCase()) ||
-        restaurant.category.toLowerCase().includes(search.toLowerCase()) ||
-        (restaurant.cuisine ?
-                restaurant.cuisine.name.toLowerCase().includes(search.toLowerCase()) :
-                false)
-    );
-    setFilteredData(filtered);
-  };
-
+  const restaurants = useSelector((state) => state.restaurants);
 
   const movePrev = () => {
     if (currentIndex > 0) {
@@ -73,13 +55,14 @@ export const Carousel = () => {
   }, []);
 
   useEffect(() => {
-    setData(_data)
-  },[])
-
+    setData(_data);
+  }, []);
 
   return (
     <div className="carousel my-5 mx-auto">
-      <h1><span className="orange-text">Our</span> Cuisines</h1>
+      <h1>
+        <span className="orange-text">Our</span> Cuisines
+      </h1>
       <div className="relative overflow-hidden">
         <div className="flex justify-between absolute top left w-full h-full">
           <button
@@ -130,13 +113,16 @@ export const Carousel = () => {
           className="carousel-container relative flex gap-1 overflow-hidden scroll-smooth snap-x snap-mandatory touch-pan-x z-0"
         >
           {cuisines.map((cuisine, index) => {
+            const filteredData = restaurants.filter(
+              (restaurant) => restaurant.cuisineId === cuisine.id
+            );
             return (
-              <div
+              <Link
                 key={index}
                 className="carousel-item text-center relative w-64 h-64 snap-start"
+                to={{ pathname: "/search", state: { filteredData } }}
               >
-                <a
-                  href={cuisine.link}
+                <div
                   className="h-full w-full aspect-square block bg-origin-padding bg-left-top bg-no-repeat z-0"
                   style={{ backgroundImage: `url(${cuisine.imageUrl || ""})` }}
                 >
@@ -145,16 +131,13 @@ export const Carousel = () => {
                     alt={cuisine.name}
                     className="w-3 aspect-auto hidden"
                   />
-                </a>
-                <a
-                  href={cuisine.link}
-                  className="h-full w-full aspect-square block absolute top-0 left-0 transition-opacity duration-300 opacity-0 hover:opacity-100 bg-blue-800/75 z-10"
-                >
+                </div>
+                <div className="h-full w-full aspect-square block absolute top-0 left-0 transition-opacity duration-300 opacity-0 hover:opacity-100 bg-blue-800/75 z-10">
                   <h3 className="text-white py-6 px-3 mx-auto text-xl">
                     {cuisine.name}
                   </h3>
-                </a>
-              </div>
+                </div>
+              </Link>
             );
           })}
         </div>
