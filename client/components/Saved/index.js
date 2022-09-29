@@ -21,19 +21,19 @@ const Saved = () => {
         }
     },[auth.id,savedRestaurantsId.length,savedOrdersId.length])
 
-    useEffect(()=>{
-        console.log('heyyyy')
-        console.log(savedOrders)
-        const computeOrderTotals = savedOrders.map((savedOrder) => {
-            return (
-                savedOrder.order.lineItems.reduce((acc,curr)=>{
-                    acc += parseFloat(curr.dish.price)*parseFloat(curr.quantity)
-                    return acc
-                }, 0)
-            )
-        });
-        setOrdersTotal(computeOrderTotals)
-    }, [savedOrders.length,auth.id])
+    // useEffect(()=>{
+    //     if (savedOrders[0]) {
+    //         const computeOrderTotals = savedOrders.map((savedOrder) => {
+    //             return (
+    //                 savedOrder.order.lineItems.reduce((acc, curr) => {
+    //                     acc += parseFloat(curr.dish.price) * parseFloat(curr.quantity)
+    //                     return acc
+    //                 }, 0)
+    //             )
+    //         });
+    //         setOrdersTotal(computeOrderTotals)
+    //     }
+    // }, [savedOrders.length,auth.id,orderTotals.length])
 
     const handleClick = (ev) => {
         const orderId = ev.target.dataset.action;
@@ -94,7 +94,7 @@ const Saved = () => {
                         <tr>
                             <th>ID</th>
                             <th>Created At</th>
-                            <th>Total</th>
+                            {/*<th>Total</th>*/}
                             <th>Add to Cart</th>
                         </tr>
                         </thead>
@@ -104,7 +104,7 @@ const Saved = () => {
                                 <tr key={order.id} className='order-id'>
                                     <td data-action={order.id} onClick={handleClick}>{order.id}</td>
                                     <td data-action={order.id} onClick={handleClick}>{order.createdAt}</td>
-                                    <td data-action={order.id} onClick={handleClick}>{orderTotals[idx]}</td>
+                                    {/*<td data-action={order.id} onClick={handleClick}>{orderTotals[idx]}</td>*/}
                                     <td data-action={order.id} className='text-center' onClick={handleAdd}>+</td>
                                 </tr>
                             )
