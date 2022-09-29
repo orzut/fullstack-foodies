@@ -7,7 +7,7 @@ const REMOVE_SAVED_ORDER = 'REMOVE_SAVED_ORDER';
 export default (state=[], action) => {
     switch (action.type) {
         case SET_SAVED_ORDERS:
-            return
+            return action.savedOrders
         case ADD_SAVED_ORDER:
             return [...state,action.savedOrder]
         case REMOVE_SAVED_ORDER:
@@ -19,11 +19,11 @@ export default (state=[], action) => {
 
 export const fetchSavedOrders = () => {
     return async (dispatch, getState) => {
-        const savedOrders = axios.get('/api/saved-orders', {
+        const savedOrders = (await axios.get('/api/saved-orders', {
             headers: {
                 authorization: window.localStorage.getItem('token')
             }
-        });
+        })).data;
         dispatch({type: SET_SAVED_ORDERS, savedOrders})
     }
 };

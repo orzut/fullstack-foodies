@@ -38,7 +38,9 @@ router.get('/',isLoggedIn,async (req,res,next) => {
                 userId: req.user.id
             },
             include: [{ model: db.models.order,
-                        include: [db.models.lineItem]
+                        include: [{ model: db.models.lineItem,
+                                    include: [db.models.dish]
+                        }]
             }]
         })
         res.status(200).send(savedOrders)

@@ -54,6 +54,7 @@ const Cart = connect(
 
   return (
     <div>
+    <div className={isNameInputActive? 'blur-background':''}></div>
     <div className="breadcrumb-section breadcrumb-bg">
 		<div className="container">
 			<div className="row">
