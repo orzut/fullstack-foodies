@@ -128,6 +128,16 @@ User.prototype.addToCart = async function ({ dish, quantity }) {
   return this.getCart();
 };
 
+User.prototype.emptyCart = async function () {
+  const cart = await this.getCart();
+  cart.lineItems.map(async (lineItem) => {
+    await lineItem.destroy();
+  });
+  await cart.save();
+
+  return this.getCart();
+};
+
 User.prototype.getOrders = async function () {
   let order = await db.models.order.findAll({
     where: {
