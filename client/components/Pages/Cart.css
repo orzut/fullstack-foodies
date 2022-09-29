@@ -1,0 +1,23 @@
+.cart-name-input-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.cart-name-input-container {
+    position: absolute;
+    border-radius: 8px;
+    top:800px;
+    width: 300px;
+    height: 300px;
+    opacity: 0;
+    visibility: hidden;
+    background: linear-gradient(134.17deg, #eef0f5 4.98%, #e6e9ef 94.88%);
+    transform: translateY(-30px) ;
+    transition: opacity 0.4s, transform 0.4s ease, visibility 0.4s;
+    z-index: 100;
+}
+.cart-name-input-container.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}

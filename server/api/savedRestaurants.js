@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const { isLoggedIn } = require('./middleware');
 const Op = Sequelize.Op;
 const {
-    models: { SavedRestaurant, User, Restaurant },
+    models: { SavedRestaurant },
 } = require("../db");
 const db = require("../db/db");
 module.exports = router;
@@ -30,7 +30,7 @@ router.post('/', isLoggedIn, async (req,res, next) => {
         })
         res.status(201).send(savedRestaurant)
     } catch (ex) {
-        console.log(ex)
+        next(ex)
     }
 })
 
@@ -45,6 +45,6 @@ router.delete('/:id',isLoggedIn, async (req,res,next) => {
         await removeSavedRestaurant.destroy()
         res.sendStatus(204);
     } catch (ex) {
-        console.log(ex)
+        next(ex)
     }
 })

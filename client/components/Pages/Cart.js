@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { addToCart, fetchCart, clearCart } from "../../store/cart";
+import { addSavedOrders, removeSavedOrders } from '../../store/savedOrders';
 import { Link } from "react-router-dom";
+import CartNameInput from './CartNameInput';
+import './Cart.css';
 
 const Cart = connect(
   (state) => state,
@@ -12,11 +15,15 @@ const Cart = connect(
       authenticate: () => dispatch(authenticate()),
       fetchCart: () => dispatch(fetchCart()),
       fetchMenu: () => dispatch(fetchMenu()),
+      addSavedOrders: (name) => dispatch(addSavedOrders(name)),
+      removeSavedOrders: () => dispatch(removeSavedOrders()),
       dispatchAction: (action) => dispatch(action),
     };
   }
-)(({ dishes, cart, addToCart, clearCart, fetchCart }) => {
+)(({ dishes, cart, addToCart, clearCart, fetchCart, addSavedOrders, removeSavedOrders }) => {
   const [isFavorited, setIsFavorited] = useState(false)
+  const [isNameInputActive, setIsNameInputActive] = useState(false)
+
   useEffect(() => {
     async function loadCart() {
       await fetchCart();
@@ -35,7 +42,14 @@ const Cart = connect(
   });
 
   const addToFavorite = () => {
-    setIsFavorited(!isFavorited)
+    if (!isFavorited) {
+      setIsFavorited(true)
+      setIsNameInputActive(true)
+      // addSavedOrders(cartName)
+    } else {
+      setIsFavorited(false)
+      removeSavedOrders()
+    }
   }
 
   return (
@@ -78,6 +92,11 @@ const Cart = connect(
         </div>
       ) : (
         <div>
+          <div className='cart-name-input-wrapper'>
+            <div className={`cart-name-input-container ${isNameInputActive? 'active' : ''}`}>
+              <CartNameInput setIsNameInputActive={setIsNameInputActive} setIsFavorited={setIsFavorited}/>
+            </div>
+          </div>
           <ul style={{ listStyleType: "none" }}>
             {dishes.map((dish) => {
               const lineItem = cart.lineItems.find(
@@ -128,6 +147,7 @@ const Cart = connect(
           <button
               className={`favorite-button ${isFavorited?'favorited':''}`}
               onClick={() => {addToFavorite()}}
+              disabled={isNameInputActive}
           >
             {isFavorited ? 'Favorited' : 'Save'}
           </button>
