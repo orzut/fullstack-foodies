@@ -1,9 +1,6 @@
 {
     "resources": [
-      {
-        "title": "Indian Food",
-        "imageUrl": "https://media-cdn.grubhub.com/d_search:browse-images:fallback2-illustration-v4.svg/w_80,q_auto:low,fl_lossy,dpr_2.0,c_fill,f_svg,h_80/search/browse-images/indian-illustration-v4.svg"
-      },
+     
       {
         "title": "Sushi",
         "imageUrl": "https://media-cdn.grubhub.com/d_search:browse-images:fallback1-illustration-v4.svg/w_80,q_auto:low,fl_lossy,dpr_2.0,c_fill,f_svg,h_80/search/browse-images/sushi-illustration-v4.svg"
@@ -16,10 +13,7 @@
         "title": "Mexican",
         "imageUrl": "https://media-cdn.grubhub.com/d_search:browse-images:fallback1-illustration-v4.svg/w_80,q_auto:low,fl_lossy,dpr_2.0,c_fill,f_svg,h_80/search/browse-images/mexican-illustration-v4.svg"
       },
-      {
-        "title": "Healthy",
-        "imageUrl": "https://media-cdn.grubhub.com/d_search:browse-images:fallback1-illustration-v4.svg/w_80,q_auto:low,fl_lossy,dpr_2.0,c_fill,f_svg,h_80/search/browse-images/healthy-illustration-v4.svg"
-      },
+     
       {
         "title": "Pizza",
         "imageUrl": "https://media-cdn.grubhub.com/d_search:browse-images:fallback1-illustration-v4.svg/w_80,q_auto:low,fl_lossy,dpr_2.0,c_fill,f_svg,h_80/search/browse-images/pizza-illustration-v4.svg"
@@ -31,10 +25,6 @@
       {
         "title": "Thai",
         "imageUrl": "https://media-cdn.grubhub.com/d_search:browse-images:fallback2-illustration-v4.svg/w_80,q_auto:low,fl_lossy,dpr_2.0,c_fill,f_svg,h_80/search/browse-images/thai-illustration-v4.svg"
-      },
-      {
-        "title": "Hamburgers",
-        "imageUrl": "https://media-cdn.grubhub.com/d_search:browse-images:fallback1-illustration-v4.svg/w_80,q_auto:low,fl_lossy,dpr_2.0,c_fill,f_svg,h_80/search/browse-images/hamburgers-illustration-v4.svg"
       }
     ]
   }

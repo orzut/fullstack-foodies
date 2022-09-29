@@ -69,13 +69,15 @@ const Checkout = ({ dishes, cart})=> {
                     <td>{dish.name}</td>
                     <td>${dish.price}</td>
                     <td>{lineItem.quantity}</td>
-                    <td>${Math.round((Number(dish.price) * lineItem.quantity+ Number.EPSILON) * 100) / 100}</td>
+                    <td>${((Number(dish.price) * lineItem.quantity +
+                          Number.EPSILON)
+                      ).toFixed(2)}</td>
                   </tr>
                 )
               }})}
               <tr className='w-full flex-1 bg-cartTotal rounded-t-[2rem] flex items-end px-8 py-2 text-gray-400 text-lg'>
                 <td className='subtotal fw-bold flex items-end'>Grand Total</td>
-                <td className='subtotal' colSpan='4'>${Math.round(cartTotal * 100) / 100}</td>
+                <td className='subtotal' colSpan='4'>${cartTotal.toFixed(2)}</td>
               </tr>
             </tbody>
           </table>

@@ -9,21 +9,22 @@ const Cart = connect(
     return {
       addToCart: (dish, diff = 1) => dispatch(addToCart(dish, diff)),
       clearCart: () => dispatch(clearCart()),
-      authenticate: () => dispatch(authenticate()),
+      // authenticate: () => dispatch(authenticate()),
       fetchCart: () => dispatch(fetchCart()),
-      fetchMenu: () => dispatch(fetchMenu()),
-      dispatchAction: (action) => dispatch(action),
+      // fetchMenu: () => dispatch(fetchMenu()),
+      // dispatchAction: (action) => dispatch(action),
     };
   }
 )(({ dishes, cart, addToCart, clearCart, fetchCart }) => {
   const [isFavorited, setIsFavorited] = useState(false);
+
   useEffect(() => {
     async function loadCart() {
       await fetchCart();
     }
     loadCart();
   }, []);
-  console.log(cart);
+
   let cartTotal = 0;
   cart.lineItems.forEach((lineItem) => {
     let quantity = lineItem.quantity;
@@ -107,11 +108,10 @@ const Cart = connect(
                           </button>
                           <div className="cart-product-total-price">
                             Dish Total: $
-                            {Math.round(
-                              (Number(dish.price) * lineItem.quantity +
-                                Number.EPSILON) *
-                                100
-                            ) / 100}
+                            {(
+                              Number(dish.price) * lineItem.quantity +
+                              Number.EPSILON
+                            ).toFixed(2)}
                           </div>
                           <hr></hr>
                         </li>
@@ -140,9 +140,7 @@ const Cart = connect(
               <div className="cart-checkout">
                 <div className="subtotal">
                   <span>Subtotal</span>
-                  <span className="amount">
-                    ${Math.round(cartTotal * 100) / 100}
-                  </span>
+                  <span className="amount">${cartTotal.toFixed(2)}</span>
                 </div>
                 <p>Delivery Fees: Your order qualifies for free delivery!</p>
                 <p>
