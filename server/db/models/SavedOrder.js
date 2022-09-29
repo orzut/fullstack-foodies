@@ -6,6 +6,10 @@ const SavedOrder = db.define("savedOrder", {
         type: Sequelize.UUID,
         defaultValue: Sequelize.UUIDV4,
         primaryKey: true
+    },
+    name: {
+        type: Sequelize.STRING,
+        allowNull: false
     }
 });
 
