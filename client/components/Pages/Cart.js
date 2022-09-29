@@ -9,20 +9,21 @@ const Cart = connect(
     return {
       addToCart: (dish, diff = 1) => dispatch(addToCart(dish, diff)),
       clearCart: () => dispatch(clearCart()),
-      authenticate: () => dispatch(authenticate()),
+      // authenticate: () => dispatch(authenticate()),
       fetchCart: () => dispatch(fetchCart()),
-      fetchMenu: () => dispatch(fetchMenu()),
-      dispatchAction: (action) => dispatch(action),
+      // fetchMenu: () => dispatch(fetchMenu()),
+      // dispatchAction: (action) => dispatch(action),
     };
   }
 )(({ dishes, cart, addToCart, clearCart, fetchCart }) => {
   const [isFavorited, setIsFavorited] = useState(false)
+
   useEffect(() => {
     async function loadCart() {
       await fetchCart();
     }
     loadCart();
-  }, []);
+  },[]);
 
   let cartTotal = 0;
   cart.lineItems.forEach((lineItem) => {
@@ -103,11 +104,10 @@ const Cart = connect(
                     </button>
                     <div className='cart-product-total-price'>
                       Dish Total: $
-                      {Math.round(
-                        (Number(dish.price) * lineItem.quantity +
-                          Number.EPSILON) *
-                          100
-                      ) / 100}
+                      {
+                        ((Number(dish.price) * lineItem.quantity +
+                          Number.EPSILON)
+                      ).toFixed(2)}
                     </div>
                     <hr></hr>
                   </li>
@@ -137,7 +137,7 @@ const Cart = connect(
             <span>
               Subtotal
             </span>
-            <span className='amount'>${Math.round(cartTotal * 100) / 100}</span>
+            <span className='amount'>${cartTotal.toFixed(2)}</span>
             </div>
             <p>Delivery Fees: Your order qualifies for free delivery!</p>
             <p>Taxes: $ {Math.round(cartTotal * 100 * 0.04) / 100} (Applied at
