@@ -35,7 +35,7 @@ router.get("/past-orders", isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.get("/cart", isLoggedIn, async (req, res, next) => {
+router.get("/empty-cart", isLoggedIn, async (req, res, next) => {
   try {
     res.send(await req.user.emptyCart());
   } catch (ex) {

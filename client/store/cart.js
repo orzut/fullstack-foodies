@@ -3,8 +3,6 @@ import axios from "axios";
 const cart = (state = { lineItems: [] }, action) => {
   if (action.type === "SET_CART") {
     state = action.cart;
-  } else if (action.type === "EMPTY_CART") {
-    state = { lineItems: [] };
   }
   return state;
 };
@@ -40,16 +38,18 @@ export const addToCart = (dish, diff) => {
   };
 };
 
-
 export const clearCart = () => {
-  return (dispatch) => {
-    window.localStorage.setItem(
-      "localCart",
-      JSON.stringify({
-        lineItems: [],
-      })
-    );
-    dispatch({ type: "EMPTY_CART" });
+  return async (dispatch) => {
+    try {
+      const response = await axios.get("/api/orders/empty-cart", {
+        headers: {
+          authorization: window.localStorage.getItem("token"),
+        },
+      });
+      dispatch({ type: "SET_CART", cart: response.data });
+    } catch (ex) {
+      console.log(ex);
+    }
   };
 };
 

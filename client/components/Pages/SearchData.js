@@ -8,7 +8,6 @@ export const SearchData = () => {
   const [recordsPerPage] = useState(100);
   const location = useLocation();
   const searchData = location.state.filteredData;
-  console.log(location);
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
   const displaySearchData = searchData.slice(

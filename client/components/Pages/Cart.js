@@ -67,7 +67,6 @@ const Cart = connect(
             </div>
           </div>
         </div>
-
         <div className="cart-container">
           <div>
             <div>
