@@ -25,9 +25,9 @@ export const Footer = () => {
 						<h2 className="widget-title">Pages</h2>
 						<ul>
 							<li>Home</li>
-							<li>About</li>
+							<li>Restaurants</li>
 							<li>Order</li>
-							<li>News</li>
+							<li>Nearby</li>
 							<li>Contact</li>
 						</ul>
 					</div>
