@@ -37,8 +37,7 @@ function Map() {
     },[JSON.stringify(userLocation)])
 
     useEffect(()=>{
-        console.log(filterParams)
-        setDisplayRestaurants(filterRestaurants(restaurants,userLocation,filterParams.deliveryTime,filterParams.distance,filterParams.score).slice(0,100))
+        setDisplayRestaurants(filterRestaurants(restaurants,userLocation,filterParams.deliveryTime,filterParams.distance,filterParams.score,filterParams.priceRange).slice(0,100))
     },[restaurants, JSON.stringify(userLocation), JSON.stringify(filterParams)])
 
     useEffect(() => {
@@ -90,15 +89,15 @@ function Map() {
         return deg * (Math.PI/180)
     }
 
-    const filterRestaurants = (restaurants, center, deliveryTimeLimit, distanceLimit, scoreLimit) => {
+    const filterRestaurants = (restaurants, center, deliveryTimeLimit, distanceLimit, scoreLimit, priceLimit) => {
         const filteredRestaurants = []
         restaurants.forEach(restaurant => {
             const distance = getDistanceFromLatLng(restaurant.lat,restaurant.lng,center.lat,center.lng);
             const deliveryTime = 3*getDistanceFromLatLng(restaurant.lat,restaurant.lng,center.lat,center.lng);
             const score = restaurant.score;
-            if ((distance<=distanceLimit)&&(deliveryTime<=deliveryTimeLimit)&&(score>=scoreLimit)) {
+            const price = restaurant.priceRange?restaurant.priceRange.length:0;
+            if ((distance<=distanceLimit)&&(deliveryTime<=deliveryTimeLimit)&&(score>=scoreLimit)&&(price>=priceLimit)) {
                 filteredRestaurants.push({distance, restaurant});
-                console.log(restaurant)
             }
         });
         filteredRestaurants.sort(distanceComparison)
@@ -170,11 +169,12 @@ function Map() {
                             </div>
                         </div>
                         <div className='restaurant-filter-wrapper'>
-                            <div className='restaurant-filter-title'>Filter</div>
+                            <div className='restaurant-filter-title'>Filter:</div>
+                            <div className='text-sm'>Restaurants: {displayRestaurants.length}</div>
                             <div>Rating</div>
-                            <Rating rating={filterParams.score} setRating={setFilterParams} ratingType={'score'}/>
+                            <Rating rating={filterParams.score} setRating={setFilterParams} ratingType={'score'} ratingRange={5} />
                             <div>Price Range</div>
-                            <Rating />
+                            <Rating rating={filterParams.priceRange} setRating={setFilterParams} ratingType={'priceRange'} ratingRange={3} />
                             <div className='restaurant-filter-deliver-time'>Delivery Time</div>
                             <div className='filter-slider'>
                                 <FilterSlider sliderVal={filterParams.deliveryTime} setSliderVal={setFilterParams} min={0} max={60} defaultValue={60} sliderType={'deliveryTime'}/>

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './Rating.css';
-const Rating = ({rating, setRating, ratingType}) => {
+const Rating = ({rating, setRating, ratingType, ratingRange}) => {
     // const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
     return (
         <div className="star-rating">
-            {[...Array(5)].map((star, index) => {
+            {[...Array(ratingRange)].map((star, index) => {
                 index += 1;
                 return (
                     <button
@@ -16,7 +16,8 @@ const Rating = ({rating, setRating, ratingType}) => {
                         onMouseEnter={() => setHover(index)}
                         onMouseLeave={() => setHover(rating)}
                     >
-                        <span className="star">&#9733;</span>
+                        {ratingType==='score'? <span className="star">&#9733;</span> :
+                            (ratingType==='priceRange'?<span className="dollar">$</span> : '')}
                     </button>
                 );
             })}
