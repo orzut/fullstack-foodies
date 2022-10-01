@@ -23,7 +23,6 @@ function Map() {
     const userLocation = useSelector(state=> state.location)
     const restaurants = useSelector(state => state.restaurants)
     const dispatch = useDispatch()
-
     useEffect(() => {
         if(Object.keys(userLocation).length===0) {
             navigator.geolocation.getCurrentPosition(position => {
@@ -45,7 +44,7 @@ function Map() {
     },[JSON.stringify(destination)])
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: 'AIzaSyAGo2NE7sdqcMdbrfboJ1AnbWiAljSl_lI',
+        googleMapsApiKey: process.env.GOOGLE_API_KEY,
         libraries: librariesRef.current
     });
 
