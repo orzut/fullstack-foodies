@@ -8,14 +8,12 @@
 
 <img width="850" alt="Screen Shot 2022-10-01 at 10 00 27 AM" src="https://user-images.githubusercontent.com/68308236/193413332-f66185e2-513f-4456-bf2d-68b52a81dc57.png">
 <img width="850" alt="Screen Shot 2022-10-01 at 10 00 40 AM" src="https://user-images.githubusercontent.com/68308236/193413352-65b4ad36-82a1-4189-a9ed-4d02003ebb56.png">
-<img width="850" alt="Screen Shot 2022-10-01 at 10 00 56 AM" src="https://user-images.githubusercontent.com/68308236/193413358-8fa9c062-0cfa-4d39-82c2-fd91dbafaef9.png">
 <img width="850" alt="Screen Shot 2022-10-01 at 10 01 05 AM" src="https://user-images.githubusercontent.com/68308236/193413365-2aded2f6-a4f5-49a9-86da-a7fbe55a505e.png">
 <img width="850" alt="Screen Shot 2022-10-01 at 10 01 15 AM" src="https://user-images.githubusercontent.com/68308236/193413374-a8d6ced7-1f6e-4756-8da0-deb12c4710ff.png">
 <img width="850" alt="Screen Shot 2022-10-01 at 10 01 23 AM" src="https://user-images.githubusercontent.com/68308236/193413381-83e001cd-7c00-4707-a013-cab2e623649a.png">
 <img width="850" alt="Screen Shot 2022-10-01 at 10 01 59 AM" src="https://user-images.githubusercontent.com/68308236/193413387-49ce0c48-19be-46f6-9047-576227d41d36.png">
 <img width="850" alt="Screen Shot 2022-10-01 at 10 02 34 AM" src="https://user-images.githubusercontent.com/68308236/193413418-ab7d87c5-0269-43e5-a5ff-92c5a479c92d.png">
 <img width="850" alt="Screen Shot 2022-10-01 at 10 03 08 AM" src="https://user-images.githubusercontent.com/68308236/193413429-b27745d2-cba0-47ca-a937-7bed13a180c0.png">
-<img width="850" alt="Screen Shot 2022-10-01 at 10 03 27 AM" src="https://user-images.githubusercontent.com/68308236/193413433-d5815d44-de9b-4a65-a9e4-ccde28160732.png">
 
 
 ## Technologies used for Fullstack Foodies:
