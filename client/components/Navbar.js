@@ -7,6 +7,7 @@ import Cart from "./Pages/Cart";
 import UserButton from "./UserButton";
 import UserLocation from './UserLocation';
 import { Search } from "./Pages/Search";
+import './Navbar.css';
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
   return (
@@ -36,12 +37,14 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
             <Link to="/map">Nearby</Link>
           </div>
         )}
-        <div>
-          <UserLocation />
+        <div className='navbar-search'>
+          <div>
+            <UserLocation />
+          </div>
+          <span className="h-12 font-normal leading-snug flex text-center white-space-no-wrap border border-solid border-pink-600 rounded-full text-sm bg-pink-100 items-center rounded-r-none pl-2 py-1 text-pink-800 border-r-0 placeholder-pink-300">
+            <Search />
+          </span>
         </div>
-        <span className="h-12 font-normal leading-snug flex text-center white-space-no-wrap border border-solid border-pink-600 rounded-full text-sm bg-pink-100 items-center rounded-r-none pl-2 py-1 text-pink-800 border-r-0 placeholder-pink-300">
-          <Search />
-        </span>
       </nav>
       <hr />
     </div>
