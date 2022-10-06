@@ -8,7 +8,6 @@ const Success = () => {
   const location = useLocation();
   const sessionId = location.search.replace("?session_id=", "");
   //   console.log(sessionId);
-
   useEffect(() => {
     try {
       async function fetchSession() {
