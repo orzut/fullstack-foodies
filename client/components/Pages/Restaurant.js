@@ -41,7 +41,7 @@ export const Restaurant = ({ match }) => {
   const [alert, setAlert] = useState(false);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAGo2NE7sdqcMdbrfboJ1AnbWiAljSl_lI",
+    googleMapsApiKey: process.env.GOOGLE_API_KEY,
     libraries: librariesRef.current,
   });
   const userLocation = useSelector((state) => state.location);

@@ -1,20 +1,19 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const { isLoggedIn } = require("./middleware");
 
 module.exports = router;
 
-const key = process.env.STRIPE_KEY || "sk_test_51LZy6BESE3LZBw3FGYxeLUkeN1xIPf4zPiJyzvOx3LCX5LWFNR8r1PNui5OloFVm5jKRvCjNCdQ6ybHVCTdbbLcu00XaCiGvVo";
-
+const key =
+  process.env.STRIPE_KEY ||
+  "pk_test_51Lo6hJKqPE1BS3nmsEPEaGW47fcBvNkkiw8F0XovQxnmdVB1GbG6afDHCBg7MOc2OVYjFqEqltRv3x4vpKF3iswC00ETLDLFwk";
 
 const stripe = require("stripe")(key);
 const YOUR_DOMAIN = process.env.HEROKU_DOMAIN || "http://localhost:8080";
 
 router.post("/", isLoggedIn, async (req, res, next) => {
   try {
-
-    const cart = await req.user.getCart()
+    const cart = await req.user.getCart();
     const lineItems = cart.lineItems;
-
 
     const session = await stripe.checkout.sessions.create({
       client_reference_id: cart.id,
@@ -25,7 +24,7 @@ router.post("/", isLoggedIn, async (req, res, next) => {
           price_data: {
             currency: "usd",
             product_data: {
-              name: item.dish.name
+              name: item.dish.name,
             },
             unit_amount: parseInt(item.dish.price * 100),
           },
@@ -43,15 +42,12 @@ router.post("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
-
 router.get("/checkout-session", isLoggedIn, async (req, res, next) => {
   try {
     const { sessionId } = req.query;
     const session = await stripe.checkout.sessions.retrieve(sessionId);
-    res.send(session)
-  } 
-  catch (err) {
+    res.send(session);
+  } catch (err) {
     next(err);
   }
 });
-

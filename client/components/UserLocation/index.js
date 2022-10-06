@@ -19,7 +19,7 @@ function UserLocation() {
   }, []);
 
   const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyAGo2NE7sdqcMdbrfboJ1AnbWiAljSl_lI",
+    googleMapsApiKey: process.env.GOOGLE_API_KEY,
     libraries: librariesRef.current,
   });
 
@@ -52,7 +52,7 @@ function UserLocation() {
       // setUserCoord(latLng)
       dispatch(setUserLocation(latLng));
     } catch (ex) {
-      alert('Enter a valid address!')
+      alert("Enter a valid address!");
     }
   };
 
