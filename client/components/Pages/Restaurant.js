@@ -39,7 +39,7 @@ export const Restaurant = ({ match }) => {
   const [duration, setDuration] = useState("");
   const [displayMap, setDisplayMap] = useState(false);
   const [alert, setAlert] = useState(false);
-
+  //testing
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.GOOGLE_API_KEY,
     libraries: librariesRef.current,
