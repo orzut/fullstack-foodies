@@ -10,4 +10,4 @@ public/yelp_business_location*
 npm-debug.log
 yarn-error.log
 package-lock.json
-env
+.env
